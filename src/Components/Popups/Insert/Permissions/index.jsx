@@ -1,0 +1,298 @@
+import { useCallback, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import Form from "../Form";
+import { Checkbox } from "../../../common";
+import { Permissions, Role } from "../../../../classes";
+import { query } from "../../../../utils";
+import { insertNewRow } from "../../../common/Table/methods";
+
+const SetPermissions = ({
+  userId,
+  show,
+  setShow,
+  updated,
+  setUpdated,
+  handleInputChange,
+  setRefreshRows,
+  selectedRow,
+}) => {
+  const [roles, setRoles] = useState([]);
+
+  const [updatedRoles, setUpdatedRoles] = useState([]);
+
+  const [userPermissions, setUserPermissions] = useState();
+
+  const [permissions, setPermissions] = useState([]);
+  const [isCheckAll, setIsCheckAll] = useState([]);
+  const [isCheck, setIsCheck] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get Roles
+    const fetchData = async () => {
+      try {
+        const {
+          data: { data },
+        } = await query("/api/dashboard/roles");
+        setRoles(data.RoleCollection.Roles.map((role) => new Role(role)));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userId && show) {
+      fetchData();
+    }
+  }, [userId, show]);
+
+  useEffect(() => {
+    // Get All Permissions
+    const fetchData = async () => {
+      try {
+        const {
+          data: { data },
+        } = await query("/api/dashboard/permissions");
+        setPermissions(data.Permissions.map((ele) => new Permissions(ele)));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userId && show) {
+      fetchData();
+    }
+  }, [userId, show]);
+
+  useEffect(() => {
+    // Get User Permissions
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const {
+          data: { data },
+        } = await query("/api/dashboard/auth/permissions");
+        setUserPermissions(data.PermissionCodeList);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userId && show) {
+      fetchData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [permissions, userId, show]);
+
+  useEffect(() => {
+    if (selectedRow) {
+      const ids = [];
+      permissions.forEach((perm) => {
+        if (perm.children) {
+          perm.children.forEach((child) => {
+            if (child.children) {
+              child.children.forEach((innerChild) => {
+                if (selectedRow?.permissions?.includes(innerChild.code)) {
+                  ids.push(innerChild.id);
+                }
+              });
+            }
+            if (selectedRow?.permissions?.includes(child.code)) {
+              ids.push(child.id);
+            }
+          });
+        }
+        if (selectedRow?.permissions?.includes(perm.code)) {
+          ids.push(perm.id);
+        }
+      });
+      setIsCheck([...new Set([...ids, ...isCheck])]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [permissions, selectedRow, selectedRow.permissions]);
+
+  const handleClick = (e) => {
+    const { value, checked } = e.target;
+    setIsCheck([...new Set([...isCheck, parseInt(value)])]);
+    if (!checked) {
+      setIsCheck(isCheck.filter((item) => item !== parseInt(value)));
+    }
+  };
+
+  const handleSelectAll = (e) => {
+    const { value, checked } = e.target;
+    setIsCheckAll([...isCheckAll, parseInt(value)]);
+    permissions.forEach((li) => {
+      if (li.id === parseInt(value) && checked) {
+        let insideChildren = [];
+        if (li.children) {
+          li.children.forEach((child) =>
+            child.children.forEach((child) => insideChildren.push(child.id))
+          );
+        }
+        setIsCheck((oldCheck) => {
+          return [
+            ...new Set([
+              parseInt(value),
+              ...oldCheck,
+              ...li.children.map((child) => child.id),
+              ...insideChildren,
+            ]),
+          ];
+        });
+      }
+    });
+  };
+
+  const handleRoleChange = ({ target: { value, checked } }) => {
+    if (value && checked) {
+      setUpdatedRoles([...updatedRoles, parseInt(value)]);
+    } else {
+      setUpdatedRoles(updatedRoles.filter((role) => parseInt(value) !== role));
+    }
+  };
+
+  const onSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      if (userId) {
+        try {
+          const form = new FormData();
+          form.append("_method", "PUT");
+          for (let index = 0; index < isCheck.length; index++) {
+            form.append("permissions[]", isCheck[index]);
+          }
+          for (let index = 0; index < updatedRoles.length; index++) {
+            form.append("roles[]", updatedRoles[index]);
+          }
+          await query(
+            `/api/dashboard/employees/${userId}`,
+            "post",
+            form,
+            "multipart/form-data"
+          );
+          Swal.fire("Role updated successfully!", "", "success");
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        insertNewRow(updated, "roles");
+      }
+      setShow(false);
+      setRefreshRows(true);
+    },
+    [userId, setShow, setRefreshRows, isCheck, updatedRoles, updated]
+  );
+
+  useEffect(() => {
+    if (permissions.length && roles.length) {
+      setLoading(false);
+    }
+  }, [isCheck.length, permissions, roles]);
+
+  useEffect(() => {
+    if (!show) {
+      setIsCheck([]);
+      setPermissions([]);
+      setUserPermissions([]);
+    }
+  }, [show]);
+
+  return (
+    <Form show={show} setShow={setShow} isLoading={loading}>
+      <Form.Container onSubmit={onSubmit}>
+        <Form.Content>
+          <Form.Row>
+            <h1 className="text-placeholder-color border-b border-black dark:border-white pb-2">
+              Edit Role
+            </h1>
+          </Form.Row>
+          <Form.Row className="grid grid-cols-2 gap-5 py-5 pr-5">
+            <div className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary">
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                {roles.map(({ id, name }) => {
+                  return (
+                    <Checkbox
+                      key={id}
+                      defaultChecked={updatedRoles.includes(id)}
+                      afterLabel={name}
+                      value={id}
+                      onChange={handleRoleChange}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </Form.Row>
+          <Form.Row className="flex flex-col justify-between w-full">
+            <div className="grid grid-cols-2 gap-5 pt-5 pr-5">
+              {permissions.map(({ id, name, code, children }) => {
+                return (
+                  <div
+                    key={code}
+                    className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
+                  >
+                    <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
+                      <Checkbox
+                        onClick={handleSelectAll}
+                        afterLabel={name}
+                        defaultChecked={isCheck.includes(id)}
+                        value={id}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 pt-2">
+                      {children.map(({ id, name, code, children }) => {
+                        return (
+                          <div key={code}>
+                            <Checkbox
+                              key={id}
+                              defaultChecked={isCheck.includes(parseInt(id))}
+                              afterLabel={name}
+                              value={id}
+                              onClick={handleClick}
+                            />
+                            {children &&
+                              children.map(({ id, name, code, children }) => {
+                                return (
+                                  <div key={code}>
+                                    <Checkbox
+                                      key={id}
+                                      defaultChecked={isCheck.includes(
+                                        parseInt(id)
+                                      )}
+                                      afterLabel={name}
+                                      value={id}
+                                      onClick={handleClick}
+                                    />
+                                    {children &&
+                                      children.map(
+                                        ({ id, name, code, children }) => {
+                                          return (
+                                            <Checkbox
+                                              key={id}
+                                              defaultChecked={isCheck.includes(
+                                                parseInt(id)
+                                              )}
+                                              afterLabel={name}
+                                              value={id}
+                                              onClick={handleClick}
+                                            />
+                                          );
+                                        }
+                                      )}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Form.Row>
+        </Form.Content>
+        <Form.Footer />
+      </Form.Container>
+    </Form>
+  );
+};
+export default SetPermissions;

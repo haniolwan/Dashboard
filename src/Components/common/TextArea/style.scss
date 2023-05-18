@@ -1,0 +1,63 @@
+.textarea-input {
+    textarea {
+        border-width: 1px !important;
+        border-color: #D6DADE !important;
+    }
+}
+
+
+
+.textarea-input:focus-within,
+.textarea-input:focus {
+    label {
+        color: var(--primary-color) !important;
+    }
+
+    textarea {
+        border-color: var(--primary-color) !important;
+        border-width: 1px !important;
+    }
+}
+
+.textarea-input {
+    textarea {
+        border-radius: var(--primary-radius);
+        background-color: var(--ds-background-input, #F4F5F7) !important;
+        border-color: var(--ds-border-input, #fff) !important;
+    }
+}
+
+.textarea-input:hover {
+    textarea {
+        background-color: var(--ds-background-input-hovered, #EBECF0) !important;
+    }
+}
+
+html.dark {
+    .textarea-input {
+        textarea {
+            background-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+            border-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+            border-radius: 5px !important;
+            color: white !important;
+        }
+    }
+
+    .textarea-input:focus {
+        border-color: var(--primary-color) !important;
+    }
+
+    .textarea-input:focus-within,
+    .textarea-input:focus {
+
+        label {
+            color: var(--primary-color) !important;
+        }
+
+        textarea {
+            border-color: var(--primary-color) !important;
+            background-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+        }
+    }
+
+}

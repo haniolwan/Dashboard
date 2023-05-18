@@ -1,0 +1,95 @@
+[data-testid="calendar--current-month-year"] {
+  font-size: 20px !important;
+}
+
+.calender-input span {
+  color: #8a8a8e;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+[data-prev-selected="true"] {
+  background-color: white !important;
+}
+
+html.dark {
+
+  [data-testid="calendar--current-month-year"] {
+    color: white !important;
+  }
+
+  .calender-input {
+
+    button {
+      color: #fff;
+    }
+
+    button:hover {
+      color: white;
+      background-color: #42526E;
+    }
+  }
+
+  [data-prev-selected="true"] {
+    background-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+  }
+}
+
+.calender-input {
+
+  button {
+
+    border-radius: 15%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+
+
+
+  }
+}
+
+.calender-input {
+
+  button[data-focused] {
+    background:
+      #42526E;
+    border-radius: 15%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    outline: none;
+    border: none;
+    color: #fff;
+
+
+  }
+
+  button:hover {
+    border-radius: 15%;
+  }
+
+  button[data-today]::after {
+    display: none;
+  }
+
+
+}
+
+.calender-input {
+
+  button[data-selected] {
+    background:
+      #DF8D62;
+    border-radius: 15%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    outline: none;
+    border: none;
+    color: #fff;
+
+
+  }
+}

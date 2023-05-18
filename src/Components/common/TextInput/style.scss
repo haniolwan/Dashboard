@@ -1,0 +1,153 @@
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+    --tw-ring-color: none !important;
+}
+
+
+
+
+[input-type="text-input"] {
+
+    div {
+        margin: 0 !important;
+        border-radius: var(--primary-radius);
+
+        div {
+            color: black !important;
+            border: 1px solid #D6DADE !important;
+
+        }
+    }
+}
+
+[input-type="text-input"] {
+    div {
+        div {
+            background-color: var(--ds-background-input, #F4F5F7) !important;
+            border-color: var(--ds-border-input, #fff) !important;
+        }
+
+    }
+}
+
+[input-type="text-input"]:hover {
+    div {
+        div {
+            background-color: var(--ds-background-input-hovered, #EBECF0) !important;
+        }
+    }
+}
+
+[input-type="text-input"]:focus-within,
+[input-type="text-input"]:focus {
+    label {
+        color: var(--primary-color) !important;
+    }
+
+    div {
+        div {
+            border-color: var(--primary-color) !important;
+        }
+    }
+}
+
+html.dark {
+
+    [input-type="text-input"] {
+        div {
+            div {
+
+                color: white !important;
+                border-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+            }
+        }
+
+        input {
+            border-width: 1px !important;
+            background-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+        }
+    }
+
+    [input-type="text-input"]:focus-within,
+    [input-type="text-input"]:focus {
+
+        label {
+            color: var(--primary-color) !important;
+        }
+
+        div {
+            div {
+                border-color: var(--primary-color) !important;
+            }
+        }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+
+        background: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+        border-color: 1px solid #D6DADE !important;
+        -webkit-text-fill-color: white !important;
+        -webkit-box-shadow: 0 1000px rgb(55 65 81/var(--tw-bg-opacity)) inset !important;
+        caret-color: white;
+    }
+
+}
+
+.hide-search {
+    display: none;
+    width: 0;
+    opacity: 0;
+    transition: all .3s ease-in !important;
+}
+
+.show-search {
+    display: block;
+    width: 14rem;
+    opacity: 1;
+    transition: all .3s ease-out !important;
+}
+
+
+[input-type="error-input"] {
+    label {
+        color: var(--error-color) !important;
+    }
+
+    div {
+        div[data-ds--text-field--container="true"] {
+            border-width: 1px !important;
+            border-color: var(--error-color) !important;
+        }
+    }
+}
+
+html.dark {
+    [data-ds--text-field--container="true"] {
+        input {
+            color: white !important;
+            border-width: 1px !important;
+            background-color: rgb(55 65 81/var(--tw-bg-opacity)) !important;
+        }
+    }
+}

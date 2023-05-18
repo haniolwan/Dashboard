@@ -1,0 +1,17 @@
+.link-radio {
+    appearance: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #EFF0F2;
+    transition: all ease-in 0.2s;
+}
+
+.link-radio:checked {
+    border: 3px solid white;
+    background-color: #DF8D62;
+    box-shadow: 0 0 0 1px #DF8D62;
+}
+
+
+
