@@ -7,24 +7,15 @@ export const query = async (
   contentType = "application/json"
 ) => {
   const token = localStorage.getItem("access_token");
-  let config = {
-    baseURL: process.env.REACT_APP_URL,
-  };
-  // if (process.env.NODE_ENV !== "development") {
-  //   config = {
-  //     baseURL: process.env.REACT_APP_URL,
-  //   };
-  // }
 
   return axios({
     method,
-    url: path,
+    url: "https://eulink.awtartec.com" + path,
     data,
     headers: {
       accept: "application/json",
       "Content-Type": contentType,
       Authorization: `Bearer ${token}`,
     },
-    ...config,
   });
 };
