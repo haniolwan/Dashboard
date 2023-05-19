@@ -10,7 +10,7 @@ export const query = async (
 
   return axios({
     method,
-    url: "https://eulink.awtartec.com" + path,
+    url: path,
     data,
     headers: {
       accept: "application/json",

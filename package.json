@@ -41,6 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy":"https://eulink.awtartec.com",
   "eslintConfig": {
     "extends": [
       "react-app",
