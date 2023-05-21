@@ -13,10 +13,7 @@ const AddSlider = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
   const [slider, setSlider] = useState([]);
-
-  const [avatarSrc, setAvatarSrc] = useState("");
 
   const onSubmit = useCallback(
     (event) => {
@@ -40,8 +37,8 @@ const AddSlider = ({
   }, [selectedRow]);
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content>
           <Form.Row className="grid grid-cols-1 gap-5">
             <div className="col-span-3 sm:col-span-1">
@@ -71,7 +68,7 @@ const AddSlider = ({
                 id={"user_avatar"}
                 label={"Photo"}
                 name={"image"}
-                src={avatarSrc || slider.image}
+                src={slider.image}
                 onChange={handleInputChange}
               />
               <div className="grid grid-cols-2">

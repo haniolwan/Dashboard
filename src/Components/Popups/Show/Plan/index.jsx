@@ -1,13 +1,10 @@
-import { useRef } from "react";
 import { Checkbox, SelectInput, TextInput } from "../../../common";
 import Form from "../../Insert/Form";
 
 const ShowPlan = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
-
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Show Plans"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">

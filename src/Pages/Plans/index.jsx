@@ -36,8 +36,8 @@ const Plans = () => {
   const tools = {
     add: permissions.includes("page.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("page.download"),
+    filter: permissions.includes("page.filter"),
     filter_cols: true,
   };
 

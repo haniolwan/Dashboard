@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, TextInput, UploadImage } from "../../../common";
 import Form from "../../Insert/Form";
 import { updateTranslation } from "../../../common/Table/methods";
@@ -16,7 +16,6 @@ const TranslateSlider = ({
   locale,
   changeLocale,
 }) => {
-  const modalRef = useRef();
   const [slider, setSlider] = useState([]);
 
   useEffect(() => {
@@ -39,9 +38,17 @@ const TranslateSlider = ({
     [locale, setRefreshRows, setShow, sliderId, updated]
   );
 
+  useEffect(() => {
+    if (show && sliderId) {
+      setUpdated({
+        ...selectedRow,
+      });
+    }
+  }, [selectedRow, setUpdated, show, sliderId]);
+
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content title={"Translate Slider"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             {localeOptions.map(({ id, name }) => {

@@ -82,7 +82,9 @@ const AddCurrency = ({
                 onChange={handleInputChange}
               />
             </div>
-            <div className="grid grid-cols-2">
+          </Form.Row>
+          <Form.Row className="grid grid-cols-2">
+            <div>
               <Checkbox
                 name={"is_active"}
                 beforeLabel={"Is Active"}

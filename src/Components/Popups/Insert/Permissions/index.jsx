@@ -104,6 +104,7 @@ const SetPermissions = ({
         }
       });
       setIsCheck([...new Set([...ids, ...isCheck])]);
+      console.log(isCheck);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permissions, selectedRow, selectedRow.permissions]);
@@ -139,6 +140,9 @@ const SetPermissions = ({
         });
       }
     });
+    if (!checked) {
+      setIsCheck(isCheck.filter((item) => item !== parseInt(value)));
+    }
   };
 
   const handleRoleChange = ({ target: { value, checked } }) => {
@@ -195,6 +199,8 @@ const SetPermissions = ({
     }
   }, [show]);
 
+  console.log(userPermissions);
+
   return (
     <Form show={show} setShow={setShow} isLoading={loading}>
       <Form.Container onSubmit={onSubmit}>
@@ -206,6 +212,7 @@ const SetPermissions = ({
           </Form.Row>
           <Form.Row className="grid grid-cols-2 gap-5 py-5 pr-5">
             <div className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary">
+              <h1 className="text-placeholder-color">Select Roles</h1>
               <div className="grid grid-cols-2 gap-2 pt-2">
                 {roles.map(({ id, name }) => {
                   return (
@@ -226,24 +233,24 @@ const SetPermissions = ({
               {permissions.map(({ id, name, code, children }) => {
                 return (
                   <div
-                    key={code}
+                    key={id}
                     className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
                   >
                     <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
                       <Checkbox
                         onClick={handleSelectAll}
                         afterLabel={name}
-                        defaultChecked={isCheck.includes(id)}
+                        checked={isCheck.includes(id)}
                         value={id}
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2 pt-2">
                       {children.map(({ id, name, code, children }) => {
                         return (
-                          <div key={code}>
+                          <div key={id}>
                             <Checkbox
                               key={id}
-                              defaultChecked={isCheck.includes(parseInt(id))}
+                              checked={isCheck.includes(parseInt(id))}
                               afterLabel={name}
                               value={id}
                               onClick={handleClick}
@@ -251,12 +258,9 @@ const SetPermissions = ({
                             {children &&
                               children.map(({ id, name, code, children }) => {
                                 return (
-                                  <div key={code}>
+                                  <div key={id}>
                                     <Checkbox
-                                      key={id}
-                                      defaultChecked={isCheck.includes(
-                                        parseInt(id)
-                                      )}
+                                      checked={isCheck.includes(parseInt(id))}
                                       afterLabel={name}
                                       value={id}
                                       onClick={handleClick}
@@ -267,7 +271,7 @@ const SetPermissions = ({
                                           return (
                                             <Checkbox
                                               key={id}
-                                              defaultChecked={isCheck.includes(
+                                              checked={isCheck.includes(
                                                 parseInt(id)
                                               )}
                                               afterLabel={name}

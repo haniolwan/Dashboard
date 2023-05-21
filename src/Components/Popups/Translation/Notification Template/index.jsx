@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Form from "../../Insert/Form";
 import { Button, TextArea, TextInput } from "../../../common";
 import { updateTranslation } from "../../../common/Table/methods";
@@ -16,7 +16,6 @@ const TranslateNotificationTemplate = ({
   locale,
   changeLocale,
 }) => {
-  const modalRef = useRef();
   const [row, setRow] = useState([]);
 
   useEffect(() => {
@@ -40,14 +39,16 @@ const TranslateNotificationTemplate = ({
   );
 
   useEffect(() => {
-    setUpdated({
-      ...selectedRow,
-    });
-  }, [selectedRow, setUpdated]);
+    if (show && rowId) {
+      setUpdated({
+        ...selectedRow,
+      });
+    }
+  }, [rowId, selectedRow, setUpdated, show]);
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content title={"Translate Notifications Templates"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             {localeOptions.map(({ id, name }) => {

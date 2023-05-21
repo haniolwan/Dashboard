@@ -24,8 +24,8 @@ const Templates = () => {
   const tools = {
     add: permissions.includes("notification.template.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("notification.history.download"),
+    filter: permissions.includes("notification.history.filter"),
     filter_cols: true,
   };
 

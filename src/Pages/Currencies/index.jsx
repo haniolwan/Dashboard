@@ -25,8 +25,8 @@ const Currencies = () => {
   const tools = {
     add: permissions.includes("currency.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("currency.download"),
+    filter: permissions.includes("currency.filter"),
     filter_cols: true,
   };
 

@@ -27,8 +27,8 @@ const Page = () => {
   const tools = {
     add: permissions.includes("page.create"),
     search: true,
-    download: true,
-    filter: true,
+    // download: true,
+    // filter: true,
     filter_cols: true,
   };
   return (

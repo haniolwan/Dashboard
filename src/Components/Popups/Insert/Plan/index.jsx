@@ -13,7 +13,6 @@ const AddPlan = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
   const [plan, setPlan] = useState([]);
 
   const onSubmit = useCallback(
@@ -43,8 +42,8 @@ const AddPlan = ({
   }, [show, setUpdated]);
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content>
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">

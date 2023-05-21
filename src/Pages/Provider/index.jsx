@@ -27,8 +27,8 @@ const Providers = () => {
   const tools = {
     add: permissions.includes("provider.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("provider.download"),
+    filter: permissions.includes("provider.filter"),
     filter_cols: true,
   };
 

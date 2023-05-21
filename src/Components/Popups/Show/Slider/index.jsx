@@ -1,12 +1,10 @@
-import { useRef } from "react";
 import { Checkbox, TextInput } from "../../../common";
 import Form from "../../Insert/Form";
 
 const ShowSlider = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Show Slider"}>
           <Form.Row className="grid grid-cols-10 gap-5">
             <img

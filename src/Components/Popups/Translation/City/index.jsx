@@ -16,7 +16,6 @@ const TranslateCity = ({
   locale,
   changeLocale,
 }) => {
-  const modalRef = useRef();
   const [city, setCity] = useState([]);
 
   useEffect(() => {
@@ -40,12 +39,12 @@ const TranslateCity = ({
   );
 
   useEffect(() => {
-    if (show) {
+    if (show && cityId) {
       setUpdated({
         ...selectedRow,
       });
     }
-  }, [selectedRow, setUpdated, show]);
+  }, [cityId, selectedRow, setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

@@ -43,6 +43,7 @@ import {
   TranslateNotificationTemplate,
   SetPermissions,
   ShowProvider,
+  AddLocale,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -59,6 +60,7 @@ import {
   getTranslationClass,
 } from "./methods";
 import { useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const TableContext = createContext();
 
@@ -175,8 +177,12 @@ const Table = ({ children, path, tools, cols }) => {
         setTotal(pagination.total);
         setLoading(false);
         setRefreshRows(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span className="capitalize">{message[0]}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -261,8 +267,12 @@ const Table = ({ children, path, tools, cols }) => {
           `/api/dashboard/${path}/${userId}/translation/?locale_id=${locale}`
         );
         setSelectedRow(getTranslationClass(data, path));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        console.log(message);
       }
     };
     if (userId && showTranslateModal) {
@@ -1076,6 +1086,20 @@ Table.Footer = () => {
                 show={showModal}
                 setShow={setShowModal}
                 selectedRow={selectedRow}
+              />
+            </>
+          ),
+          locales: (
+            <>
+              <AddLocale
+                localeId={userId}
+                selectedRow={selectedRow}
+                show={showAddModal}
+                setShow={setShowAddModal}
+                updated={updated}
+                setUpdated={setUpdated}
+                handleInputChange={handleInputChange}
+                setRefreshRows={setRefreshRows}
               />
             </>
           ),

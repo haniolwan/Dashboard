@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, TextArea, TextInput } from "../../../common";
 import Form from "../../Insert/Form";
 import { updateTranslation } from "../../../common/Table/methods";
@@ -16,7 +16,6 @@ const TranslatePage = ({
   locale,
   changeLocale,
 }) => {
-  const modalRef = useRef();
   const [page, setPage] = useState([]);
 
   useEffect(() => {
@@ -40,14 +39,16 @@ const TranslatePage = ({
   );
 
   useEffect(() => {
-    setUpdated({
-      ...selectedRow,
-    });
-  }, [selectedRow, setUpdated]);
+    if (show && pageId) {
+      setUpdated({
+        ...selectedRow,
+      });
+    }
+  }, [pageId, selectedRow, setUpdated, show]);
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content title={"Translate Page"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             {localeOptions.map(({ id, name }) => {

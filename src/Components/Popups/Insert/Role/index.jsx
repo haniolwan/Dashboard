@@ -16,8 +16,6 @@ const AddRole = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
-  useOnClickOutside(modalRef, () => setShow(false));
   const [role, setRole] = useState();
   const [userPermissions, setUserPermissions] = useState();
 
@@ -124,8 +122,8 @@ const AddRole = ({
   );
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content>
           <Form.Row>
             <h1 className="text-placeholder-color border-b border-black dark:border-white pb-2">

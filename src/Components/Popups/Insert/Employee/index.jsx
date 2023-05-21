@@ -15,7 +15,6 @@ const AddEmployee = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
   const [user, setUser] = useState({});
 
   const [countrySearch] = useState("");

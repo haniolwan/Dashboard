@@ -29,8 +29,8 @@ const Users = () => {
   const tools = {
     add: permissions.includes("user.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("user.download"),
+    filter: permissions.includes("user.filter"),
     filter_cols: true,
   };
 

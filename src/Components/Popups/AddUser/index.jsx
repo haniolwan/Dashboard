@@ -1,33 +1,33 @@
-import {useEffect, useRef, useState} from 'react';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import {query} from '../../../utils';
-import {Button, Checkbox, SelectInput, TextInput} from '../../common';
-import Employee from '../../../classes/Employee';
-import {Country, SelectCountry} from '../../../classes/Country';
-import City from '../../../classes/City';
-import Swal from 'sweetalert2';
+import { useEffect, useRef, useState } from "react";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { query } from "../../../utils";
+import { Button, Checkbox, SelectInput, TextInput } from "../../common";
+import Employee from "../../../classes/Employee";
+import { Country, SelectCountry } from "../../../classes/Country";
+import City from "../../../classes/City";
+import Swal from "sweetalert2";
 
-const AddUser = ({show, setShow, id}) => {
+const AddUser = ({ show, setShow, id }) => {
   const modalRef = useRef();
   useOnClickOutside(modalRef, () => setShow(false));
   const [user, setUser] = useState([]);
   const [updated, setUpdated] = useState([]);
 
-  const [countrySearch, setCountrySearch] = useState('');
+  const [countrySearch, setCountrySearch] = useState("");
   const [countryOptions, setCountryOptions] = useState([]);
 
-  const [citySearch, setCitySearch] = useState('');
+  const [citySearch, setCitySearch] = useState("");
   const [cityOptions, setCityOptions] = useState([]);
 
-  const [avatarSrc, setAvatarScr] = useState('');
+  const [avatarSrc, setAvatarScr] = useState("");
   const [loadingCountry, setLoadingCountry] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const {
-          data: {data},
-        } = await query(`/api/dashboard/employees/${id}`, 'get');
+          data: { data },
+        } = await query(`/api/dashboard/employees/${id}`, "get");
         setUser(new Employee(data.Employee));
       } catch (error) {
         console.log(error);
@@ -38,32 +38,32 @@ const AddUser = ({show, setShow, id}) => {
     }
   }, [show]);
 
-  const handleChange = ({target: {type, name, value, checked, files}}) => {
-    if (type === 'file') {
+  const handleChange = ({ target: { type, name, value, checked, files } }) => {
+    if (type === "file") {
       const avatar = URL.createObjectURL(files[0]);
-      setUpdated({...updated, [name]: files[0]});
+      setUpdated({ ...updated, [name]: files[0] });
       setAvatarScr(avatar);
-    } else if (type === 'checkbox') {
-      setUpdated({...updated, [name]: checked});
+    } else if (type === "checkbox") {
+      setUpdated({ ...updated, [name]: checked });
     } else {
-      setUpdated({...updated, [name]: value});
+      setUpdated({ ...updated, [name]: value });
     }
   };
 
   const uploadEmployee = async () => {
     try {
       const form = new FormData();
-      form.append('_method', 'put');
+      form.append("_method", "put");
       for (const name in updated) {
         form.append(name, updated[name]);
       }
       await query(
         `/api/dashboard/employees/${id}`,
-        'post',
+        "post",
         form,
-        'multipart/form-data'
+        "multipart/form-data"
       );
-      Swal.fire('User updated successfully!', '', 'success');
+      Swal.fire("User updated successfully!", "", "success");
       setShow(false);
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ const AddUser = ({show, setShow, id}) => {
       try {
         const {
           data: {
-            data: {Countries},
+            data: { Countries },
           },
         } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
         const countriesArr = Countries.map((country) => {
@@ -100,7 +100,7 @@ const AddUser = ({show, setShow, id}) => {
       try {
         const {
           data: {
-            data: {Cities},
+            data: { Cities },
           },
         } = await query(
           `/api/dashboard/lists/cities?q=${citySearch}&country_id=${updated.country_id}`
@@ -138,8 +138,8 @@ const AddUser = ({show, setShow, id}) => {
                 <div className="col-span-3 sm:col-span-1">
                   <TextInput
                     key={user.name}
-                    name={'name'}
-                    label={'Name'}
+                    name={"name"}
+                    label={"Name"}
                     defaultValue={user.name}
                     onChange={handleChange}
                   />
@@ -147,8 +147,8 @@ const AddUser = ({show, setShow, id}) => {
                 <div className="col-span-3 sm:col-span-1">
                   <TextInput
                     key={user.mobile}
-                    name={'mobile'}
-                    label={'Mobile'}
+                    name={"mobile"}
+                    label={"Mobile"}
                     defaultValue={user.mobile}
                     onChange={handleChange}
                   />
@@ -156,8 +156,8 @@ const AddUser = ({show, setShow, id}) => {
                 <div className="col-span-3 sm:col-span-1">
                   <TextInput
                     key={user.email}
-                    name={'email'}
-                    label={'Email'}
+                    name={"email"}
+                    label={"Email"}
                     defaultValue={user.email}
                     onChange={handleChange}
                   />
@@ -168,11 +168,11 @@ const AddUser = ({show, setShow, id}) => {
                 <SelectInput
                   key={user.Country}
                   ref={countriesRef}
-                  name={'Country'}
-                  label={'Country'}
+                  name={"Country"}
+                  label={"Country"}
                   options={countryOptions}
                   defaultValue={
-                    new SelectCountry({label: 'sss', value: 'palestine'})
+                    new SelectCountry({ label: "sss", value: "palestine" })
                   }
                   onChange={(country) => {
                     setUpdated({
@@ -183,8 +183,8 @@ const AddUser = ({show, setShow, id}) => {
                   isLoading={loadingCountry}
                 />
                 <SelectInput
-                  name={'City'}
-                  label={'City'}
+                  name={"City"}
+                  label={"City"}
                   // defaultValue={user.City}
                   options={cityOptions}
                   onChange={(city) => {
@@ -217,14 +217,14 @@ const AddUser = ({show, setShow, id}) => {
                 </div>
                 <div className="grid grid-cols-2">
                   <Checkbox
-                    name={'is_suspended'}
-                    beforeLabel={'Is Suspended'}
+                    name={"is_suspended"}
+                    beforeLabel={"Is Suspended"}
                     defaultChecked={user.is_suspended}
                     onChange={handleChange}
                   />
                   <Checkbox
-                    name={'is_banned'}
-                    beforeLabel={'Is Banned'}
+                    name={"is_banned"}
+                    beforeLabel={"Is Banned"}
                     defaultChecked={user.is_banned}
                     onChange={handleChange}
                   />
@@ -233,21 +233,21 @@ const AddUser = ({show, setShow, id}) => {
             </div>
             <div className="flex justify-end space-x-2 px-4 py-3 bg-gray-50 text-right sm:px-6 dark:bg-gray-800 rtl:gap-2">
               <Button
-                label={'Cancel'}
-                padding={'px-4 py-2'}
-                bgColor={'bg-[#ADB5BD33]'}
-                textColor={'text-[#ADB5BD]'}
-                hoverBgColor={'hover:bg-[gray]'}
-                hoverTextColor={'text-placeholder-color'}
+                label={"Cancel"}
+                padding={"px-4 py-2"}
+                bgColor={"bg-[#ADB5BD33]"}
+                textColor={"text-[#ADB5BD]"}
+                hoverBgColor={"hover:bg-[gray]"}
+                hoverTextColor={"text-placeholder-color"}
                 onClick={() => setShow(false)}
               />
               <Button
-                label={'Apply'}
-                padding={'px-6 py-2'}
-                bgColor={'bg-[#DF8D6233]'}
-                textColor={'text-primary-color'}
-                hoverBgColor={'hover:bg-primary-color'}
-                hoverTextColor={'text-placeholder-color'}
+                label={"Apply"}
+                padding={"px-6 py-2"}
+                bgColor={"bg-[#DF8D6233]"}
+                textColor={"text-primary-color"}
+                hoverBgColor={"hover:bg-primary-color"}
+                hoverTextColor={"text-placeholder-color"}
                 onClick={uploadEmployee}
               />
             </div>

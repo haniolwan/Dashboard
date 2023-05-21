@@ -251,6 +251,8 @@ const getDataClass = (data, path) => {
         failed: data.Failed,
         complete: data.Complete,
       };
+    case "locales":
+      return new Locale(data.Locale);
     default:
       <></>;
   }
