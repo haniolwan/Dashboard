@@ -29,8 +29,8 @@ const Employees = () => {
   const tools = {
     add: permissions.includes("employee.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("employee.download"),
+    filter: permissions.includes("employee.filter"),
     filter_cols: true,
   };
 

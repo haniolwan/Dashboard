@@ -1,12 +1,10 @@
-import { useRef } from "react";
 import { TextInput } from "../../../common";
 import Form from "../../Insert/Form";
 
 const ShowSubscription = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Show Subscription"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">

@@ -1,13 +1,14 @@
 class Service {
-    constructor({ id, name, image, description }) {
+    constructor({ id, name, image, description, orders, workers, is_active }) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.description = description;
+        this.is_active = is_active;
+        this.orders = orders;
+        this.workers = workers;
     }
 }
-
-
 class SelectService {
     constructor({
         id,

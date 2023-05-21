@@ -43,6 +43,7 @@ import {
   TranslateNotificationTemplate,
   SetPermissions,
   ShowProvider,
+  AddLocale,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -271,7 +272,7 @@ const Table = ({ children, path, tools, cols }) => {
           data: { message },
         },
       }) {
-        toast.error(<span className="capitalize">{message[0]}</span>);
+        console.log(message);
       }
     };
     if (userId && showTranslateModal) {
@@ -1085,6 +1086,20 @@ Table.Footer = () => {
                 show={showModal}
                 setShow={setShowModal}
                 selectedRow={selectedRow}
+              />
+            </>
+          ),
+          locales: (
+            <>
+              <AddLocale
+                localeId={userId}
+                selectedRow={selectedRow}
+                show={showAddModal}
+                setShow={setShowAddModal}
+                updated={updated}
+                setUpdated={setUpdated}
+                handleInputChange={handleInputChange}
+                setRefreshRows={setRefreshRows}
               />
             </>
           ),

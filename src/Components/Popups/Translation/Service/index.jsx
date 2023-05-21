@@ -39,10 +39,12 @@ const TranslateService = ({
   );
 
   useEffect(() => {
-    setUpdated({
-      ...selectedRow,
-    });
-  }, [selectedRow, setUpdated]);
+    if (show && serviceId) {
+      setUpdated({
+        ...selectedRow,
+      });
+    }
+  }, [serviceId, selectedRow, setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

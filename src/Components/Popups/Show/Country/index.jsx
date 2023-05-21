@@ -1,12 +1,10 @@
-import { useRef } from "react";
 import Form from "../../Insert/Form";
 import { Checkbox, TextInput, UploadImage } from "../../../common";
 
 const ShowCountry = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Show Country"}>
           <Form.Row className="grid grid-cols-10 gap-5">
             <UploadImage src={selectedRow?.flag} avatar />

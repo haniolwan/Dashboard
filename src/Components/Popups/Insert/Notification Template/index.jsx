@@ -13,7 +13,6 @@ const AddNotificationTemplate = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
   const [row, setRow] = useState({});
 
   const onSubmit = useCallback(
@@ -43,8 +42,8 @@ const AddNotificationTemplate = ({
   }, [show, setUpdated]);
 
   return (
-    <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content title={"Add New Notification Template"}>
           <Form.Row className="grid grid-cols-3 gap-5">
             <div className="col-span-3 sm:col-span-1">

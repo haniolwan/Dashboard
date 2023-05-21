@@ -1,12 +1,10 @@
-import { useRef } from "react";
 import Form from "../../Insert/Form";
 import { TextArea, TextInput } from "../../../common";
 
 const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Add New Notifications History"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
