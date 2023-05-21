@@ -11,20 +11,20 @@ const Roles = () => {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("provider.show"),
-        edit: permissions.includes("provider.update"),
-        translate: permissions.includes("provider.translate"),
-        delete: permissions.includes("provider.destroy"),
+        show: permissions.includes("role.show"),
+        edit: permissions.includes("role.update"),
+        translate: permissions.includes("role.translate"),
+        delete: permissions.includes("role.destroy"),
       },
       hidden: false,
     },
   };
 
   const tools = {
-    add: permissions.includes("provider.create"),
+    add: permissions.includes("role.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("role.download"),
+    filter: permissions.includes("role.filter"),
     filter_cols: true,
   };
   return (

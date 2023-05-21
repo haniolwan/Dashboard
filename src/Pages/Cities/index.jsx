@@ -24,8 +24,8 @@ const Cities = () => {
   const tools = {
     add: permissions.includes("city.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("city.download"),
+    filter: permissions.includes("city.filter"),
     filter_cols: true,
   };
 

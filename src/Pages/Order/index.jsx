@@ -27,8 +27,8 @@ const Orders = () => {
   const tools = {
     add: permissions.includes("order.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("order.download"),
+    filter: permissions.includes("order.filter"),
     filter_cols: true,
   };
 

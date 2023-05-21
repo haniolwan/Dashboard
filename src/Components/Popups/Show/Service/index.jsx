@@ -1,26 +1,32 @@
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox, TextArea, TextInput } from "../../../common";
 import Form from "../../Insert/Form";
 
 const ShowService = ({ show, setShow, selectedRow }) => {
-  const modalRef = useRef();
+  const [service, setService] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setService(selectedRow);
+    }
+  }, [selectedRow]);
+
   return (
     <Form show={show} setShow={setShow}>
-      <Form.Container ref={modalRef}>
+      <Form.Container>
         <Form.Content title={"Show Service"}>
           <Form.Row className="grid grid-cols-10 gap-5">
             <img
               id="myImg"
               className="w-[5rem] h-[4rem] rounded-[5px]"
-              src={selectedRow.image}
+              src={service?.image}
               alt="Table Img"
             />
             <div className="col-span-3 sm:col-span-4">
               <TextInput
-                key={selectedRow.name}
+                key={service?.name}
                 name={"name"}
                 label={"Name"}
-                defaultValue={selectedRow.name}
+                defaultValue={service.name}
                 disabled
               />
             </div>
@@ -28,10 +34,10 @@ const ShowService = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-1 gap-5">
             <div className="col-span-3 sm:col-span-4">
               <TextArea
-                key={selectedRow.description}
+                key={service.description}
                 name={"description"}
                 label={"Description"}
-                defaultValue={selectedRow.description}
+                defaultValue={service.description}
                 disabled
               />
             </div>
@@ -39,19 +45,19 @@ const ShowService = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-8 gap-5">
             <div className="col-span-3 sm:col-span-4">
               <TextInput
-                key={selectedRow.orders}
+                key={service.orders}
                 name={"orders"}
                 label={"Orders"}
-                defaultValue={selectedRow.orders}
+                defaultValue={service.orders}
                 disabled
               />
             </div>
             <div className="col-span-3 sm:col-span-4">
               <TextInput
-                key={selectedRow.workers}
+                key={service.workers}
                 name={"workers"}
                 label={"Workers"}
-                defaultValue={selectedRow.workers}
+                defaultValue={service.workers}
                 disabled
               />
             </div>
@@ -61,7 +67,7 @@ const ShowService = ({ show, setShow, selectedRow }) => {
               <Checkbox
                 name={"is_active"}
                 afterLabel={"Is active"}
-                defaultChecked={selectedRow.is_active}
+                defaultChecked={service.is_active}
                 disabled
               />
             </div>

@@ -26,8 +26,8 @@ const Sliders = () => {
   const tools = {
     add: permissions.includes("slider.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("slider.download"),
+    filter: permissions.includes("slider.filter"),
     filter_cols: true,
   };
 

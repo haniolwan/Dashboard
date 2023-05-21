@@ -37,8 +37,8 @@ const Subscriptions = () => {
   const tools = {
     add: permissions.includes("subscription.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("subscription.download"),
+    filter: permissions.includes("subscription.filter"),
     filter_cols: true,
   };
   return (

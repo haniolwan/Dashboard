@@ -5,12 +5,13 @@ import { PermissionsContext } from "../../context";
 const Employees = () => {
   const { permissions } = useContext(PermissionsContext);
   const cols = {
-    name: { label: "Employee", value: "name", hidden: false },
+    avatar: { label: "Avatar", value: "avatar", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
     email: { label: "Email", value: "email", hidden: false },
     mobile: { label: "Mobile", value: "mobile", hidden: false },
     country: { label: "Country", value: "country", hidden: false },
     city: { label: "City", value: "city", hidden: false },
-    status: { label: "Status", value: "status", hidden: false },
+    // status: { label: "Status", value: "status", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",

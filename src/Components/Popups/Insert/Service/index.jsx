@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Checkbox, TextArea, TextInput, UploadImage } from "../../../common";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
@@ -6,6 +6,7 @@ import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 const AddService = ({
   serviceId,
   selectedRow,
+  setSelectedRow,
   show,
   setShow,
   updated,
@@ -13,9 +14,7 @@ const AddService = ({
   handleInputChange,
   setRefreshRows,
 }) => {
-  const modalRef = useRef();
   const [service, setService] = useState([]);
-  const [avatarSrc, setAvatarSrc] = useState("");
 
   const onSubmit = useCallback(
     (event) => {
@@ -32,10 +31,10 @@ const AddService = ({
   );
 
   useEffect(() => {
-    if (selectedRow) {
+    if (selectedRow && show) {
       setService(selectedRow);
     }
-  }, [selectedRow]);
+  }, [selectedRow, setSelectedRow, show]);
 
   useEffect(() => {
     if (show && serviceId) {
@@ -64,13 +63,14 @@ const AddService = ({
               id={"service_avatar"}
               label={"Photo"}
               name={"image"}
-              src={avatarSrc || service.image}
+              src={service.image}
               onChange={handleInputChange}
             />
           </Form.Row>
           <Form.Row className="grid gap-5">
             <TextArea
               id={"description"}
+              label={"Description"}
               placeholder={"Description"}
               name={"description"}
               defaultValue={service.description}

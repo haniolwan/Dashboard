@@ -26,8 +26,8 @@ const Countries = () => {
   const tools = {
     add: permissions.includes("country.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("country.download"),
+    filter: permissions.includes("country.filter"),
     filter_cols: true,
   };
 

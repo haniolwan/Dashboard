@@ -25,8 +25,8 @@ const Services = () => {
   const tools = {
     add: permissions.includes("service.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("service.download"),
+    filter: permissions.includes("service.filter"),
     filter_cols: true,
   };
   return (

@@ -23,8 +23,8 @@ const Locales = () => {
   const tools = {
     add: permissions.includes("locale.create"),
     search: true,
-    download: true,
-    filter: true,
+    download: permissions.includes("locale.download"),
+    filter: permissions.includes("locale.filter"),
     filter_cols: true,
   };
   return (
