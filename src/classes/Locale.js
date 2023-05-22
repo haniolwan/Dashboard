@@ -1,8 +1,9 @@
 class Locale {
-    constructor({ id, name, locale }) {
+    constructor({ id, name, locale_code, is_active }) {
         this.id = id;
         this.name = name;
-        this.locale = locale;
+        this.locale_code = locale_code;
+        this.is_active = is_active;
     }
 }
 

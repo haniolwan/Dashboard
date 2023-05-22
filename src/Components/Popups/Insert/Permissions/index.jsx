@@ -104,7 +104,6 @@ const SetPermissions = ({
         }
       });
       setIsCheck([...new Set([...ids, ...isCheck])]);
-      console.log(isCheck);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permissions, selectedRow, selectedRow.permissions]);
@@ -198,8 +197,6 @@ const SetPermissions = ({
       setUserPermissions([]);
     }
   }, [show]);
-
-  console.log(userPermissions);
 
   return (
     <Form show={show} setShow={setShow} isLoading={loading}>

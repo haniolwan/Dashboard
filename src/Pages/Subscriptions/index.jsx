@@ -25,7 +25,7 @@ const Subscriptions = () => {
       label: "Actions",
       value: "actions",
       actions: {
-        show: !permissions.includes("subscription.show"),
+        show: permissions.includes("subscription.show"),
         edit: permissions.includes("subscription.update"),
         translate: permissions.includes("subscription.translate"),
         delete: permissions.includes("subscription.destroy"),
