@@ -80,6 +80,8 @@ const Table = ({ children, path, tools, cols }) => {
   const [showFilter, setShowFilter] = useState(false);
 
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
   const [showTranslateModal, setShowTranslateModal] = useState(false);
   const [showPermissionsModal, setShowPermissionsModal] = useState(false);
 
@@ -223,7 +225,7 @@ const Table = ({ children, path, tools, cols }) => {
     ) {
       fetchData();
     }
-  }, [userId, showAddModal, showModal, path, showPermissionsModal]);
+  }, [userId, showModal, path, showPermissionsModal, showAddModal]);
 
   useEffect(() => {
     setFilter({
@@ -332,6 +334,8 @@ const Table = ({ children, path, tools, cols }) => {
         setLocale,
         showPermissionsModal,
         setShowPermissionsModal,
+        showEditModal,
+        setShowEditModal,
       }}
     >
       {children}
@@ -675,7 +679,6 @@ Table.Footer = () => {
     updated,
     setUpdated,
     selectedRow,
-    setSelectedRow,
     showModal,
     setShowModal,
     setRefreshRows,
@@ -683,6 +686,8 @@ Table.Footer = () => {
     setLocale,
     showPermissionsModal,
     setShowPermissionsModal,
+    setUserId,
+    setSelectedRow,
   } = useContext(TableContext);
 
   const handleInputChange = ({
@@ -700,10 +705,11 @@ Table.Footer = () => {
     }
   };
   useEffect(() => {
-    if (!showAddModal) {
-      setSelectedRow([]);
+    if (userId && !showAddModal) {
+      setUserId();
+      setSelectedRow();
     }
-  }, [showAddModal, setSelectedRow]);
+  }, [setSelectedRow, setUserId, userId, showAddModal]);
 
   const changeLocale = ({
     target: {
