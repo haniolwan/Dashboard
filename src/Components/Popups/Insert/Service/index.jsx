@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Checkbox, TextArea, TextInput, UploadImage } from "../../../common";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
@@ -33,6 +33,8 @@ const AddService = ({
   useEffect(() => {
     if (selectedRow && show) {
       setService(selectedRow);
+    } else {
+      setService([]);
     }
   }, [selectedRow, setSelectedRow, show]);
 
@@ -44,6 +46,26 @@ const AddService = ({
     }
   }, [service.is_active, serviceId, setUpdated, show, updated]);
 
+  useEffect(() => {
+    if (!show) {
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
+
+  const nameRef = useRef();
+  const imageRef = useRef();
+  const descRef = useRef();
+  const activeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      descRef.current.value = "";
+      imageRef.current.value = "";
+      activeRef.current.checked = false;
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -51,6 +73,7 @@ const AddService = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={service.name}
                 name={"name"}
                 label={"Name"}
@@ -60,6 +83,8 @@ const AddService = ({
               />
             </div>
             <UploadImage
+              ref={imageRef}
+              key={service.image}
               id={"service_avatar"}
               label={"Photo"}
               name={"image"}
@@ -69,6 +94,8 @@ const AddService = ({
           </Form.Row>
           <Form.Row className="grid gap-5">
             <TextArea
+              ref={descRef}
+              key={service.description}
               id={"description"}
               label={"Description"}
               placeholder={"Description"}
@@ -80,6 +107,8 @@ const AddService = ({
           <Form.Row className="grid gap-5">
             <div className="grid grid-cols-2">
               <Checkbox
+                ref={activeRef}
+                key={service.is_active}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={service.is_active}

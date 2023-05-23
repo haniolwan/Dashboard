@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { Checkbox, TextInput } from "../../../common";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Checkbox, SelectInput, TextInput } from "../../../common";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { SelectCountry } from "../../../../classes";
@@ -65,6 +65,24 @@ const AddCity = ({
     }
   }, [selectedRow]);
 
+  useEffect(() => {
+    if (!show) {
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
+
+  const nameRef = useRef();
+  const activeRef = useRef();
+  const countryRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      activeRef.current.checked = false;
+      // countryRef.current.select.setValue({});
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -72,6 +90,7 @@ const AddCity = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={city.name}
                 name={"name"}
                 label={"City Name"}
@@ -80,10 +99,24 @@ const AddCity = ({
                 onChange={handleInputChange}
               />
             </div>
+            {/* <SelectInput
+              key={city.country_id}
+              ref={countryRef}
+              name={"Country"}
+              label={"Country"}
+              options={countryOptions}
+              onChange={(country) => {
+                setUpdated({
+                  ...updated,
+                  country_id: country.id,
+                });
+              }}
+            /> */}
           </Form.Row>
           <Form.Row>
             <div className="grid grid-cols-2">
               <Checkbox
+                ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={city.is_active}

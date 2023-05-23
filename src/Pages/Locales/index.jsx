@@ -6,8 +6,8 @@ const Locales = () => {
   const { permissions } = useContext(PermissionsContext);
 
   const cols = {
-    name: { label: "Page", value: "name", hidden: false },
-    locale: { label: "Locale", value: "locale", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
+    locale: { label: "Code", value: "locale", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",

@@ -34,6 +34,8 @@ const AddLocale = ({
     }
   }, [selectedRow, show]);
 
+  console.log(selectedRow);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -41,19 +43,19 @@ const AddLocale = ({
           <Form.Row className="grid grid-cols-3 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={locale?.name}
+                key={selectedRow?.name}
                 name={"name"}
                 label={"Name"}
-                defaultValue={locale?.name}
+                defaultValue={selectedRow?.name}
                 onChange={handleInputChange}
               />
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={locale?.locale_code}
+                key={selectedRow?.locale_code}
                 name={"locale"}
                 label={"Code"}
-                defaultValue={locale?.locale_code}
+                defaultValue={selectedRow?.locale_code}
                 onChange={handleInputChange}
               />
             </div>
@@ -63,7 +65,7 @@ const AddLocale = ({
               <Checkbox
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={locale?.is_active}
+                defaultChecked={selectedRow?.is_active}
                 onChange={handleInputChange}
               />
             </div>
