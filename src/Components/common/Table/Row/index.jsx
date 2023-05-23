@@ -467,26 +467,18 @@ const Row = ({
                   <button
                     data-remove={id}
                     onClick={removeRow}
-                    className="group relative rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
+                    className="group rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
                   >
                     <FontAwesomeIcon
                       data-edit={id}
                       className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
                       icon={faTrash}
                     />
-                    <div
-                      id="tooltip-theams-regular"
-                      role="tooltip"
-                      className="absolute z-20 left-[-15px] top-10 hidden max-w-auto group-hover:flex 
-                          inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700"
-                    >
-                      Delete
-                    </div>
                   </button>
                 )}
                 {actionsCol.actions.edit && (
                   <button
-                    className="group relative rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
+                    className="group rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
                     data-edit={id}
                     onClick={setUpdateRow}
                   >
@@ -495,19 +487,11 @@ const Row = ({
                       className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
                       icon={faPenToSquare}
                     />
-                    <div
-                      id="tooltip-theams-regular"
-                      role="tooltip"
-                      className="absolute z-20 left-[-10px] top-10 hidden max-w-auto group-hover:flex 
-                          inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700"
-                    >
-                      Edit
-                    </div>
                   </button>
                 )}
                 {actionsCol.actions.translate && (
                   <button
-                    className="group relative rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
+                    className="group rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
                     data-translate={id}
                     onClick={translateRow}
                   >
@@ -516,19 +500,11 @@ const Row = ({
                       className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
                       icon={faGlobe}
                     />
-                    <div
-                      id="tooltip-theams-regular"
-                      role="tooltip"
-                      className="absolute z-20 left-[-20px] top-10 hidden max-w-auto group-hover:flex 
-                          inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700"
-                    >
-                      Translate
-                    </div>
                   </button>
                 )}
                 {actionsCol.actions.show && (
                   <button
-                    className="group relative rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
+                    className="group rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
                     data-show={id}
                     onClick={showRow}
                   >
@@ -537,19 +513,11 @@ const Row = ({
                       className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
                       icon={faEye}
                     />
-                    <div
-                      id="tooltip-theams-regular"
-                      role="tooltip"
-                      className="absolute z-20 left-[-15px] top-10 hidden max-w-auto group-hover:flex 
-                          inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700"
-                    >
-                      Show
-                    </div>
                   </button>
                 )}
                 {actionsCol.actions.permission && (
                   <button
-                    className="group relative rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
+                    className="group rtl:ml-2 rtl:mr-0 dark:text-[white] dark:bg-gray-800 "
                     data-permission={id}
                     onClick={permissionsRow}
                   >
@@ -558,14 +526,6 @@ const Row = ({
                       className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
                       icon={faUserShield}
                     />
-                    <div
-                      id="tooltip-theams-regular"
-                      role="tooltip"
-                      className="absolute z-20 left-[-15px] top-10 hidden max-w-auto group-hover:flex 
-                          inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700"
-                    >
-                      Permissions
-                    </div>
                   </button>
                 )}
               </>
@@ -582,10 +542,11 @@ const Row = ({
       ref={rowRef}
       className="show-element text-[#000] bg-white border-t text-[14px] leading-[24px] font-[400] whitespace-normal dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
     >
-      {Object.keys(cols).map((col) => {
-        const { hidden } = cols[col];
-        return !hidden && <SwitchComponent key={col} option={col} />;
-      })}
+      {cols.length &&
+        Object.keys(cols)?.map((col) => {
+          const { hidden } = cols[col];
+          return !hidden && <SwitchComponent key={col} option={col} />;
+        })}
     </tr>
   );
 };
