@@ -203,22 +203,7 @@ const Row = ({
             </div>
           </td>
         );
-      case "type":
-        return (
-          <td className="px-6">
-            <div className="flex items-center justify-start gap-2 h-[3rem]">
-              <FontAwesomeIcon
-                className={`${
-                  type ? "text-[#14FF00]" : "text-[#CCC] dark:text-[white]"
-                }  w-[10px] h-[10px]`}
-                icon={faCircle}
-              />
-              <span className="text-[14px] leading-[21px] font-[500]">
-                {type ? "Active" : "Not Active"}
-              </span>
-            </div>
-          </td>
-        );
+
       case "content":
         return (
           <td className="px-6">
@@ -434,6 +419,24 @@ const Row = ({
               alt="Table Img"
               onClick={handleImgClick}
             />
+          </td>
+        );
+      case "type":
+        return (
+          <td className="px-6">
+            <div className="flex items-center justify-start gap-2 h-[3rem]">
+              <FontAwesomeIcon
+                className={`${
+                  type === 1
+                    ? "text-[#14FF00]"
+                    : "text-[#CCC] dark:text-[white]"
+                }  w-[10px] h-[10px]`}
+                icon={faCircle}
+              />
+              <span className="text-[14px] leading-[21px] font-[500]">
+                {type === 1 ? "Active" : "Not Active"}
+              </span>
+            </div>
           </td>
         );
       case "actions":

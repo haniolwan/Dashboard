@@ -25,7 +25,6 @@ const AddSlider = ({
       }
       setShow(false);
       setRefreshRows(true);
-      event.target.reset();
     },
     [sliderId, setShow, setRefreshRows, updated]
   );
@@ -36,6 +35,20 @@ const AddSlider = ({
     }
   }, [selectedRow]);
 
+  const nameRef = useRef();
+  const imageRef = useRef();
+  const urlRef = useRef();
+  const activeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      urlRef.current.value = "";
+      imageRef.current.value = "";
+      activeRef.current.checked = false;
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -43,6 +56,7 @@ const AddSlider = ({
           <Form.Row className="grid grid-cols-1 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={slider.name}
                 name={"name"}
                 label={"Name"}
@@ -54,6 +68,7 @@ const AddSlider = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={urlRef}
                 key={slider.url}
                 name={"url"}
                 label={"Url"}
@@ -65,21 +80,25 @@ const AddSlider = ({
           <Form.Row>
             <div className="grid grid-cols-2">
               <UploadImage
+                ref={imageRef}
                 id={"user_avatar"}
                 label={"Photo"}
                 name={"image"}
                 src={slider.image}
                 onChange={handleInputChange}
               />
+            </div>
+            <Form.Row className="mt-5">
               <div className="grid grid-cols-2">
                 <Checkbox
+                  ref={activeRef}
                   name={"is_active"}
                   beforeLabel={"Is Active"}
                   defaultChecked={slider.is_active}
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
+            </Form.Row>
           </Form.Row>
         </Form.Content>
         <Form.Footer />

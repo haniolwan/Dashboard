@@ -10,7 +10,10 @@ import { Plan, SelectPlan, PlanTranslation } from "./Plan";
 import { Subscription, SelectSubscription } from "./Subscription";
 import { Order, SelectOrder } from "./Order";
 import { Provider, SelectProvider } from "./Provider";
-import { NotificationsTemplate, NotificationTemplateTranslation } from "./Notifications/Template";
+import {
+    NotificationTemplate,
+    NotificationTemplateTranslation
+} from "./Notifications/Template";
 import { NotificationsHistory } from "./Notifications/History";
 import { Role } from "./Role";
 import { Permissions } from "./Permissions";
@@ -44,7 +47,7 @@ export {
     SelectOrder,
     Provider,
     SelectProvider,
-    NotificationsTemplate,
+    NotificationTemplate,
     NotificationTemplateTranslation,
     NotificationsHistory,
     Role,

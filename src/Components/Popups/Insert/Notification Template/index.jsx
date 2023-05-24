@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Form from "../Form";
-import { TextArea, TextInput } from "../../../common";
+import { Checkbox, TextArea, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 
 const AddNotificationTemplate = ({
@@ -25,7 +25,6 @@ const AddNotificationTemplate = ({
       }
       setShow(false);
       setRefreshRows(true);
-      event.target.reset();
     },
     [rowId, setShow, setRefreshRows, updated]
   );
@@ -36,36 +35,27 @@ const AddNotificationTemplate = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    setRow([]);
-    setUpdated([]);
-  }, [show, setUpdated]);
+  const typeRef = useRef();
+  const titleRef = useRef();
+  const messageRef = useRef();
 
+  useEffect(() => {
+    if (!show) {
+      titleRef.current.value = "";
+      messageRef.current.value = "";
+      typeRef.current.checked = false;
+    }
+  }, [show]);
+
+  console.log(selectedRow);
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content title={"Add New Notification Template"}>
-          <Form.Row className="grid grid-cols-3 gap-5">
+          <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={row.name}
-                name={"name"}
-                label={"Name"}
-                defaultValue={row.name}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-1">
-              <TextInput
-                key={row.type}
-                name={"type"}
-                label={"Type"}
-                defaultValue={row.type}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-1">
-              <TextInput
+                ref={titleRef}
                 key={row.title}
                 name={"title"}
                 label={"Title"}
@@ -73,12 +63,26 @@ const AddNotificationTemplate = ({
                 onChange={handleInputChange}
               />
             </div>
+          </Form.Row>
+          <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextArea
+                ref={messageRef}
                 key={row.message}
                 name={"message"}
                 label={"Message"}
                 defaultValue={row.message}
+                onChange={handleInputChange}
+              />
+            </div>
+          </Form.Row>
+          <Form.Row>
+            <div className="col-span-3 sm:col-span-1">
+              <Checkbox
+                ref={typeRef}
+                name={"type"}
+                beforeLabel={"Type"}
+                defaultChecked={row.type}
                 onChange={handleInputChange}
               />
             </div>

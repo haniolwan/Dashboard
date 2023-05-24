@@ -39,6 +39,24 @@ const AddPage = ({
     setPage([]);
   }, [show]);
 
+  const nameRef = useRef();
+  const keyRef = useRef();
+  const descriptionRef = useRef();
+  const contentRef = useRef();
+  const imageRef = useRef();
+  const activeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      keyRef.current.value = "";
+      descriptionRef.current.value = "";
+      contentRef.current.value = "";
+      imageRef.current.value = "";
+      activeRef.current.checked = false;
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -46,6 +64,7 @@ const AddPage = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={page.name}
                 name={"name"}
                 label={"Name"}
@@ -55,6 +74,7 @@ const AddPage = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={keyRef}
                 key={page.key}
                 name={"key"}
                 label={"Key"}
@@ -66,6 +86,7 @@ const AddPage = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextArea
+                ref={descriptionRef}
                 key={page.description}
                 name={"description"}
                 label={"Description"}
@@ -75,6 +96,7 @@ const AddPage = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextArea
+                ref={contentRef}
                 key={page.content}
                 name={"content"}
                 label={"Content"}
@@ -86,20 +108,24 @@ const AddPage = ({
           <Form.Row>
             <div className="grid grid-cols-2">
               <UploadImage
+                ref={imageRef}
                 id={"page_avatar"}
                 label={"Photo"}
                 name={"image"}
                 src={page.image}
                 onChange={handleInputChange}
               />
-              <div className="grid grid-cols-2">
-                <Checkbox
-                  name={"is_active"}
-                  beforeLabel={"Is Active"}
-                  defaultChecked={page.is_active}
-                  onChange={handleInputChange}
-                />
-              </div>
+            </div>
+          </Form.Row>
+          <Form.Row>
+            <div className="grid grid-cols-2">
+              <Checkbox
+                ref={activeRef}
+                name={"is_active"}
+                beforeLabel={"Is Active"}
+                defaultChecked={page.is_active}
+                onChange={handleInputChange}
+              />
             </div>
           </Form.Row>
         </Form.Content>

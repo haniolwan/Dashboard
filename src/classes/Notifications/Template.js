@@ -1,4 +1,4 @@
-class NotificationsTemplate {
+class NotificationTemplate {
     constructor({ id, type, title, message }) {
         this.id = id;
         this.type = type;
@@ -24,6 +24,6 @@ class NotificationTemplateTranslation {
 
 
 export {
-    NotificationsTemplate,
+    NotificationTemplate,
     NotificationTemplateTranslation
 }

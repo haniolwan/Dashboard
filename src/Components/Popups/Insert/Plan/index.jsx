@@ -25,7 +25,6 @@ const AddPlan = ({
       }
       setShow(false);
       setRefreshRows(true);
-      event.target.reset();
     },
     [planId, setShow, setRefreshRows, updated]
   );
@@ -36,10 +35,27 @@ const AddPlan = ({
     }
   }, [selectedRow]);
 
+  const nameRef = useRef();
+  const billingRef = useRef();
+  const featuresRef = useRef();
+  const priceRef = useRef();
+  const orderRef = useRef();
+  const countRef = useRef();
+  const activeRef = useRef();
+  const typeRef = useRef();
+
   useEffect(() => {
-    setPlan([]);
-    setUpdated([]);
-  }, [show, setUpdated]);
+    if (!show) {
+      nameRef.current.value = "";
+      billingRef.current.value = "";
+      featuresRef.current.value = "";
+      priceRef.current.value = "";
+      orderRef.current.value = "";
+      countRef.current.value = "";
+      activeRef.current.checked = false;
+      typeRef.current.checked = false;
+    }
+  }, [show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -48,6 +64,7 @@ const AddPlan = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={plan.name}
                 name={"name"}
                 label={"Name"}
@@ -58,7 +75,8 @@ const AddPlan = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={plan.name}
+                ref={billingRef}
+                key={plan.billing_days}
                 name={"billing_days"}
                 label={"Billing days"}
                 placeholder="Billing days"
@@ -68,6 +86,7 @@ const AddPlan = ({
             </div>
             <div className="col-span-3 sm:col-span-4">
               <TextInput
+                ref={featuresRef}
                 key={plan.features}
                 name={"features"}
                 label={"Features"}
@@ -80,6 +99,7 @@ const AddPlan = ({
           <Form.Row className="grid grid-cols-3 content-center gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={priceRef}
                 key={plan.price}
                 name={"price"}
                 label={"Price"}
@@ -90,7 +110,8 @@ const AddPlan = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={plan.price}
+                ref={orderRef}
+                key={plan.order_price}
                 name={"order_price"}
                 label={"Order price"}
                 placeholder="Order price"
@@ -100,6 +121,7 @@ const AddPlan = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={countRef}
                 key={plan.orders_count}
                 name={"orders_count"}
                 label={"Orders count"}
@@ -113,6 +135,7 @@ const AddPlan = ({
           <Form.Row className="grid grid-cols-4 gap-5">
             <div className="grid grid-cols-2">
               <Checkbox
+                ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={plan.is_active}
@@ -121,6 +144,7 @@ const AddPlan = ({
             </div>
             <div className="grid grid-cols-2">
               <Checkbox
+                ref={typeRef}
                 name={"type"}
                 beforeLabel={"Type"}
                 defaultChecked={plan.is_active}

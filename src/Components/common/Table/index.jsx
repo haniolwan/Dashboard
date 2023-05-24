@@ -862,11 +862,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              <ShowSlider
+              {/* <ShowSlider
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
-              />
+              /> */}
             </>
           ),
           pages: (
@@ -894,11 +894,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              <ShowPage
+              {/* <ShowPage
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
-              />
+              /> */}
             </>
           ),
           services: (
@@ -1010,12 +1010,12 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              <ShowPlan
+              {/* <ShowPlan
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
                 handleInputChange={handleInputChange}
-              />
+              /> */}
             </>
           ),
           orders: (

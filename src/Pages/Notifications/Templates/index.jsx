@@ -6,8 +6,8 @@ const Templates = () => {
   const { permissions } = useContext(PermissionsContext);
   const cols = {
     title: { label: "Title", value: "title", hidden: false },
-    type: { label: "Type", value: "type", hidden: false },
     message: { label: "Message", value: "message", hidden: false },
+    type: { label: "Type", value: "type", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",

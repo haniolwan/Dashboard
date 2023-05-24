@@ -9,9 +9,9 @@ import {
   Currency,
   Employee,
   Locale,
+  NotificationTemplate,
   NotificationTemplateTranslation,
   NotificationsHistory,
-  NotificationsTemplate,
   Order,
   Page,
   Plan,
@@ -174,7 +174,7 @@ const getDataCollection = (data, path) => {
       collection =
         data.NotificationTemplateCollection.NotificationsTemplates.map(
           (ele) => {
-            return new NotificationsTemplate(ele);
+            return new NotificationTemplate(ele);
           }
         );
       pagination = data.NotificationTemplateCollection.pagination;
@@ -253,6 +253,8 @@ const getDataClass = (data, path) => {
       };
     case "locales":
       return new Locale(data.Locale);
+    case "notifications_templates":
+      return new NotificationTemplate(data.NotificationTemplate);
     default:
       <></>;
   }
