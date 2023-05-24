@@ -301,14 +301,14 @@ const Row = ({
       case "currency":
         return (
           <td className="px-6">
-            <span>{Currency.name}</span>
+            <span>{Currency?.name}</span>
           </td>
         );
       case "locale":
       case "Locale":
         return (
           <td className="px-6">
-            <span>{locale || Locale.name}</span>
+            <span>{locale || Locale?.name}</span>
           </td>
         );
       case "hourly_rate":
@@ -542,11 +542,10 @@ const Row = ({
       ref={rowRef}
       className="show-element text-[#000] bg-white border-t text-[14px] leading-[24px] font-[400] whitespace-normal dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
     >
-      {cols.length &&
-        Object.keys(cols)?.map((col) => {
-          const { hidden } = cols[col];
-          return !hidden && <SwitchComponent key={col} option={col} />;
-        })}
+      {Object.keys(cols)?.map((col) => {
+        const { hidden } = cols[col];
+        return !hidden && <SwitchComponent key={col} option={col} />;
+      })}
     </tr>
   );
 };

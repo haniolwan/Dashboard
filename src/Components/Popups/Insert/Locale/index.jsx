@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { Checkbox, TextInput } from "../../../common";
@@ -34,7 +34,17 @@ const AddLocale = ({
     }
   }, [selectedRow, show]);
 
-  console.log(selectedRow);
+  const nameRef = useRef();
+  const codeRef = useRef();
+  const activeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      codeRef.current.value = "";
+      activeRef.current.checked = false;
+    }
+  }, [show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -43,19 +53,21 @@ const AddLocale = ({
           <Form.Row className="grid grid-cols-3 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={selectedRow?.name}
+                ref={nameRef}
+                key={locale?.name}
                 name={"name"}
                 label={"Name"}
-                defaultValue={selectedRow?.name}
+                defaultValue={locale?.name}
                 onChange={handleInputChange}
               />
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                key={selectedRow?.locale_code}
-                name={"locale"}
+                ref={codeRef}
+                key={locale?.locale}
+                name={"locale_code"}
                 label={"Code"}
-                defaultValue={selectedRow?.locale_code}
+                defaultValue={locale?.locale}
                 onChange={handleInputChange}
               />
             </div>
@@ -63,6 +75,7 @@ const AddLocale = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <Checkbox
+                ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={selectedRow?.is_active}

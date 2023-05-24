@@ -73,9 +73,9 @@ const AddEmployee = ({
             data: { Cities },
           },
         } = await query(
-          `/api/dashboard/lists/cities?q=${citySearch}&country_id=${
-            updated.country_id || user.country_id
-          }`
+          `/api/dashboard/lists/cities?${
+            citySearch && "q=" + citySearch
+          }&country_id=${updated.country_id || user.country_id}`
         );
         const cityArr = Cities.map((city) => {
           return new SelectCity(city);
@@ -118,15 +118,27 @@ const AddEmployee = ({
     setUpdated([]);
   }, [show, setUpdated]);
 
+  const nameRef = useRef();
+  const mobileRef = useRef();
+  const emailRef = useRef();
+  const countryRef = useRef();
   const cityRef = useRef();
-  // useEffect(() => {
-  //   if (updated.country_id) {
-  //     if (updated.country_id !== user.country_id) {
-  //       // console.log(cityRef?.current?.select?.clearValue);
-  //       console.log(cityRef.current.props.value);
-  //     }
-  //   }
-  // }, [updated.country_id, user.country_id]);
+  const avatarRef = useRef();
+  const suspendRef = useRef();
+  const bannedRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      mobileRef.current.value = "";
+      emailRef.current.value = "";
+      countryRef.current.select.setValue({});
+      cityRef.current.select.setValue({});
+      avatarRef.current.value = "";
+      suspendRef.current.checked = false;
+      bannedRef.current.checked = false;
+    }
+  }, [show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -135,6 +147,7 @@ const AddEmployee = ({
           <Form.Row className="grid grid-cols-3 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={user.name}
                 name={"name"}
                 label={"Name"}
@@ -144,6 +157,7 @@ const AddEmployee = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={mobileRef}
                 key={user.mobile}
                 name={"mobile"}
                 label={"Mobile"}
@@ -153,6 +167,7 @@ const AddEmployee = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={emailRef}
                 key={user.email}
                 name={"email"}
                 label={"Email"}
@@ -164,8 +179,8 @@ const AddEmployee = ({
           <Form.Row>
             <div className="grid grid-cols-2 gap-5">
               <SelectInput
-                key={user.Country}
-                ref={countriesRef}
+                ref={countryRef}
+                key={user?.Country?.name}
                 name={"Country"}
                 label={"Country"}
                 options={countryOptions}
@@ -178,9 +193,9 @@ const AddEmployee = ({
                 defaultValue={user?.Country && new SelectCountry(user?.Country)}
               />
               <SelectInput
-                id={"city_input"}
-                key={user.City}
                 ref={cityRef}
+                id={"city_input"}
+                key={user?.City?.name}
                 name={"City"}
                 label={"City"}
                 options={cityOptions}
@@ -201,25 +216,31 @@ const AddEmployee = ({
           <Form.Row>
             <div className="grid grid-cols-2">
               <UploadImage
+                ref={avatarRef}
                 id={"user_avatar"}
                 label={"Photo"}
                 name={"avatar"}
                 onChange={handleInputChange}
               />
-              <div className="grid grid-cols-2">
-                <Checkbox
-                  name={"is_suspended"}
-                  beforeLabel={"Is Suspended"}
-                  defaultChecked={user.is_suspended}
-                  onChange={handleInputChange}
-                />
-                <Checkbox
-                  name={"is_banned"}
-                  beforeLabel={"Is Banned"}
-                  defaultChecked={user.is_banned}
-                  onChange={handleInputChange}
-                />
-              </div>
+            </div>
+          </Form.Row>
+
+          <Form.Row className="col-span-2">
+            <div className="grid grid-cols-2">
+              <Checkbox
+                ref={suspendRef}
+                name={"is_suspended"}
+                beforeLabel={"Is Suspended"}
+                defaultChecked={user.is_suspended}
+                onChange={handleInputChange}
+              />
+              <Checkbox
+                ref={bannedRef}
+                name={"is_banned"}
+                beforeLabel={"Is Banned"}
+                defaultChecked={user.is_banned}
+                onChange={handleInputChange}
+              />
             </div>
           </Form.Row>
         </Form.Content>

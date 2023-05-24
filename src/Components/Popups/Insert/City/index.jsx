@@ -16,34 +16,34 @@ const AddCity = ({
   setRefreshRows,
 }) => {
   const [city, setCity] = useState([]);
-  // const [countryOptions, setCountryOptions] = useState([]);
-  // const [countrySearch, setCountrySearch] = useState("");
-  // const [loadingCountry, setLoadingCountry] = useState(true);
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [countrySearch, setCountrySearch] = useState("");
+  const [loadingCountry, setLoadingCountry] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const {
-  //         data: {
-  //           data: { Countries },
-  //         },
-  //       } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
-  //       const countriesArr = Countries.map((country) => {
-  //         return new SelectCountry(country);
-  //       });
-  //       setCountryOptions(countriesArr);
-  //       setLoadingCountry(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   let timer = setTimeout(() => {
-  //     if (show && cityId) {
-  //       fetchData();
-  //     }
-  //   }, 300);
-  //   return () => clearTimeout(timer);
-  // }, [cityId, countrySearch, show]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: {
+            data: { Countries },
+          },
+        } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
+        const countriesArr = Countries.map((country) => {
+          return new SelectCountry(country);
+        });
+        setCountryOptions(countriesArr);
+        setLoadingCountry(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    let timer = setTimeout(() => {
+      if (show) {
+        fetchData();
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [cityId, countrySearch, show]);
 
   const onSubmit = useCallback(
     (event) => {
@@ -72,14 +72,14 @@ const AddCity = ({
   }, [setUpdated, show]);
 
   const nameRef = useRef();
-  const activeRef = useRef();
   const countryRef = useRef();
+  const activeRef = useRef();
 
   useEffect(() => {
     if (!show) {
       nameRef.current.value = "";
+      countryRef.current.select.setValue({});
       activeRef.current.checked = false;
-      // countryRef.current.select.setValue({});
     }
   }, [show]);
 
@@ -99,7 +99,7 @@ const AddCity = ({
                 onChange={handleInputChange}
               />
             </div>
-            {/* <SelectInput
+            <SelectInput
               key={city.country_id}
               ref={countryRef}
               name={"Country"}
@@ -111,7 +111,7 @@ const AddCity = ({
                   country_id: country.id,
                 });
               }}
-            /> */}
+            />
           </Form.Row>
           <Form.Row>
             <div className="grid grid-cols-2">

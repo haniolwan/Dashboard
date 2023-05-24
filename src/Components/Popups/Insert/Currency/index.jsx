@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Form from "../Form";
 import { Checkbox, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
@@ -47,6 +47,20 @@ const AddCurrency = ({
     }
   }, [currency, currencyId, setUpdated, show, updated]);
 
+  const nameRef = useRef();
+  const codeRef = useRef();
+  const symbolRef = useRef();
+  const activeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      codeRef.current.value = "";
+      symbolRef.current.value = "";
+      activeRef.current.checked = false;
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -54,6 +68,7 @@ const AddCurrency = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={currency.name}
                 name={"name"}
                 label={"Name"}
@@ -64,6 +79,7 @@ const AddCurrency = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={codeRef}
                 key={currency.code}
                 name={"code"}
                 label={"Code"}
@@ -74,6 +90,7 @@ const AddCurrency = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={symbolRef}
                 key={currency.symbol}
                 name={"symbol"}
                 label={"Symbol"}
@@ -86,6 +103,7 @@ const AddCurrency = ({
           <Form.Row className="grid grid-cols-2">
             <div>
               <Checkbox
+                ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={currency.is_active}

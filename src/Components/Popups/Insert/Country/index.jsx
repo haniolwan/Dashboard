@@ -26,8 +26,6 @@ const AddCountry = ({
   const [loadingCurrency, setLoadingCurrency] = useState(true);
   const [loadingLocale, setLoadingLocale] = useState(true);
 
-  const currenciesRef = useRef();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,7 +44,7 @@ const AddCountry = ({
       }
     };
     let timer = setTimeout(() => {
-      if (countryId && show) {
+      if (show) {
         fetchData();
       }
     }, 300);
@@ -61,7 +59,7 @@ const AddCountry = ({
             data: { Locales },
           },
         } = await query(
-          `/api/dashboard/lists/locales?q=${localeSearch}&currency_id=${updated.country_id}`
+          `/api/dashboard/lists/locales?${localeSearch && "q=" + localeSearch}`
         );
         const localesArr = Locales.map((locale) => {
           return new SelectLocale(locale);
@@ -73,7 +71,7 @@ const AddCountry = ({
       }
     };
     let timer = setTimeout(() => {
-      if (countryId && show) {
+      if (show) {
         fetchData();
       }
     }, 100);
@@ -111,6 +109,24 @@ const AddCountry = ({
     setCountry([]);
   }, [show]);
 
+  const nameRef = useRef();
+  const codeRef = useRef();
+  const flagRef = useRef();
+  const activeRef = useRef();
+  const currenciesRef = useRef();
+  const localeRef = useRef();
+
+  useEffect(() => {
+    if (!show) {
+      nameRef.current.value = "";
+      codeRef.current.value = "";
+      flagRef.current.value = "";
+      currenciesRef.current.select.setValue({});
+      localeRef.current.select.setValue({});
+      activeRef.current.checked = false;
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -118,6 +134,7 @@ const AddCountry = ({
           <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={nameRef}
                 key={country.name}
                 name={"name"}
                 label={"Name"}
@@ -127,6 +144,7 @@ const AddCountry = ({
             </div>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={codeRef}
                 key={country.code}
                 name={"code"}
                 label={"Code"}
@@ -137,7 +155,7 @@ const AddCountry = ({
           </Form.Row>
           <Form.Row className="grid grid-cols-2 gap-5">
             <SelectInput
-              key={country.Currency}
+              key={country?.Currency?.name}
               ref={currenciesRef}
               name={"Currency"}
               label={"Currency"}
@@ -154,11 +172,12 @@ const AddCountry = ({
               isLoading={loadingCurrency}
             />
             <SelectInput
+              key={country?.Locale?.name}
+              ref={localeRef}
               name={"Locale"}
               label={"Locale"}
               options={localeOptions}
               onChange={(locale) => {
-                setLocaleSearch(locale.name);
                 setUpdated({
                   ...updated,
                   locale_id: locale.id,
@@ -167,18 +186,22 @@ const AddCountry = ({
               defaultValue={
                 country?.Locale && new SelectLocale(country?.Locale)
               }
-              isLoading={loadingLocale}
+              // isLoading={loadingLocale}
             />
           </Form.Row>
           <Form.Row className="grid grid-cols-2">
             <UploadImage
+              ref={flagRef}
               id={"flag"}
               label={"Photo"}
               name={"flag"}
               onChange={handleInputChange}
             />
+          </Form.Row>
+          <Form.Row className="grid grid-cols-2">
             <div className="grid grid-cols-2">
               <Checkbox
+                ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={country.is_active}
