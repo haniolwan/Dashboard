@@ -868,11 +868,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              {/* <ShowSlider
+              <ShowSlider
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
-              /> */}
+              />
             </>
           ),
           pages: (
