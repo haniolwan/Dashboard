@@ -47,7 +47,6 @@ const AddNotificationTemplate = ({
     }
   }, [show]);
 
-  console.log(selectedRow);
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>

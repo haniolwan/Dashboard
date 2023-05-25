@@ -181,7 +181,6 @@ const AddUser = ({ show, setShow, id }) => {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-5">
-                {console.log(user)}
                 <SelectInput
                   key={user.Country}
                   ref={countriesRef}

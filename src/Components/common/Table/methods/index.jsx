@@ -26,6 +26,7 @@ import {
 import { PageTranslation } from "../../../../classes/Page";
 import { CurrencyTranslation } from "../../../../classes/Currency";
 import { ServiceTranslation } from "../../../../classes/Service";
+import { toast } from "react-toastify";
 
 const insertNewRow = async (data, path) => {
   try {
@@ -63,8 +64,12 @@ const updateNewRow = async (updatedData, path, rowId) => {
       "multipart/form-data"
     );
     Swal.fire("Row updated successfully!", "", "success");
-  } catch (error) {
-    console.log(error);
+  } catch ({
+    response: {
+      data: { message },
+    },
+  }) {
+    toast.error(<span>{message.join("\r\n")}</span>);
   }
 };
 
@@ -83,8 +88,12 @@ const updateTranslation = async (path, rowId, locale_id, updatedData) => {
       "multipart/form-data"
     );
     Swal.fire("Row updated successfully!", "", "success");
-  } catch (error) {
-    console.log(error);
+  } catch ({
+    response: {
+      data: { message },
+    },
+  }) {
+    toast.error(<span>{message.join("\r\n")}</span>);
   }
 };
 

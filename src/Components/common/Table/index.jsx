@@ -214,8 +214,12 @@ const Table = ({ children, path, tools, cols }) => {
           data: { data },
         } = await query(`/api/dashboard/${path}/${userId}`);
         setSelectedRow(getDataClass(data, path));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (
@@ -248,8 +252,12 @@ const Table = ({ children, path, tools, cols }) => {
           return new Locale(locale);
         });
         setLocaleOptions(localeArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -274,7 +282,7 @@ const Table = ({ children, path, tools, cols }) => {
           data: { message },
         },
       }) {
-        console.log(message);
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (userId && showTranslateModal) {
