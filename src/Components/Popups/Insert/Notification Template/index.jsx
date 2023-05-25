@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Form from "../Form";
-import { Checkbox, TextArea, TextInput } from "../../../common";
+import { Checkbox, SelectInput, TextArea, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
+import { EnumsContext } from "../../../../context";
 
 const AddNotificationTemplate = ({
   rowId,
@@ -47,6 +48,25 @@ const AddNotificationTemplate = ({
     }
   }, [show]);
 
+  const {
+    enums: { NotificationType },
+  } = useContext(EnumsContext);
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [defaultTypeOption, setDefaultTypeOption] = useState([]);
+  const [loadingType, setLoadingType] = useState(true);
+
+  useEffect(() => {
+    if (show) {
+      const options = Object.keys(NotificationType).map((type) => {
+        if (NotificationType.type === NotificationType[type])
+          setDefaultTypeOption({ label: type, value: NotificationType[type] });
+        return { label: type, value: NotificationType[type] };
+      });
+      setTypeOptions(options);
+      setLoadingType(false);
+    }
+  }, [show, NotificationType]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -77,12 +97,20 @@ const AddNotificationTemplate = ({
           </Form.Row>
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
-              <Checkbox
+              <SelectInput
                 ref={typeRef}
+                key={row?.type}
                 name={"type"}
-                beforeLabel={"Type"}
-                defaultChecked={row.type}
-                onChange={handleInputChange}
+                label={"Type"}
+                options={typeOptions}
+                onChange={(type) => {
+                  setUpdated({
+                    ...updated,
+                    type: type.value,
+                  });
+                }}
+                defaultValue={defaultTypeOption}
+                isLoading={loadingType}
               />
             </div>
           </Form.Row>

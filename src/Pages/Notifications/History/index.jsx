@@ -15,9 +15,15 @@ const History = () => {
       hidden: false,
     },
     target_type: { label: "Target type", value: "target_type", hidden: false },
+
     notifications_templates: {
       label: "Notification template",
       value: "NotificationTemplate",
+      hidden: false,
+    },
+    notification_type: {
+      label: "Type",
+      value: "notification_type",
       hidden: false,
     },
 

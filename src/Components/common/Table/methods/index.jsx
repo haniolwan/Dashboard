@@ -251,11 +251,7 @@ const getDataClass = (data, path) => {
         provider: new Provider(data.Provider),
         services:
           data.Services && data.Services.map((service) => new Service(service)),
-        subscriptions:
-          data.Subscriptions &&
-          data.Subscriptions.map(
-            (subscription) => new Subscription(subscription)
-          ),
+        subscriptions: data.Subscription,
         current: data.Current,
         failed: data.Failed,
         complete: data.Complete,

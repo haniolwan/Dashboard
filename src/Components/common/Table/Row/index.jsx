@@ -9,7 +9,7 @@ import {
   faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
-import { PermissionsContext } from "../../../../context";
+import { EnumsContext, PermissionsContext } from "../../../../context";
 const Row = ({
   id,
   code,
@@ -90,6 +90,17 @@ const Row = ({
     }, 200);
     return () => clearTimeout(timer);
   }, [permissions]);
+
+  const {
+    enums: {
+      PlanType,
+      NotificationType,
+      OrderStatusEnum,
+      OrderType,
+      ProviderType,
+      SubscriptionStatus,
+    },
+  } = useContext(EnumsContext);
 
   function SwitchComponent({ option }) {
     switch (option) {
@@ -375,6 +386,62 @@ const Row = ({
               {review}
               <div className="tooltip-arrow" data-popper-arrow></div>
             </div>
+          </td>
+        );
+      case "provider_type":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(ProviderType).find(
+                (key) => ProviderType[key] === type
+              )}
+            </span>
+          </td>
+        );
+      case "plan_type":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(PlanType).find((key) => PlanType[key] === type)}
+            </span>
+          </td>
+        );
+      case "order_type":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(OrderType).find((key) => OrderType[key] === type)}
+            </span>
+          </td>
+        );
+      case "order_status":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(OrderStatusEnum).find(
+                (key) => OrderStatusEnum[key] === type
+              )}
+            </span>
+          </td>
+        );
+      case "notification_type":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(NotificationType).find(
+                (key) => NotificationType[key] === type
+              )}
+            </span>
+          </td>
+        );
+      case "subscription_status":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(SubscriptionStatus).find(
+                (key) => SubscriptionStatus[key] === type
+              )}
+            </span>
           </td>
         );
       case "is_suspended":

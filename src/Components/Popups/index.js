@@ -34,6 +34,7 @@ import TranslateNotificationTemplate from "./Translation/Notification Template";
 import SetPermissions from "./Insert/Permissions";
 import ShowProvider from "./Show/Provider";
 import AddLocale from "./Insert/Locale";
+import AddProvider from "./Insert/Provider";
 
 export {
     Download,
@@ -71,5 +72,6 @@ export {
     ShowNotificationsHistory,
     SetPermissions,
     ShowProvider,
-    AddLocale
+    AddLocale,
+    AddProvider
 }

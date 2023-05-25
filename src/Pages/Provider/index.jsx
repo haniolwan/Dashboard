@@ -11,7 +11,12 @@ const Providers = () => {
     locale: { label: "Locale", value: "locale", hidden: false },
     hourly_rate: { label: "Hourly rate", value: "hourly_rate", hidden: false },
     latitude: { label: "Latitude", value: "latitude", hidden: false },
-    longitude: { label: "Longitude", value: "longitude", hidden: false },
+    longitude: { label: "longitude", value: "longitude", hidden: false },
+    provider_type: {
+      label: "Type",
+      value: "provider_type",
+      hidden: false,
+    },
 
     actions: {
       label: "Actions",

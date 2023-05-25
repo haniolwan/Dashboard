@@ -1,13 +1,13 @@
-import {useCallback, useEffect, useState} from 'react';
-import {Chart, initTE} from 'tw-elements';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import './style.css';
+import { useCallback, useEffect, useState } from "react";
+import { Chart, initTE } from "tw-elements";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./style.css";
 import {
   faReceipt,
   faSackDollar,
   faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import {query} from '../../utils';
+} from "@fortawesome/free-solid-svg-icons";
+import { query } from "../../utils";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -22,38 +22,40 @@ const Dashboard = () => {
 
   const getData = useCallback(async () => {
     const {
-      data: {message},
-    } = await query('/api/dashboard/statistics');
+      data: { message },
+    } = await query("/api/dashboard/statistics");
     setData(message);
     message.UserChart.forEach((chart) => {
       Object.keys(chart).forEach((item) => {
         if (isNaN(chart[item])) {
-          setUserMonths([...userMonths, chart[item]]);
+          setUserMonths((months) => [chart[item], ...months]);
         } else {
-          setUserCount([...userCount, chart[item]]);
+          setUserCount((counts) => [chart[item], ...counts]);
         }
       });
     });
     message.ProviderChart.forEach((chart) => {
       Object.keys(chart).forEach((item) => {
         if (isNaN(chart[item])) {
-          setProviderMonths([...providerMonths, chart[item]]);
+          setProviderMonths((months) => [chart[item], ...months]);
         } else {
-          setProviderCount([...providerCount, chart[item]]);
+          setProviderCount((counts) => [chart[item], ...counts]);
         }
       });
     });
     message.OrderChart.forEach((chart) => {
       Object.keys(chart).forEach((item) => {
         if (isNaN(chart[item])) {
-          setOrderMonths([...orderMonths, chart[item]]);
+          setOrderMonths((months) => [chart[item], ...months]);
         } else {
-          setOrderCount([...orderCount, chart[item]]);
+          setOrderCount((counts) => [chart[item], ...counts]);
         }
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(userMonths);
   useEffect(() => {
     try {
       getData();
@@ -63,9 +65,8 @@ const Dashboard = () => {
   }, [getData]);
 
   useEffect(() => {
-    initTE({Chart});
+    initTE({ Chart });
   }, []);
-  console.log(providerMonths);
   return (
     <div className="flex flex-col items-center justify-center gap-[40px] w-full pb-8">
       <div className="grid grid-cols-4 gap-8 w-full">

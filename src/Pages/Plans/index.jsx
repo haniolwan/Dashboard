@@ -21,6 +21,7 @@ const Plans = () => {
       hidden: false,
     },
     is_active: { label: "Active", value: "is_active", hidden: false },
+    plan_type: { label: "Type", value: "plan_type", hidden: false },
 
     actions: {
       label: "Actions",

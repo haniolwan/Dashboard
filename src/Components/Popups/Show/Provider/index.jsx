@@ -9,7 +9,6 @@ import {
   faMobileScreenButton,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 const ShowProvider = ({ show, setShow, selectedRow }) => {
   return (
@@ -22,27 +21,27 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                 className="col-span-6 justify-center"
                 disabled
                 avatar
-                src={selectedRow["provider"]?.avatar}
+                src={selectedRow?.provider?.avatar}
               />
               <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {selectedRow["provider"]?.name}
+                {selectedRow?.provider?.name}
               </div>
               <div className="pt-5 space-y-2">
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faLocationDot} />
-                  {selectedRow["provider"]?.Country?.name},{" "}
-                  {selectedRow["provider"]?.City?.name}
+                  {selectedRow?.provider?.Country?.name},{" "}
+                  {selectedRow?.provider?.City?.name}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon
                     className="pr-2"
                     icon={faMobileScreenButton}
                   />
-                  {selectedRow["provider"]?.mobile}
+                  {selectedRow?.provider?.mobile}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faGlobe} />
-                  {selectedRow["provider"]?.Locale?.name}
+                  {selectedRow?.provider?.Locale?.name}
                 </div>
               </div>
               <Form.Row className="cols-span-6">
@@ -51,7 +50,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Available</span>
                     <Checkbox
                       name={"is_available"}
-                      defaultChecked={selectedRow["provider"]?.is_available}
+                      defaultChecked={selectedRow?.provider?.is_available}
                       disabled
                     />
                   </div>
@@ -59,7 +58,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Verified</span>
                     <Checkbox
                       name={"is_verified"}
-                      defaultChecked={selectedRow["provider"]?.is_verified}
+                      defaultChecked={selectedRow?.provider?.is_verified}
                       disabled
                     />
                   </div>
@@ -67,7 +66,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Suspended</span>
                     <Checkbox
                       name={"is_suspended"}
-                      defaultChecked={selectedRow["provider"]?.is_suspended}
+                      defaultChecked={selectedRow?.provider?.is_suspended}
                       disabled
                     />
                   </div>
@@ -75,7 +74,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Baned</span>
                     <Checkbox
                       name={"is_baned"}
-                      defaultChecked={selectedRow["provider"]?.is_baned}
+                      defaultChecked={selectedRow?.provider?.is_baned}
                       disabled
                     />
                   </div>
@@ -87,9 +86,9 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                 <div>
                   <h3 className="text-placeholder-color pb-2">Provider</h3>
                   <div className="grid grid-cols-3 gap-5 pb-5">
-                    <Link
+                    <div
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      // state={{ userId: selectedRow["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold  rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -102,12 +101,12 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.complete}
+                        {selectedRow?.provider?.complete}
                       </p>
-                    </Link>
-                    <Link
+                    </div>
+                    <div
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      // state={{ userId: selectedRow["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold  rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -120,12 +119,12 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.current}
+                        {selectedRow?.provider?.current}
                       </p>
-                    </Link>
-                    <Link
+                    </div>
+                    <div
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      // state={{ userId: selectedRow["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -138,9 +137,9 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.failed}
+                        {selectedRow?.provider?.failed}
                       </p>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -150,8 +149,8 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <h3 className="text-lg font-black text-start">Services</h3>
                   </div>
                   <div className="grid grid-cols-3 text-placeholder-color rounded gap-5">
-                    {selectedRow["services"] &&
-                      selectedRow["services"].map((service) => {
+                    {selectedRow?.services &&
+                      selectedRow?.services?.map((service) => {
                         return (
                           <button
                             disabled

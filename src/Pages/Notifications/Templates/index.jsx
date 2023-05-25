@@ -7,8 +7,11 @@ const Templates = () => {
   const cols = {
     title: { label: "Title", value: "title", hidden: false },
     message: { label: "Message", value: "message", hidden: false },
-    type: { label: "Type", value: "type", hidden: false },
-
+    notification_type: {
+      label: "Type",
+      value: "notification_type",
+      hidden: false,
+    },
     actions: {
       label: "Actions",
       value: "actions",

@@ -44,6 +44,7 @@ import {
   SetPermissions,
   ShowProvider,
   AddLocale,
+  AddProvider,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -990,12 +991,12 @@ Table.Footer = () => {
                 handleInputChange={handleInputChange}
                 setRefreshRows={setRefreshRows}
               />
-              {/* <ShowUser
+              <ShowUser
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
                 handleInputChange={handleInputChange}
-              /> */}
+              />
             </>
           ),
           plans: (
@@ -1065,6 +1066,16 @@ Table.Footer = () => {
           ),
           providers: (
             <>
+              <AddProvider
+                providerId={userId}
+                selectedRow={selectedRow}
+                show={showAddModal}
+                setShow={setShowAddModal}
+                updated={updated}
+                setUpdated={setUpdated}
+                handleInputChange={handleInputChange}
+                setRefreshRows={setRefreshRows}
+              />
               <ShowProvider
                 show={showModal}
                 setShow={setShowModal}

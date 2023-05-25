@@ -150,7 +150,9 @@ Form.Footer = ({ disabled }) => {
         bgColor={"bg-[#DF8D6233]"}
         textColor={"text-primary-color"}
         hoverBgColor={"hover:bg-primary-color"}
-        hoverTextColor={"text-placeholder-color"}
+        hoverTextColor={
+          "text-placeholder-color dark:hover:text-placeholder-color"
+        }
       />
     </div>
   );

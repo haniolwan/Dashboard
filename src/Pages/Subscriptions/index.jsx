@@ -21,6 +21,11 @@ const Subscriptions = () => {
     order_price: { label: "Order price", value: "order_price", hidden: false },
     started_at: { label: "Started at", value: "started_at", hidden: false },
     expire_at: { label: "Expire at", value: "expire_at", hidden: false },
+    // subscription_status: {
+    //   label: "Status",
+    //   value: "subscription_status",
+    //   hidden: false,
+    // },
 
     actions: {
       label: "Actions",
