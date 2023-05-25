@@ -9,7 +9,9 @@ const UploadImage = forwardRef(
         </label>
         <div className="flex items-center space-x-2 mt-1 rtl:gap-2">
           {avatar ? (
-            <span className="inline-block h-20 w-20 rounded-full overflow-hidden bg-gray-100">
+            <span
+              className={`inline-block h-20 w-20 rounded-full overflow-hidden bg-gray-100 ${className}`}
+            >
               <img src={src} alt="avatar img" />
             </span>
           ) : (

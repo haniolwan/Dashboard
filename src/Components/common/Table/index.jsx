@@ -900,11 +900,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              {/* <ShowPage
+              <ShowPage
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
-              /> */}
+              />
             </>
           ),
           services: (
