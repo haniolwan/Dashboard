@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Form from "../Form";
-import { Checkbox, TextInput } from "../../../common";
+import { Checkbox, SelectInput, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
+import { EnumsContext } from "../../../../context";
 
 const AddPlan = ({
   planId,
@@ -14,6 +15,25 @@ const AddPlan = ({
   setRefreshRows,
 }) => {
   const [plan, setPlan] = useState([]);
+
+  const {
+    enums: { PlanType },
+  } = useContext(EnumsContext);
+  const [typeOptions, setTypeOptions] = useState([]);
+  const [defaultTypeOption, setDefaultTypeOption] = useState([]);
+  const [loadingType, setLoadingType] = useState(true);
+
+  useEffect(() => {
+    if (show) {
+      const options = Object.keys(PlanType).map((type) => {
+        if (plan.type === PlanType[type])
+          setDefaultTypeOption({ label: type, value: PlanType[type] });
+        return { label: type, value: PlanType[type] };
+      });
+      setTypeOptions(options);
+      setLoadingType(false);
+    }
+  }, [show, PlanType, plan.type]);
 
   const onSubmit = useCallback(
     (event) => {
@@ -53,10 +73,9 @@ const AddPlan = ({
       orderRef.current.value = "";
       countRef.current.value = "";
       activeRef.current.checked = false;
-      typeRef.current.checked = false;
+      typeRef.current.select.setValue({});
     }
   }, [show]);
-
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -130,6 +149,23 @@ const AddPlan = ({
                 onChange={handleInputChange}
               />
             </div>
+            <div className="grid grid-cols-2">
+              <SelectInput
+                ref={typeRef}
+                key={plan?.type}
+                name={"type"}
+                label={"Type"}
+                options={typeOptions}
+                onChange={(type) => {
+                  setUpdated({
+                    ...updated,
+                    type: type.value,
+                  });
+                }}
+                defaultValue={defaultTypeOption}
+                isLoading={loadingType}
+              />
+            </div>
           </Form.Row>
           <Form.Row className="grid grid-cols-2 gap-5" />
           <Form.Row className="grid grid-cols-4 gap-5">
@@ -138,15 +174,6 @@ const AddPlan = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={plan.is_active}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="grid grid-cols-2">
-              <Checkbox
-                ref={typeRef}
-                name={"type"}
-                beforeLabel={"Type"}
                 defaultChecked={plan.is_active}
                 onChange={handleInputChange}
               />
