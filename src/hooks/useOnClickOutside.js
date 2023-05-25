@@ -8,11 +8,6 @@ export default function useOnClickOutside(elementRef, iconRef, callback) {
       ) {
         callback();
       }
-      // if (elementRef && elementRef?.current &&
-      //   !elementRef?.current?.contains(event.target)
-      //   && (iconRef && !iconRef?.current?.contains(event.target))) {
-      //   callback();
-      // }
       return;
     };
     document.addEventListener('click', handleClickOutside, true);

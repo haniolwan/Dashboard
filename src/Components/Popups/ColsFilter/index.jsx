@@ -10,7 +10,7 @@ const Filter = ({ tableCols, setTableCols, icon, show, setShow }) => {
     });
   };
   const filterRef = useRef();
-  useOnClickOutside(icon, filterRef, () => setShow(false));
+  useOnClickOutside(filterRef, icon, () => setShow(false));
 
   return (
     <ul

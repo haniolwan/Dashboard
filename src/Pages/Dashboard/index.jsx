@@ -140,7 +140,7 @@ const Dashboard = () => {
             data-te-chart="line"
             data-te-dataset-label="Traffic"
             data-te-labels={userMonths}
-            data-te-dataset-data={userCount}
+            data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
           ></canvas>
         </div>
       </div>
