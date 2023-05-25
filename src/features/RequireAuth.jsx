@@ -7,6 +7,7 @@ import {
   UserInfoContext,
 } from "../context";
 import { query } from "../utils/query";
+import { toast } from "react-toastify";
 const RequireAuth = () => {
   const location = useLocation();
   const token = localStorage.getItem("access_token");
@@ -61,8 +62,12 @@ const RequireAuth = () => {
       return () => {
         effectRan.current = true;
       };
-    } catch (error) {
-      console.log(error);
+    } catch ({
+      response: {
+        data: { message },
+      },
+    }) {
+      toast.error(<span>{message.join("\r\n")}</span>);
     }
   }, [getUserInfo]);
 

@@ -11,6 +11,7 @@ const Orders = () => {
     service: { label: "Service", value: "service", hidden: false },
     date: { label: "Date", value: "date", hidden: false },
     status: { label: "Status", value: "status", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

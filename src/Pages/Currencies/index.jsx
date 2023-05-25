@@ -9,6 +9,8 @@ const Currencies = () => {
     name: { label: "Currency", value: "name", hidden: false },
     code: { label: "Code", value: "code", hidden: false },
     symbol: { label: "Symbol", value: "symbol", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

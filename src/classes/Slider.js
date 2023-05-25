@@ -3,8 +3,8 @@ class Slider {
         this.id = id;
         this.name = name;
         this.image = image;
-        this.is_active = is_active;
         this.url = url;
+        this.is_active = is_active;
     }
 }
 

@@ -4,6 +4,7 @@ import { SelectCurrency, SelectLocale } from "../../../../classes";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import Form from "../Form";
 import { Checkbox, SelectInput, TextInput, UploadImage } from "../../../common";
+import { toast } from "react-toastify";
 
 const AddCountry = ({
   countryId,
@@ -39,8 +40,12 @@ const AddCountry = ({
         });
         setCurrencyOptions(currenciesArr);
         setLoadingCurrency(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -66,8 +71,12 @@ const AddCountry = ({
         });
         setLocaleOptions(localesArr);
         setLoadingLocale(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

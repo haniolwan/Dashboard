@@ -65,9 +65,7 @@ const Login = () => {
           navigate("/dashboard");
           return;
         }
-        toast.error(
-          <span className="capitalize">{message[0].split(".").join(" ")}</span>
-        );
+        toast.error(<span className="capitalize">{message.join("\r\n")}</span>);
       }
       return;
     } catch ({
@@ -75,9 +73,7 @@ const Login = () => {
         data: { message },
       },
     }) {
-      toast.error(
-        <span className="capitalize">{message[0].split(".").join(" ")}</span>
-      );
+      toast.error(<span className="capitalize">{message.join("\r\n")}</span>);
     }
   };
 

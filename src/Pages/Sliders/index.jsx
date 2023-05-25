@@ -9,7 +9,8 @@ const Sliders = () => {
     image: { label: "Image", value: "image", hidden: false },
     name: { label: "Name", value: "name", hidden: false },
     url: { label: "Url", value: "url", hidden: false },
-    active: { label: "Active", value: "active", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

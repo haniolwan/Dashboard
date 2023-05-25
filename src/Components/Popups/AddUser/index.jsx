@@ -6,6 +6,7 @@ import Employee from "../../../classes/Employee";
 import { Country, SelectCountry } from "../../../classes/Country";
 import City from "../../../classes/City";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const AddUser = ({ show, setShow, id }) => {
   const modalRef = useRef();
@@ -29,14 +30,18 @@ const AddUser = ({ show, setShow, id }) => {
           data: { data },
         } = await query(`/api/dashboard/employees/${id}`, "get");
         setUser(new Employee(data.Employee));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (show) {
       fetchData();
     }
-  }, [show]);
+  }, [id, show]);
 
   const handleChange = ({ target: { type, name, value, checked, files } }) => {
     if (type === "file") {
@@ -65,8 +70,12 @@ const AddUser = ({ show, setShow, id }) => {
       );
       Swal.fire("User updated successfully!", "", "success");
       setShow(false);
-    } catch (error) {
-      console.log(error);
+    } catch ({
+      response: {
+        data: { message },
+      },
+    }) {
+      toast.error(<span>{message.join("\r\n")}</span>);
     }
   };
 
@@ -85,8 +94,12 @@ const AddUser = ({ show, setShow, id }) => {
         });
         setCountryOptions(countriesArr);
         setLoadingCountry(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -109,15 +122,19 @@ const AddUser = ({ show, setShow, id }) => {
           return new City(city);
         });
         setCityOptions(cityArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
       fetchData();
     }, 100);
     return () => clearTimeout(timer);
-  }, [countrySearch, user.Country, citySearch]);
+  }, [countrySearch, user.Country, citySearch, updated.country_id]);
 
   return (
     show && (

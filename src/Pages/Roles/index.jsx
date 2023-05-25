@@ -7,6 +7,8 @@ const Roles = () => {
 
   const cols = {
     name: { label: "Roles", value: "name", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

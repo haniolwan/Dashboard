@@ -31,9 +31,7 @@ const Home = () => {
       token: access_token,
     });
     if (success) {
-      toast.success(
-        <span className="capitalize">{message[0].split(".").join(" ")}</span>
-      );
+      toast.success(<span className="capitalize">{message.join("\r\n")}</span>);
     }
   };
 

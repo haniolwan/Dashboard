@@ -3,6 +3,7 @@ import Form from "../../Insert/Form";
 import { Checkbox, TextInput } from "../../../common";
 import { Country } from "../../../../classes";
 import { query } from "../../../../utils";
+import { toast } from "react-toastify";
 
 const ShowCity = ({ show, setShow, selectedRow }) => {
   const [country, setCountry] = useState([]);
@@ -14,8 +15,12 @@ const ShowCity = ({ show, setShow, selectedRow }) => {
           data: { data },
         } = await query(`/api/dashboard/countries/${selectedRow.country_id}`);
         setCountry(new Country(data.Country));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (selectedRow.country_id && show) {

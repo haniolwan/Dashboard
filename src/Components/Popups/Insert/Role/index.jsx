@@ -6,6 +6,7 @@ import { Permissions } from "../../../../classes";
 import Form from "../Form";
 import Swal from "sweetalert2";
 import { insertNewRow } from "../../../common/Table/methods";
+import { toast } from "react-toastify";
 
 const AddRole = ({
   roleId,
@@ -32,8 +33,12 @@ const AddRole = ({
         setRole(data.Role.name);
         setUserPermissions(data.Role.permissions);
         setIsCheck([...data.Role.permissions, ...isCheck]);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (roleId && show) {
@@ -52,8 +57,12 @@ const AddRole = ({
           return new Permissions(ele);
         });
         setPermissions(permArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (roleId && show) {
@@ -109,8 +118,12 @@ const AddRole = ({
             "multipart/form-data"
           );
           Swal.fire("Role updated successfully!", "", "success");
-        } catch (error) {
-          console.log(error);
+        } catch ({
+          response: {
+            data: { message },
+          },
+        }) {
+          toast.error(<span>{message.join("\r\n")}</span>);
         }
       } else {
         insertNewRow(updated, "roles");

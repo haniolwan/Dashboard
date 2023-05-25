@@ -3,6 +3,7 @@ import { Button, Checkbox } from "../../../common";
 import { Permissions } from "../../../../classes";
 import { query } from "../../../../utils";
 import Form from "../../Insert/Form";
+import { toast } from "react-toastify";
 
 const EditRole = ({ id, addRow, updateRow, show, setShow, handleChange }) => {
   const [permissions, setPermissions] = useState([]);
@@ -19,8 +20,12 @@ const EditRole = ({ id, addRow, updateRow, show, setShow, handleChange }) => {
           return new Permissions(ele);
         });
         setPermissions(permArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     fetchData();

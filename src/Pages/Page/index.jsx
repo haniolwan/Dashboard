@@ -11,6 +11,8 @@ const Page = () => {
     key: { label: "Key", value: "key", hidden: false },
     description: { label: "Description", value: "description", hidden: false },
     content: { label: "Content", value: "content", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

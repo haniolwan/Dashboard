@@ -44,7 +44,7 @@ const insertNewRow = async (data, path) => {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: `Something went wrong! ${message[0]}`,
+      text: `Something went wrong! ${message.join("\r\n")}`,
     });
   }
 };

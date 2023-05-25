@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { SelectCurrency, SelectLocale } from "../../../../classes";
 import { query } from "../../../../utils";
 import { Button, SelectInput } from "../../../common";
+import { toast } from "react-toastify";
 
 const FilterCountries = ({ show, filter, setFilter }) => {
   const [updated, setUpdated] = useState({});
@@ -24,8 +25,12 @@ const FilterCountries = ({ show, filter, setFilter }) => {
           return new SelectCurrency(currency);
         });
         setCurrencyOptions(currenciesArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -50,8 +55,12 @@ const FilterCountries = ({ show, filter, setFilter }) => {
           return new SelectLocale(locale);
         });
         setLocaleOptions(localeArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

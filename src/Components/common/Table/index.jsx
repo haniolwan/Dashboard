@@ -184,7 +184,7 @@ const Table = ({ children, path, tools, cols }) => {
           data: { message },
         },
       }) {
-        toast.error(<span className="capitalize">{message[0]}</span>);
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -523,7 +523,6 @@ Table.Body = () => {
     setUserId(permission);
     setShowPermissionsModal(true);
   };
-
   return (
     <tbody>
       {loading

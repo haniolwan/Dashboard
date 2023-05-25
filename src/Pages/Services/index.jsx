@@ -9,6 +9,8 @@ const Services = () => {
     image: { label: "Image", value: "image", hidden: false },
     name: { label: "Service", value: "name", hidden: false },
     description: { label: "Description", value: "description", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

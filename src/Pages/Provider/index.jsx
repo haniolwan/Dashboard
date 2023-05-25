@@ -12,6 +12,7 @@ const Providers = () => {
     hourly_rate: { label: "Hourly rate", value: "hourly_rate", hidden: false },
     latitude: { label: "Latitude", value: "latitude", hidden: false },
     longitude: { label: "Longitude", value: "longitude", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

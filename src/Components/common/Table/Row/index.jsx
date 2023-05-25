@@ -216,7 +216,7 @@ const Row = ({
             <span>{url}</span>
           </td>
         );
-      case "active":
+      case "is_active":
         return (
           <td className="px-6">
             <div className="flex items-center justify-start gap-2 h-[3rem]">

@@ -20,6 +20,8 @@ const Plans = () => {
       value: "orders_count",
       hidden: false,
     },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

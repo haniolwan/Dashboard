@@ -8,6 +8,8 @@ const Cities = () => {
   const cols = {
     // country: { label: "Country", value: "name", hidden: false },
     name: { label: "City", value: "name", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

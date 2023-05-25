@@ -10,6 +10,8 @@ const Countries = () => {
     code: { label: "Code", value: "code", hidden: false },
     currency: { label: "Currency", value: "currency", hidden: false },
     locale: { label: "Locale", value: "locale", hidden: false },
+    is_active: { label: "Active", value: "is_active", hidden: false },
+
     actions: {
       label: "Actions",
       value: "actions",

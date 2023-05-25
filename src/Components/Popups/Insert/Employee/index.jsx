@@ -4,6 +4,7 @@ import { Checkbox, SelectInput, TextInput, UploadImage } from "../../../common";
 import { Employee, SelectCity, SelectCountry } from "../../../../classes";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
+import { toast } from "react-toastify";
 
 const AddEmployee = ({
   employeeId,
@@ -30,16 +31,18 @@ const AddEmployee = ({
           data: { data },
         } = await query(`/api/dashboard/employees/${employeeId}`, "get");
         setUser(new Employee(data.Employee));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (employeeId && show) {
       fetchData();
     }
   }, [employeeId, show]);
-
-  const countriesRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +56,12 @@ const AddEmployee = ({
           return new SelectCountry(country);
         });
         setCountryOptions(countriesArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -81,8 +88,12 @@ const AddEmployee = ({
           return new SelectCity(city);
         });
         setCityOptions(cityArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

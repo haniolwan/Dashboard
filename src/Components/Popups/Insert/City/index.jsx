@@ -4,6 +4,7 @@ import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { SelectCountry } from "../../../../classes";
 import { query } from "../../../../utils";
+import { toast } from "react-toastify";
 
 const AddCity = ({
   cityId,
@@ -33,8 +34,12 @@ const AddCity = ({
         });
         setCountryOptions(countriesArr);
         setLoadingCountry(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

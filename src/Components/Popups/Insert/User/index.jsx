@@ -4,6 +4,7 @@ import { query } from "../../../../utils";
 import { SelectCity, SelectCountry } from "../../../../classes";
 import { Checkbox, SelectInput, TextInput, UploadImage } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
+import { toast } from "react-toastify";
 
 const AddUser = ({
   userId,
@@ -40,8 +41,12 @@ const AddUser = ({
         });
         setCountryOptions(countriesArr);
         setLoadingCountry(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -67,8 +72,12 @@ const AddUser = ({
         });
         setCityOptions(cityArr);
         setLoadingCity(false);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

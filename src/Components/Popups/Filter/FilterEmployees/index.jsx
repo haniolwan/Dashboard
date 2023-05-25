@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { SelectCity, SelectCountry } from "../../../../classes";
 import { query } from "../../../../utils";
 import { Button, Checkbox, SelectInput } from "../../../common";
+import { toast } from "react-toastify";
 
 const Filter = ({ show, filter, setFilter }) => {
   const [updated, setUpdated] = useState({});
@@ -24,8 +25,12 @@ const Filter = ({ show, filter, setFilter }) => {
           return new SelectCountry(country);
         });
         setCountryOptions(countriesArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {
@@ -50,8 +55,12 @@ const Filter = ({ show, filter, setFilter }) => {
           return new SelectCity(city);
         });
         setCityOptions(cityArr);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     let timer = setTimeout(() => {

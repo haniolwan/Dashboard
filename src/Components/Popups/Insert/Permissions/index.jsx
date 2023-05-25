@@ -5,6 +5,7 @@ import { Checkbox } from "../../../common";
 import { Permissions, Role } from "../../../../classes";
 import { query } from "../../../../utils";
 import { insertNewRow } from "../../../common/Table/methods";
+import { toast } from "react-toastify";
 
 const SetPermissions = ({
   userId,
@@ -36,8 +37,12 @@ const SetPermissions = ({
           data: { data },
         } = await query("/api/dashboard/roles");
         setRoles(data.RoleCollection.Roles.map((role) => new Role(role)));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (userId && show) {
@@ -53,8 +58,12 @@ const SetPermissions = ({
           data: { data },
         } = await query("/api/dashboard/permissions");
         setPermissions(data.Permissions.map((ele) => new Permissions(ele)));
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (userId && show) {
@@ -71,8 +80,12 @@ const SetPermissions = ({
           data: { data },
         } = await query("/api/dashboard/auth/permissions");
         setUserPermissions(data.PermissionCodeList);
-      } catch (error) {
-        console.log(error);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (userId && show) {
@@ -172,8 +185,12 @@ const SetPermissions = ({
             "multipart/form-data"
           );
           Swal.fire("Role updated successfully!", "", "success");
-        } catch (error) {
-          console.log(error);
+        } catch ({
+          response: {
+            data: { message },
+          },
+        }) {
+          toast.error(<span>{message.join("\r\n")}</span>);
         }
       } else {
         insertNewRow(updated, "roles");
