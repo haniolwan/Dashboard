@@ -1,43 +1,42 @@
-import { useState, useContext, useRef } from "react";
-import { useLocation } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon as regularFaMoon } from "@fortawesome/free-regular-svg-icons";
+import {useState, useContext, useRef} from 'react';
+import {useLocation} from 'react-router';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faGlobe,
   faGreaterThan,
   faSun,
   faMoon as solidFaMoon,
-} from "@fortawesome/free-solid-svg-icons";
-import { NightModeContext } from "../../context";
-import useScrollPosition from "../../hooks/useScrollPosition";
-import useWindowSize from "../../hooks/useWindowSize";
-import Avatar from "../Avatar";
-import LanguageModal from "../LanguageModal";
-import { Link } from "react-router-dom";
-import NotificationBell from "../NotificationBell";
-import { enableDarkMode } from "../../utils/enableDarkMode";
+} from '@fortawesome/free-solid-svg-icons';
+import {NightModeContext} from '../../context';
+import useScrollPosition from '../../hooks/useScrollPosition';
+import useWindowSize from '../../hooks/useWindowSize';
+import Avatar from '../Avatar';
+import LanguageModal from '../LanguageModal';
+import {Link} from 'react-router-dom';
+import NotificationBell from '../NotificationBell';
+import {enableDarkMode} from '../../utils/enableDarkMode';
 
-const Tools = ({ sideBarWidth }) => {
-  const { nightMode, setNightMode } = useContext(NightModeContext);
+const Tools = ({sideBarWidth}) => {
+  const {nightMode, setNightMode} = useContext(NightModeContext);
   const [showLanguage, setShowLanguage] = useState(false);
-  const { pathname } = useLocation();
+  const {pathname} = useLocation();
   const path = pathname.substring(1);
-  const paths = path.split("/");
+  const paths = path.split('/');
   const scrollPosition = useScrollPosition();
-  const { width } = useWindowSize();
+  const {width} = useWindowSize();
   const languageIconRef = useRef();
   return (
     <div
-      className={`${scrollPosition >= 30 && width > 768 && "bg-white"} ${
-        width <= 768 && "relative"
+      className={`${scrollPosition >= 30 && width > 768 && 'bg-white'} ${
+        width <= 768 && 'relative'
       } h-[65px] fixed z-20 sm:w-full flex flex-col-reverse gap-5 p-4
     md:items-center sm:flex-row sm:justify-between sm:p-4 dark:bg-gray-800`}
     >
       <div
         className={`${
           sideBarWidth
-            ? "pl-[4rem] rtl:pr-[5rem] rtl:pl-0"
-            : "pl-[12rem] rtl:pr-[12rem] rtl:pl-0"
+            ? 'pl-[4rem] rtl:pr-[5rem] rtl:pl-0'
+            : 'pl-[12rem] rtl:pr-[12rem] rtl:pl-0'
         } transition-all ease-in-out flex items-center gap-2 text-[16px] leading-[27px] font-[400] text-[#ADB5BD] whitespace-nowrap ml-4 md:ml-3`}
       >
         {paths.map((link, i) => {
@@ -110,7 +109,7 @@ const Tools = ({ sideBarWidth }) => {
               ref={languageIconRef}
               onClick={() => setShowLanguage(!showLanguage)}
               className={`${
-                showLanguage && "text-primary-color dark:text-primary-color"
+                showLanguage && 'text-primary-color dark:text-primary-color'
               }
             cursor-pointer h-5 text-gray-400 dark:text-gray-400 hover:text-primary-color dark:hover:text-primary-color transition ease-in`}
               icon={faGlobe}
