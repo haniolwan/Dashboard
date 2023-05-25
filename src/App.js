@@ -10,6 +10,7 @@ import {
   UserInfoContext,
   LoadingContext,
   PermissionsContext,
+  EnumsContext,
 } from "./context";
 import {
   Cities,
@@ -86,8 +87,9 @@ function App() {
   const [nightMode, setNightMode] = useState(false);
   const [language, setLanguage] = useState("en");
   const [permissions, setPermissions] = useState([]);
-
   const [userInfo, setUserInfo] = useState({});
+  const [enums, setEnums] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   return (
@@ -95,42 +97,44 @@ function App() {
       <LoadingContext.Provider value={{ loading, setLoading }}>
         <Loading />
         <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
-          <PermissionsContext.Provider value={{ permissions, setPermissions }}>
-            <LanguageContext.Provider value={{ language, setLanguage }}>
-              <NightModeContext.Provider value={{ nightMode, setNightMode }}>
-                <Routes>
-                  <Route element={<RequireAuth />}>
-                    <Route element={<Container />}>
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/employee" element={<Employees />} />
-                      <Route path="/slider" element={<Sliders />} />
-                      <Route path="/page" element={<Page />} />
-                      <Route path="/country" element={<Countries />} />
-                      <Route path="/city" element={<Cities />} />
-                      <Route path="/locale" element={<Locales />} />
-                      <Route path="/currency" element={<Currencies />} />
-                      <Route path="/service" element={<Services />} />
-                      <Route path="/plan" element={<Plans />} />
-                      <Route path="/subscription" element={<Subscriptions />} />
-                      <Route path="/user" element={<Users />} />
-                      <Route path="/order" element={<Orders />} />
-                      <Route path="/provider" element={<Providers />} />
-                      <Route path="/role" element={<Roles />} />
-                      <Route
-                        path="/notification_template"
-                        element={<NotificationsTemplates />}
-                      />
-                      <Route
-                        path="/notification_history"
-                        element={<NotificationsHistory />}
-                      />
-                      <Route path="/profile" element={<Profile />} />
+          <EnumsContext.Provider value={{ enums, setEnums }}>
+            <PermissionsContext.Provider value={{ permissions, setPermissions }}>
+              <LanguageContext.Provider value={{ language, setLanguage }}>
+                <NightModeContext.Provider value={{ nightMode, setNightMode }}>
+                  <Routes>
+                    <Route element={<RequireAuth />}>
+                      <Route element={<Container />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/employee" element={<Employees />} />
+                        <Route path="/slider" element={<Sliders />} />
+                        <Route path="/page" element={<Page />} />
+                        <Route path="/country" element={<Countries />} />
+                        <Route path="/city" element={<Cities />} />
+                        <Route path="/locale" element={<Locales />} />
+                        <Route path="/currency" element={<Currencies />} />
+                        <Route path="/service" element={<Services />} />
+                        <Route path="/plan" element={<Plans />} />
+                        <Route path="/subscription" element={<Subscriptions />} />
+                        <Route path="/user" element={<Users />} />
+                        <Route path="/order" element={<Orders />} />
+                        <Route path="/provider" element={<Providers />} />
+                        <Route path="/role" element={<Roles />} />
+                        <Route
+                          path="/notification_template"
+                          element={<NotificationsTemplates />}
+                        />
+                        <Route
+                          path="/notification_history"
+                          element={<NotificationsHistory />}
+                        />
+                        <Route path="/profile" element={<Profile />} />
+                      </Route>
                     </Route>
-                  </Route>
-                </Routes>
-              </NightModeContext.Provider>
-            </LanguageContext.Provider>
-          </PermissionsContext.Provider>
+                  </Routes>
+                </NightModeContext.Provider>
+              </LanguageContext.Provider>
+            </PermissionsContext.Provider>
+          </EnumsContext.Provider>
         </UserInfoContext.Provider>
       </LoadingContext.Provider>
     </>

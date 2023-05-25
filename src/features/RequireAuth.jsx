@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useRef } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import { LoginEmployee } from "../classes";
 import {
+  EnumsContext,
   LoadingContext,
   PermissionsContext,
   UserInfoContext,
@@ -14,6 +15,8 @@ const RequireAuth = () => {
   const { setUserInfo } = useContext(UserInfoContext);
   const { loading, setLoading } = useContext(LoadingContext);
   const { setPermissions } = useContext(PermissionsContext);
+  const { setEnums } = useContext(EnumsContext);
+
   const navigate = useNavigate();
 
   const getUserInfo = useCallback(async () => {
@@ -27,6 +30,12 @@ const RequireAuth = () => {
           },
         },
       } = await query("/api/dashboard/auth/info");
+
+      const {
+        data: {
+          data: { Enums },
+        },
+      } = await query("/api/dashboard/lists/enums");
 
       const employeeLogin = new LoginEmployee({
         id,
@@ -42,6 +51,7 @@ const RequireAuth = () => {
       if (success && data.PermissionCodeList.length) {
         setUserInfo({ ...employeeLogin });
         setPermissions(data.PermissionCodeList);
+        setEnums(Enums);
         setLoading(false);
       }
     } catch ({ response: { data, status } }) {
@@ -50,7 +60,7 @@ const RequireAuth = () => {
         navigate("/login");
       }
     }
-  }, [setLoading, token, setUserInfo, setPermissions, navigate]);
+  }, [setLoading, setEnums, token, setUserInfo, setPermissions, navigate]);
 
   const effectRan = useRef(false);
 
