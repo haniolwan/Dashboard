@@ -725,6 +725,12 @@ Table.Footer = () => {
     }
   }, [locale, localeOptions, setLocale]);
 
+  useEffect(() => {
+    if (!showAddModal) {
+      setUpdated([]);
+    }
+  }, [setUpdated, showAddModal]);
+
   return (
     <>
       <div className="relative bottom-0  flex justify-between items-center flex-col mt-5 sm:mt-0 sm:flex-row pb-2">
@@ -977,12 +983,12 @@ Table.Footer = () => {
                 handleInputChange={handleInputChange}
                 setRefreshRows={setRefreshRows}
               />
-              <ShowUser
+              {/* <ShowUser
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
                 handleInputChange={handleInputChange}
-              />
+              /> */}
             </>
           ),
           plans: (

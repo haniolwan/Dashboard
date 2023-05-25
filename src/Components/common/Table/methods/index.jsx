@@ -217,7 +217,7 @@ const getDataClass = (data, path) => {
       return new Currency(data.Currency);
     case "users":
       return {
-        user: new User(data.User),
+        user: new User(data?.User),
         orders: data.Orders && data.Orders.map((order) => new Order(order)),
         subscriptions:
           data.Subscriptions &&

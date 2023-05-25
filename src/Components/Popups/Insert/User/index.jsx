@@ -17,8 +17,6 @@ const AddUser = ({
 }) => {
   const [user, setUser] = useState([]);
 
-  console.log(selectedRow);
-
   const [countrySearch, setCountrySearch] = useState("");
   const [countryOptions, setCountryOptions] = useState([]);
   const [loadingCountry, setLoadingCountry] = useState(true);
@@ -96,8 +94,8 @@ const AddUser = ({
   );
 
   useEffect(() => {
-    if (selectedRow["user"]) {
-      setUser(selectedRow["user"]);
+    if (selectedRow.user) {
+      setUser(selectedRow.user);
     }
   }, [selectedRow]);
 
