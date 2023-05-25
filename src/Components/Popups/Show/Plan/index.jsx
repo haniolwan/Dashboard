@@ -1,84 +1,74 @@
-import { Checkbox, SelectInput, TextInput } from "../../../common";
+import { useEffect, useState } from "react";
 import Form from "../../Insert/Form";
+import { Checkbox, UploadImage } from "../../../common";
 
 const ShowPlan = ({ show, setShow, selectedRow }) => {
+  const [plan, setPlan] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setPlan(selectedRow);
+    }
+  }, [selectedRow]);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Show Plans"}>
+        <Form.Content title={"Plan Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                key={selectedRow.name}
-                name={"name"}
-                label={"Name"}
-                defaultValue={selectedRow.name}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                type="number"
-                key={selectedRow.billing_days}
-                name={"billing_days"}
-                label={"Billing days"}
-                defaultValue={selectedRow.billing_days}
-                disabled
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                type="number"
-                key={selectedRow.price}
-                name={"price"}
-                label={"Price"}
-                defaultValue={selectedRow.price}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                type="number"
-                key={selectedRow.order_price}
-                name={"order_price"}
-                label={"Order price"}
-                defaultValue={selectedRow.order_price}
-                disabled
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                type="number"
-                key={selectedRow.orders_count}
-                name={"orders_count"}
-                label={"Orders count"}
-                defaultValue={selectedRow.orders_count}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-6">
-              <SelectInput
-                name={"features"}
-                label={"Features"}
-                options={selectedRow?.features?.map((item, i) => ({
-                  label: item,
-                  value: item,
-                }))}
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="grid grid-cols-3 col-span-6 row-span-1 gap-3">
-              <Checkbox
-                name={"is_active"}
-                afterLabel={"Is active"}
-                defaultChecked={selectedRow.is_active}
-                disabled
-              />
+            <div className="col-span-12 gap-5 w-[20rem]">
+              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
+                {plan?.name}
+              </div>
+              <Form.Row className="cols-span-6">
+                <div className="col-span-1 sm:col-span-6 space-y-2 pt-5">
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Billing days</span>
+                    <span>{plan.billing_days}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Price</span>
+                    <span>{plan.price}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Order price</span>
+                    <span>{plan.order_price}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Order count</span>
+                    <span>{plan.orders_count}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Type</span>
+                    <span>{plan.type}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Active</span>
+                    <Checkbox
+                      name={"is_active"}
+                      defaultChecked={plan?.is_active}
+                      disabled
+                    />
+                  </div>
+                </div>
+              </Form.Row>
+              <Form.Row>
+                <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
+                  Features
+                </div>
+                <div className="grid grid-cols-3 justify-items-center text-placeholder-color rounded gap-5 mt-2">
+                  {plan.features &&
+                    plan.features.map((feature) => {
+                      return (
+                        <button
+                          disabled
+                          className="border bg-transparent text-sm
+                        font-semibold p-1 border-placeholder-color rounded"
+                        >
+                          {feature}
+                        </button>
+                      );
+                    })}
+                </div>
+              </Form.Row>
             </div>
           </Form.Row>
         </Form.Content>

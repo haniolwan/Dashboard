@@ -33,7 +33,6 @@ const Column = ({ label, value, hidden, orderBy, orderType, handleSort }) => {
     "latitude",
     "longitude",
     "hourly_rate",
-    "is_active",
   ];
   const orderTypeComponent = () => {
     const iconClassName = `text-[#000] dark:text-gray-400 ${

@@ -1023,12 +1023,12 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              {/* <ShowPlan
+              <ShowPlan
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
                 handleInputChange={handleInputChange}
-              /> */}
+              />
             </>
           ),
           orders: (
