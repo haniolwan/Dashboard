@@ -6,8 +6,8 @@ const Cities = () => {
   const { permissions } = useContext(PermissionsContext);
 
   const cols = {
-    // country: { label: "Country", value: "name", hidden: false },
     name: { label: "City", value: "name", hidden: false },
+    country: { label: "Country", value: "name", hidden: false },
     is_active: { label: "Active", value: "is_active", hidden: false },
 
     actions: {

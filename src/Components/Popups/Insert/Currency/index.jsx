@@ -36,10 +36,6 @@ const AddCurrency = ({
   }, [selectedRow]);
 
   useEffect(() => {
-    setCurrency([]);
-  }, [show]);
-
-  useEffect(() => {
     if (show && currencyId) {
       if (currency.is_active === updated.is_active) {
         setUpdated({ ...updated, is_active: currency.is_active ? 1 : 0 });

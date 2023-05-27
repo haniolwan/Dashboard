@@ -105,7 +105,7 @@ const AddCity = ({
               />
             </div>
             <SelectInput
-              key={city.country_id}
+              key={city?.country_id}
               ref={countryRef}
               name={"Country"}
               label={"Country"}
@@ -116,6 +116,7 @@ const AddCity = ({
                   country_id: country.id,
                 });
               }}
+              defaultValue={city.Country && new SelectCountry(city.Country)}
             />
           </Form.Row>
           <Form.Row>

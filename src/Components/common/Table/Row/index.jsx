@@ -102,8 +102,6 @@ const Row = ({
     },
   } = useContext(EnumsContext);
 
-  console.log(description);
-
   function SwitchComponent({ option }) {
     switch (option) {
       case "title":

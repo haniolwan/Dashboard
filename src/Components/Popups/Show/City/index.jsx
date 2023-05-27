@@ -1,65 +1,41 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "../../Insert/Form";
-import { Checkbox, TextInput } from "../../../common";
-import { Country } from "../../../../classes";
-import { query } from "../../../../utils";
-import { toast } from "react-toastify";
+import { Checkbox } from "../../../common";
 
 const ShowCity = ({ show, setShow, selectedRow }) => {
-  const [country, setCountry] = useState([]);
+  const [city, setCity] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const {
-          data: { data },
-        } = await query(`/api/dashboard/countries/${selectedRow.country_id}`);
-        setCountry(new Country(data.Country));
-      } catch ({
-        response: {
-          data: { message },
-        },
-      }) {
-        toast.error(<span>{message.join("\r\n")}</span>);
-      }
-    };
-    if (selectedRow.country_id && show) {
-      fetchData();
+    if (selectedRow) {
+      setCity(selectedRow);
     }
-  }, [selectedRow.country_id, show]);
+  }, [selectedRow]);
 
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Show City"}>
-          <Form.Row className="grid grid-cols-4 gap-5">
-            <div className="col-span-2 sm:col-span-2">
-              <TextInput
-                key={selectedRow.name}
-                name={"name"}
-                label={"Name"}
-                defaultValue={selectedRow.name}
-                disabled
-              />
-            </div>
-            <div className="col-span-2 sm:col-span-2">
-              <TextInput
-                key={country?.name}
-                name={"Country"}
-                label={"Country"}
-                defaultValue={country?.name}
-                disabled
-              />
-            </div>
-          </Form.Row>
+        <Form.Content title={"City Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="grid grid-cols-3 col-span-6 row-span-1 gap-3">
-              <Checkbox
-                name={"is_active"}
-                afterLabel={"Is active"}
-                defaultChecked={selectedRow.is_active}
-                disabled
-              />
+            <div className="col-span-12 gap-5 w-[20rem]">
+              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
+                {city?.name}
+              </div>
+              <Form.Row className="cols-span-6">
+                <div className="col-span-1 sm:col-span-6 space-y-2 pt-5">
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Country</span>
+                    <span>{city?.Country?.name}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Active</span>
+                    <Checkbox
+                      name={"is_active"}
+                      defaultChecked={city?.is_active}
+                      disabled
+                    />
+                  </div>
+                </div>
+              </Form.Row>
             </div>
           </Form.Row>
         </Form.Content>
