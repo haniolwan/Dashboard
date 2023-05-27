@@ -34,7 +34,7 @@ const Templates = () => {
   };
 
   return (
-    <Table path={"notifications_templates"} tools={tools} cols={cols}>
+    <Table path={"notifications/templates"} tools={tools} cols={cols}>
       <Table.OuterContainer>
         <Table.InnerContainer>
           <Table.Tools />

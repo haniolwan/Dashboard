@@ -1083,7 +1083,7 @@ Table.Footer = () => {
               />
             </>
           ),
-          notifications_templates: (
+          "notifications/templates": (
             <>
               <AddNotificationTemplate
                 rowId={userId}
@@ -1110,7 +1110,7 @@ Table.Footer = () => {
               />
             </>
           ),
-          notifications_history: (
+          "notifications/history": (
             <>
               <ShowNotificationsHistory
                 show={showModal}

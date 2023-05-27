@@ -20,9 +20,9 @@ const AddNotificationTemplate = ({
     (event) => {
       event.preventDefault();
       if (rowId) {
-        updateNewRow(updated, "notifications_templates", rowId);
+        updateNewRow(updated, "notifications/templates", rowId);
       } else {
-        insertNewRow(updated, "notifications_templates");
+        insertNewRow(updated, "notifications/templates");
       }
       setShow(false);
       setRefreshRows(true);

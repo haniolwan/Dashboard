@@ -31,7 +31,7 @@ const TranslateNotificationTemplate = ({
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      updateTranslation("notifications_templates", rowId, locale, updated);
+      updateTranslation("notifications/templates", rowId, locale, updated);
       setShow(false);
       setRefreshRows(true);
     },

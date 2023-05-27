@@ -179,7 +179,7 @@ const getDataCollection = (data, path) => {
       });
       pagination = data.ProviderFullCollection.pagination;
       break;
-    case "notifications_templates":
+    case "notifications/templates":
       collection =
         data.NotificationTemplateCollection.NotificationsTemplates.map(
           (ele) => {
@@ -188,7 +188,7 @@ const getDataCollection = (data, path) => {
         );
       pagination = data.NotificationTemplateCollection.pagination;
       break;
-    case "notifications_history":
+    case "notifications/history":
       collection = data.NotificationHistoryCollection.NotificationsHistory.map(
         (ele) => {
           return new NotificationsHistory(ele);
@@ -258,7 +258,7 @@ const getDataClass = (data, path) => {
       };
     case "locales":
       return new Locale(data.Locale);
-    case "notifications_templates":
+    case "notifications/templates":
       return new NotificationTemplate(data.NotificationTemplate);
     default:
       <></>;
@@ -281,7 +281,7 @@ const getTranslationClass = (data, path) => {
       return new CityTranslation(data.CityTranslation);
     case "services":
       return new ServiceTranslation(data.ServiceTranslation);
-    case "notifications_templates":
+    case "notifications/templates":
       return new NotificationTemplateTranslation(data.NotificationTemplate);
     default:
       <></>;

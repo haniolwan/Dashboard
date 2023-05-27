@@ -120,11 +120,11 @@ function App() {
                         <Route path="/provider" element={<Providers />} />
                         <Route path="/role" element={<Roles />} />
                         <Route
-                          path="/notification_template"
+                          path="/notification/template"
                           element={<NotificationsTemplates />}
                         />
                         <Route
-                          path="/notification_history"
+                          path="/notification/history"
                           element={<NotificationsHistory />}
                         />
                         <Route path="/profile" element={<Profile />} />

@@ -49,7 +49,7 @@ const History = () => {
   };
 
   return (
-    <Table path={"notifications_history"} tools={tools} cols={cols}>
+    <Table path={"notifications/history"} tools={tools} cols={cols}>
       <Table.OuterContainer>
         <Table.InnerContainer>
           <Table.Tools />

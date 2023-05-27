@@ -34,7 +34,7 @@ const Tools = ({
     <div className="dark:bg-gray-800 relative bg-white flex items-center justify-between lg:w-auto rounded-t">
       <div className="flex items-center">
         <h1 className="capitalize text-[#000] pl-6 pr-3 text-[20px] leading-[30px] font-[700] text-placeholder-color">
-          {path.split("_").join(" ")}
+          {path.split("/").join(" ")}
         </h1>
         {tools && tools.add && (
           <FontAwesomeIcon
