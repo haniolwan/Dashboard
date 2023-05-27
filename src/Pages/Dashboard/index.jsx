@@ -20,6 +20,8 @@ const Dashboard = () => {
   const [orderMonths, setOrderMonths] = useState([]);
   const [orderCount, setOrderCount] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   const getData = useCallback(async () => {
     const {
       data: { message },
@@ -52,10 +54,9 @@ const Dashboard = () => {
         }
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(false);
   }, []);
 
-  console.log(userMonths);
   useEffect(() => {
     try {
       getData();
@@ -65,8 +66,9 @@ const Dashboard = () => {
   }, [getData]);
 
   useEffect(() => {
-    initTE({ Chart });
-  }, []);
+    if (!loading) initTE({ Chart });
+  }, [loading]);
+
   return (
     <div className="flex flex-col items-center justify-center gap-[40px] w-full pb-8">
       <div className="grid grid-cols-4 gap-8 w-full">
@@ -127,40 +129,56 @@ const Dashboard = () => {
       </div>
       <div className="grid grid-cols-3 gap-8 w-full">
         <div className="w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
-          <canvas
-            data-te-chart="pie"
-            data-te-dataset-label="Traffic"
-            data-te-labels={providerMonths}
-            data-te-dataset-data={providerCount}
-            data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']"
-          ></canvas>
+          {!loading ? (
+            <canvas
+              data-te-chart="pie"
+              data-te-dataset-label="Traffic"
+              data-te-labels={JSON.stringify(providerMonths)}
+              data-te-dataset-data={JSON.stringify(providerCount)}
+              data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']"
+            ></canvas>
+          ) : (
+            <div />
+          )}
         </div>
-        <div className="col-span-2 w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
-          <canvas
-            data-te-chart="line"
-            data-te-dataset-label="Traffic"
-            data-te-labels={userMonths}
-            data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
-          ></canvas>
-        </div>
+        {!loading ? (
+          <div className="col-span-2 w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
+            <canvas
+              data-te-chart="line"
+              data-te-dataset-label="Traffic"
+              data-te-labels={JSON.stringify(providerMonths)}
+              data-te-dataset-data={JSON.stringify(providerCount)}
+            ></canvas>
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
       <div className="grid grid-cols-2 gap-8 w-full">
         <div className="w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
-          <canvas
-            data-te-chart="bar"
-            data-te-dataset-label="Traffic"
-            data-te-labels={orderMonths}
-            data-te-dataset-data={orderCount}
-          ></canvas>
+          {!loading ? (
+            <canvas
+              data-te-chart="bar"
+              data-te-dataset-label="Traffic"
+              data-te-labels={JSON.stringify(orderMonths)}
+              data-te-dataset-data={JSON.stringify(orderCount)}
+            ></canvas>
+          ) : (
+            <div />
+          )}
         </div>
         <div className="w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
-          <canvas
-            id="charts"
-            data-te-chart="bar"
-            data-te-dataset-label="Traffic"
-            data-te-labels={userMonths}
-            data-te-dataset-data={userCount}
-          ></canvas>
+          {!loading ? (
+            <canvas
+              id="charts"
+              data-te-chart="bar"
+              data-te-dataset-label="Traffic"
+              data-te-labels={JSON.stringify(userMonths)}
+              data-te-dataset-data={JSON.stringify(userCount)}
+            ></canvas>
+          ) : (
+            <div />
+          )}
         </div>
       </div>
     </div>
