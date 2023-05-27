@@ -27,7 +27,7 @@ const TextArea = forwardRef(
       <div className={`${grid}`}>
         <Form>
           {({ formProps }) => (
-            <form {...formProps} name={name} className="textarea-input">
+            <div {...formProps} name={name} className="textarea-input">
               <Field name={name} label={label}>
                 {({ fieldProps, errorInput, meta: { valid } }) => (
                   <Fragment>
@@ -47,7 +47,7 @@ const TextArea = forwardRef(
                   </Fragment>
                 )}
               </Field>
-            </form>
+            </div>
           )}
         </Form>
       </div>

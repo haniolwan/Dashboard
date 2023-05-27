@@ -19,7 +19,7 @@ const Page = () => {
       actions: {
         show: permissions.includes("page.show"),
         edit: permissions.includes("page.update"),
-        translate: permissions.includes("page.translate"),
+        translate: permissions.includes("page.translate.show"),
         delete: permissions.includes("page.destroy"),
       },
       hidden: false,
