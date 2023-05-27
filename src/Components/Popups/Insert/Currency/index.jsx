@@ -102,7 +102,7 @@ const AddCurrency = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={currency.is_active}
+                defaultChecked={currency?.is_active}
                 onChange={handleInputChange}
               />
             </div>
