@@ -1,60 +1,60 @@
 import Form from "../../Insert/Form";
-import { Checkbox, TextInput, UploadImage } from "../../../common";
+import { Checkbox, UploadImage } from "../../../common";
+import { useEffect, useState } from "react";
 
 const ShowCountry = ({ show, setShow, selectedRow }) => {
+  const [country, setCountry] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setCountry(selectedRow);
+    }
+  }, [selectedRow]);
+
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Show Country"}>
-          <Form.Row className="grid grid-cols-10 gap-5">
-            <UploadImage src={selectedRow?.flag} avatar />
-            <div className="col-span-3 sm:col-span-4">
-              <TextInput
-                key={selectedRow.name}
-                name={"name"}
-                label={"Name"}
-                defaultValue={selectedRow.name}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-4">
-              <TextInput
-                key={selectedRow.code}
-                name={"code"}
-                label={"Code"}
-                defaultValue={selectedRow.code}
-                disabled
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-8 gap-5">
-            <div className="col-span-3 sm:col-span-4">
-              <TextInput
-                key={selectedRow?.Currency?.name}
-                name={"Currency"}
-                label={"Currency"}
-                defaultValue={selectedRow?.Currency?.name}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-4">
-              <TextInput
-                key={selectedRow?.Locale?.name}
-                name={"Locale"}
-                label={"Locale"}
-                defaultValue={selectedRow?.Locale?.name}
-                disabled
-              />
-            </div>
-          </Form.Row>
+        <Form.Content title={"Page Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="grid grid-cols-3 col-span-6 row-span-1 gap-3">
-              <Checkbox
-                name={"is_active"}
-                afterLabel={"Is active"}
-                defaultChecked={selectedRow.is_active}
-                disabled
-              />
+            <div className="col-span-12 gap-5 w-[20rem]">
+              <div className="flex justify-center">
+                <UploadImage
+                  className="col-span-6 justify-center"
+                  disabled
+                  avatar
+                  src={country?.flag}
+                />
+              </div>
+              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
+                {country?.name}
+              </div>
+              <Form.Row className="cols-span-6">
+                <div className="col-span-1 sm:col-span-6 space-y-2 pt-5">
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Code</span>
+                    <span>{country.code}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Value</span>
+                    <span className="text-end">{country.value}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Currency</span>
+                    <span className="text-end">{country?.Currency?.name}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Locale</span>
+                    <span className="text-end">{country?.Locale?.name}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Active</span>
+                    <Checkbox
+                      name={"is_active"}
+                      defaultChecked={country?.is_active}
+                      disabled
+                    />
+                  </div>
+                </div>
+              </Form.Row>
             </div>
           </Form.Row>
         </Form.Content>

@@ -812,11 +812,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
-              {/* <ShowCountry
+              <ShowCountry
                 selectedRow={selectedRow}
                 show={showModal}
                 setShow={setShowModal}
-              /> */}
+              />
             </>
           ),
           cities: (
