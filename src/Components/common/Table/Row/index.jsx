@@ -102,6 +102,8 @@ const Row = ({
     },
   } = useContext(EnumsContext);
 
+  console.log(description);
+
   function SwitchComponent({ option }) {
     switch (option) {
       case "title":
@@ -200,21 +202,36 @@ const Row = ({
           </td>
         );
       case "description":
-      case "message":
         return (
           <td className="group px-6">
-            <p>{(description || message).slice(0, 50) + " ..."}</p>
+            <p>
+              {(!description && description) ||
+                description.slice(0, 50) + " ..."}
+            </p>
             <div
               id="tooltip-default"
               role="tooltip"
               className="group-hover:visible group-hover:opacity-1 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm  tooltip dark:bg-gray-700"
             >
-              {description || message}
+              {description}
               <div className="tooltip-arrow" data-popper-arrow></div>
             </div>
           </td>
         );
-
+      case "message":
+        return (
+          <td className="group px-6">
+            <p>{(!message && message) || message.slice(0, 50) + " ..."}</p>
+            <div
+              id="tooltip-default"
+              role="tooltip"
+              className="group-hover:visible group-hover:opacity-1 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm  tooltip dark:bg-gray-700"
+            >
+              {message}
+              <div className="tooltip-arrow" data-popper-arrow></div>
+            </div>
+          </td>
+        );
       case "content":
         return (
           <td className="px-6">
