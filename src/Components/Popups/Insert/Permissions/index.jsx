@@ -201,11 +201,11 @@ const SetPermissions = ({
     [userId, setShow, setRefreshRows, isCheck, updatedRoles, updated]
   );
 
-  useEffect(() => {
-    if (permissions.length && roles.length) {
-      setLoading(false);
-    }
-  }, [isCheck.length, permissions, roles]);
+  // useEffect(() => {
+  //   if (permissions.length && roles.length) {
+  //     setLoading(false);
+  //   }
+  // }, [isCheck.length, permissions, roles]);
 
   useEffect(() => {
     if (!show) {
@@ -228,83 +228,95 @@ const SetPermissions = ({
             <div className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary">
               <h1 className="text-placeholder-color">Select Roles</h1>
               <div className="grid grid-cols-2 gap-2 pt-2">
-                {roles.map(({ id, name }) => {
-                  return (
-                    <Checkbox
-                      key={id}
-                      defaultChecked={updatedRoles.includes(id)}
-                      afterLabel={name}
-                      value={id}
-                      onChange={handleRoleChange}
-                    />
-                  );
-                })}
+                {roles &&
+                  roles?.map(({ id, name }) => {
+                    return (
+                      <Checkbox
+                        key={id}
+                        defaultChecked={updatedRoles.includes(id)}
+                        afterLabel={name}
+                        value={id}
+                        onChange={handleRoleChange}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </Form.Row>
           <Form.Row className="flex flex-col justify-between w-full">
             <div className="grid grid-cols-2 gap-5 pt-5 pr-5">
-              {permissions.map(({ id, name, code, children }) => {
-                return (
-                  <div
-                    key={id}
-                    className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
-                  >
-                    <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
-                      <Checkbox
-                        onClick={handleSelectAll}
-                        afterLabel={name}
-                        checked={isCheck.includes(id)}
-                        value={id}
-                      />
+              {permissions &&
+                permissions?.map(({ id, name, code, children }) => {
+                  return (
+                    <div
+                      key={id}
+                      className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
+                    >
+                      <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
+                        <Checkbox
+                          onClick={handleSelectAll}
+                          afterLabel={name}
+                          checked={isCheck.includes(id)}
+                          value={id}
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 pt-2">
+                        {children &&
+                          children?.map(({ id, name, code, children }) => {
+                            return (
+                              <div key={id}>
+                                <Checkbox
+                                  key={id}
+                                  checked={isCheck.includes(parseInt(id))}
+                                  afterLabel={name}
+                                  value={id}
+                                  onClick={handleClick}
+                                />
+                                {children &&
+                                  children.map(
+                                    ({ id, name, code, children }) => {
+                                      return (
+                                        <div key={id}>
+                                          <Checkbox
+                                            checked={isCheck.includes(
+                                              parseInt(id)
+                                            )}
+                                            afterLabel={name}
+                                            value={id}
+                                            onClick={handleClick}
+                                          />
+                                          {children &&
+                                            children.map(
+                                              ({
+                                                id,
+                                                name,
+                                                code,
+                                                children,
+                                              }) => {
+                                                return (
+                                                  <Checkbox
+                                                    key={id}
+                                                    checked={isCheck.includes(
+                                                      parseInt(id)
+                                                    )}
+                                                    afterLabel={name}
+                                                    value={id}
+                                                    onClick={handleClick}
+                                                  />
+                                                );
+                                              }
+                                            )}
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                              </div>
+                            );
+                          })}
+                      </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 pt-2">
-                      {children.map(({ id, name, code, children }) => {
-                        return (
-                          <div key={id}>
-                            <Checkbox
-                              key={id}
-                              checked={isCheck.includes(parseInt(id))}
-                              afterLabel={name}
-                              value={id}
-                              onClick={handleClick}
-                            />
-                            {children &&
-                              children.map(({ id, name, code, children }) => {
-                                return (
-                                  <div key={id}>
-                                    <Checkbox
-                                      checked={isCheck.includes(parseInt(id))}
-                                      afterLabel={name}
-                                      value={id}
-                                      onClick={handleClick}
-                                    />
-                                    {children &&
-                                      children.map(
-                                        ({ id, name, code, children }) => {
-                                          return (
-                                            <Checkbox
-                                              key={id}
-                                              checked={isCheck.includes(
-                                                parseInt(id)
-                                              )}
-                                              afterLabel={name}
-                                              value={id}
-                                              onClick={handleClick}
-                                            />
-                                          );
-                                        }
-                                      )}
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </Form.Row>
         </Form.Content>

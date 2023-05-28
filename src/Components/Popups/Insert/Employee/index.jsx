@@ -51,7 +51,11 @@ const AddEmployee = ({
           data: {
             data: { Countries },
           },
-        } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
+        } = await query(
+          `/api/dashboard/lists/countries${
+            countrySearch && "?q=" + countrySearch
+          }`
+        );
         const countriesArr = Countries.map((country) => {
           return new SelectCountry(country);
         });
@@ -97,12 +101,12 @@ const AddEmployee = ({
       }
     };
     let timer = setTimeout(() => {
-      if (show) {
+      if (show && countryOptions) {
         fetchData();
       }
     }, 100);
     return () => clearTimeout(timer);
-  }, [show, countrySearch, user, user.Country, citySearch, updated.country_id]);
+  }, [citySearch, countryOptions, show, updated.country_id, user.country_id]);
 
   const onSubmit = useCallback(
     (event) => {

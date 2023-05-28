@@ -16,7 +16,7 @@ const Cities = () => {
       actions: {
         show: permissions.includes("city.show"),
         edit: permissions.includes("city.update"),
-        translate: permissions.includes("city.translate"),
+        translate: permissions.includes("city.translate.show"),
         delete: permissions.includes("city.destroy"),
       },
       hidden: false,

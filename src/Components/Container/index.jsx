@@ -105,14 +105,14 @@ const Container = () => {
       hidden: !permissions.includes("notification"),
       children: [
         {
-          path: "notification_template",
+          path: "notification/template",
           label: "Templates",
           tooltip: "Notifications templates",
           icon: faEnvelopeOpen,
           hidden: !permissions.includes("notification.template"),
         },
         {
-          path: "notification_history",
+          path: "notification/history",
           label: "History",
           tooltip: "Notifications history",
           icon: faClockRotateLeft,
