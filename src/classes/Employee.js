@@ -36,12 +36,14 @@ class Employee {
 }
 
 class LoginEmployee {
-    constructor({ id, name, email, avatar, access_token }) {
+    constructor({ id, name, email, avatar, access_token, permissions, roles }) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.avatar = avatar;
         this.access_token = access_token;
+        this.permissions = permissions;
+        this.roles = roles;
     }
 }
 

@@ -26,7 +26,7 @@ const RequireAuth = () => {
         data: {
           success,
           data: {
-            Employee: { id, name, email, avatar },
+            Employee: { id, name, email, avatar, permissions, roles },
           },
         },
       } = await query("/api/dashboard/auth/info");
@@ -43,6 +43,8 @@ const RequireAuth = () => {
         email,
         avatar,
         access_token: token,
+        permissions,
+        roles,
       });
 
       const {

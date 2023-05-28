@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Form from "../Form";
 import { Checkbox } from "../../../common";
@@ -6,6 +6,7 @@ import { Permissions, Role } from "../../../../classes";
 import { query } from "../../../../utils";
 import { insertNewRow } from "../../../common/Table/methods";
 import { toast } from "react-toastify";
+import { UserInfoContext } from "../../../../context";
 
 const SetPermissions = ({
   userId,
@@ -21,14 +22,15 @@ const SetPermissions = ({
 
   const [updatedRoles, setUpdatedRoles] = useState([]);
 
-  const [userPermissions, setUserPermissions] = useState();
-
   const [permissions, setPermissions] = useState([]);
   const [isCheckAll, setIsCheckAll] = useState([]);
   const [isCheck, setIsCheck] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
+  const {
+    userInfo: { roles: userRoles, permissions: userPermissions },
+  } = useContext(UserInfoContext);
   useEffect(() => {
     // Get Roles
     const fetchData = async () => {
@@ -72,54 +74,16 @@ const SetPermissions = ({
   }, [userId, show]);
 
   useEffect(() => {
-    // Get User Permissions
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const {
-          data: { data },
-        } = await query("/api/dashboard/auth/permissions");
-        setUserPermissions(data.PermissionCodeList);
-      } catch ({
-        response: {
-          data: { message },
-        },
-      }) {
-        toast.error(<span>{message.join("\r\n")}</span>);
+    let perms = [];
+    roles.forEach((role) => {
+      if (userRoles.includes(role.id)) {
+        perms = [...role.permissions];
       }
-    };
-    if (userId && show) {
-      fetchData();
-    }
+    });
+    setIsCheck([...new Set([...perms, ...userPermissions, ...isCheck])]);
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [permissions, userId, show]);
-
-  useEffect(() => {
-    if (selectedRow) {
-      const ids = [];
-      permissions.forEach((perm) => {
-        if (perm.children) {
-          perm.children.forEach((child) => {
-            if (child.children) {
-              child.children.forEach((innerChild) => {
-                if (selectedRow?.permissions?.includes(innerChild.code)) {
-                  ids.push(innerChild.id);
-                }
-              });
-            }
-            if (selectedRow?.permissions?.includes(child.code)) {
-              ids.push(child.id);
-            }
-          });
-        }
-        if (selectedRow?.permissions?.includes(perm.code)) {
-          ids.push(perm.id);
-        }
-      });
-      setIsCheck([...new Set([...ids, ...isCheck])]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [permissions, selectedRow, selectedRow.permissions]);
+  }, [roles, userPermissions, userRoles]);
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
@@ -160,10 +124,17 @@ const SetPermissions = ({
   const handleRoleChange = ({ target: { value, checked } }) => {
     if (value && checked) {
       setUpdatedRoles([...updatedRoles, parseInt(value)]);
+      roles.forEach((element) => {
+        if (element.id === parseInt(value)) {
+          setIsCheck([...new Set([...element.permissions, ...isCheck])]);
+        }
+      });
     } else {
       setUpdatedRoles(updatedRoles.filter((role) => parseInt(value) !== role));
     }
   };
+
+  console.log(isCheck);
 
   const onSubmit = useCallback(
     async (event) => {
@@ -201,23 +172,16 @@ const SetPermissions = ({
     [userId, setShow, setRefreshRows, isCheck, updatedRoles, updated]
   );
 
-  // useEffect(() => {
-  //   if (permissions.length && roles.length) {
-  //     setLoading(false);
-  //   }
-  // }, [isCheck.length, permissions, roles]);
-
   useEffect(() => {
     if (!show) {
       setIsCheck([]);
       setPermissions([]);
-      setUserPermissions([]);
     }
   }, [show]);
 
   return (
-    <Form show={show} setShow={setShow} isLoading={loading}>
-      <Form.Container onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} isLoading={loading} onSubmit={onSubmit}>
+      <Form.Container>
         <Form.Content>
           <Form.Row>
             <h1 className="text-placeholder-color border-b border-black dark:border-white pb-2">
@@ -233,7 +197,10 @@ const SetPermissions = ({
                     return (
                       <Checkbox
                         key={id}
-                        defaultChecked={updatedRoles.includes(id)}
+                        defaultChecked={
+                          updatedRoles.includes(parseInt(id)) ||
+                          userRoles.includes(parseInt(id))
+                        }
                         afterLabel={name}
                         value={id}
                         onChange={handleRoleChange}
@@ -256,7 +223,7 @@ const SetPermissions = ({
                         <Checkbox
                           onClick={handleSelectAll}
                           afterLabel={name}
-                          checked={isCheck.includes(id)}
+                          defaultChecked={isCheck.includes(id)}
                           value={id}
                         />
                       </div>
@@ -267,7 +234,9 @@ const SetPermissions = ({
                               <div key={id}>
                                 <Checkbox
                                   key={id}
-                                  checked={isCheck.includes(parseInt(id))}
+                                  defaultChecked={isCheck.includes(
+                                    parseInt(id)
+                                  )}
                                   afterLabel={name}
                                   value={id}
                                   onClick={handleClick}
@@ -278,7 +247,7 @@ const SetPermissions = ({
                                       return (
                                         <div key={id}>
                                           <Checkbox
-                                            checked={isCheck.includes(
+                                            defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
                                             afterLabel={name}
@@ -296,7 +265,7 @@ const SetPermissions = ({
                                                 return (
                                                   <Checkbox
                                                     key={id}
-                                                    checked={isCheck.includes(
+                                                    defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}
                                                     afterLabel={name}
