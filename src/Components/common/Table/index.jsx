@@ -248,7 +248,7 @@ const Table = ({ children, path, tools, cols }) => {
           data: {
             data: { Locales },
           },
-        } = await query(`/api/dashboard/lists/locales/`);
+        } = await query(`/api/dashboard/lists/locales?q=&is_active=1`);
         const localeArr = Locales.map((locale) => {
           return new Locale(locale);
         });

@@ -28,7 +28,9 @@ const AddCity = ({
           data: {
             data: { Countries },
           },
-        } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
+        } = await query(
+          `/api/dashboard/lists/countries?q=${countrySearch}&is_active=1`
+        );
         const countriesArr = Countries.map((country) => {
           return new SelectCountry(country);
         });

@@ -34,7 +34,9 @@ const AddCountry = ({
           data: {
             data: { Currencies },
           },
-        } = await query(`/api/dashboard/lists/currencies?q=${currencySearch}`);
+        } = await query(
+          `/api/dashboard/lists/currencies?q=${currencySearch}&is_active=1`
+        );
         const currenciesArr = Currencies.map((currency) => {
           return new SelectCurrency(currency);
         });
@@ -64,7 +66,7 @@ const AddCountry = ({
             data: { Locales },
           },
         } = await query(
-          `/api/dashboard/lists/locales?${localeSearch && "q=" + localeSearch}`
+          `/api/dashboard/lists/locales?q=${localeSearch}&is_active=1`
         );
         const localesArr = Locales.map((locale) => {
           return new SelectLocale(locale);

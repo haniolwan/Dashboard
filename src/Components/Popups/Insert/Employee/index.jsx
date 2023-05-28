@@ -52,9 +52,7 @@ const AddEmployee = ({
             data: { Countries },
           },
         } = await query(
-          `/api/dashboard/lists/countries${
-            countrySearch && "?q=" + countrySearch
-          }`
+          `/api/dashboard/lists/countries?q=${countrySearch}&is_active=1`
         );
         const countriesArr = Countries.map((country) => {
           return new SelectCountry(country);
@@ -84,9 +82,9 @@ const AddEmployee = ({
             data: { Cities },
           },
         } = await query(
-          `/api/dashboard/lists/cities?${
-            citySearch && "q=" + citySearch
-          }&country_id=${updated.country_id || user.country_id}`
+          `/api/dashboard/lists/cities?q=${citySearch}&country_id=${
+            updated.country_id || user.country_id
+          }&is_active=1`
         );
         const cityArr = Cities.map((city) => {
           return new SelectCity(city);
@@ -101,7 +99,7 @@ const AddEmployee = ({
       }
     };
     let timer = setTimeout(() => {
-      if (show && countryOptions) {
+      if (show && (user.country_id || updated.country_id)) {
         fetchData();
       }
     }, 100);

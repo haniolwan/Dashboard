@@ -35,7 +35,7 @@ const RequireAuth = () => {
         data: {
           data: { Enums },
         },
-      } = await query("/api/dashboard/lists/enums");
+      } = await query("/api/dashboard/lists/enums/?is_active=1");
 
       const employeeLogin = new LoginEmployee({
         id,

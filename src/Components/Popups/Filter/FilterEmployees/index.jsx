@@ -20,7 +20,9 @@ const Filter = ({ show, filter, setFilter }) => {
           data: {
             data: { Countries },
           },
-        } = await query(`/api/dashboard/lists/countries?q=${countrySearch}`);
+        } = await query(
+          `/api/dashboard/lists/countries?q=${countrySearch}&is_active=1`
+        );
         const countriesArr = Countries.map((country) => {
           return new SelectCountry(country);
         });
@@ -49,7 +51,7 @@ const Filter = ({ show, filter, setFilter }) => {
             data: { Cities },
           },
         } = await query(
-          `/api/dashboard/lists/cities?q=${citySearch}&country_id=${updated.country_id}`
+          `/api/dashboard/lists/cities?q=${citySearch}&country_id=${updated.country_id}&is_active=1`
         );
         const cityArr = Cities.map((city) => {
           return new SelectCity(city);
