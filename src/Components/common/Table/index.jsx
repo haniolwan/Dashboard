@@ -283,13 +283,14 @@ const Table = ({ children, path, tools, cols }) => {
           data: { message },
         },
       }) {
-        toast.error(<span>{message.join("\r\n")}</span>);
+        setSelectedRow([]);
+        // toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
     if (userId && showTranslateModal) {
       fetchData();
     }
-  }, [locale, userId, showTranslateModal, path]);
+  }, [locale, path, showTranslateModal, userId]);
 
   return (
     <TableContext.Provider
@@ -712,12 +713,25 @@ Table.Footer = () => {
       setUpdated({ ...updated, [name]: value });
     }
   };
+
   useEffect(() => {
-    if (userId && !showAddModal) {
+    if (
+      userId &&
+      !showAddModal &&
+      !showTranslateModal &&
+      showPermissionsModal
+    ) {
       setUserId();
       setSelectedRow();
     }
-  }, [setSelectedRow, setUserId, userId, showAddModal]);
+  }, [
+    setSelectedRow,
+    setUserId,
+    showAddModal,
+    showPermissionsModal,
+    showTranslateModal,
+    userId,
+  ]);
 
   const changeLocale = ({
     target: {

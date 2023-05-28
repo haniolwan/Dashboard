@@ -2,6 +2,9 @@
 import { createContext, useContext, useEffect, useRef } from "react";
 import { Button } from "../../../common";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { PermissionsContext } from "../../../../context";
 
 const FormContext = createContext();
 
@@ -12,12 +15,22 @@ const Form = ({
   isLoading,
   setIsLoading,
   onSubmit,
+  showTranslate,
+  setShowTranslate,
 }) => {
   const ref = useRef();
-  useOnClickOutside(ref, "", () => setShow(false));
   return (
     <FormContext.Provider
-      value={{ show, setShow, isLoading, setIsLoading, ref, onSubmit }}
+      value={{
+        show,
+        setShow,
+        isLoading,
+        setIsLoading,
+        ref,
+        onSubmit,
+        showTranslate,
+        setShowTranslate,
+      }}
     >
       {children}
     </FormContext.Provider>
@@ -94,12 +107,52 @@ Form.Row = ({ className, children }) => {
   return <div className={className}>{children}</div>;
 };
 
-Form.Content = ({ title, children }) => {
-  const { isLoading } = useContext(FormContext);
+Form.Content = ({ title, children, path }) => {
+  const { isLoading, setShowTranslate, showTranslate } =
+    useContext(FormContext);
+  const { permissions } = useContext(PermissionsContext);
+
+  const translate = () => {
+    if (showTranslate && permissions.includes(path + ".translate.update")) {
+      return (
+        <button
+          className="group rtl:ml-2 rtl:mr-0 dark:text-[white]"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowTranslate(false);
+          }}
+        >
+          <FontAwesomeIcon
+            className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
+            icon={faEdit}
+          />
+        </button>
+      );
+    }
+    if (!showTranslate && permissions.includes(path + ".translate.update")) {
+      return (
+        <button
+          className="group rtl:ml-2 rtl:mr-0 dark:text-[white]"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowTranslate(true);
+          }}
+        >
+          <FontAwesomeIcon
+            className="group-hover:text-white group-hover:bg-primary-color pointer-events-none h-[16px] rounded-[5px] p-2 text-primary-color bg-[#DF8D621A]"
+            icon={faEye}
+          />
+        </button>
+      );
+    }
+  };
   return (
     <>
       <div className="bg-white space-y-3 sm:p-6 dark:bg-gray-900 max-h-[30rem] w-full sidebar overflow-auto">
-        <h1 className="text-placeholder-color mt-1 text-gray-600">{title}</h1>
+        <div className="flex justify-between">
+          <h1 className="text-placeholder-color mt-1 text-gray-600">{title}</h1>
+          {translate()}
+        </div>
         {isLoading ? <div /> : children}
       </div>
     </>
