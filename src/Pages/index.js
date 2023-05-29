@@ -19,6 +19,7 @@ import Orders from './Order';
 import Providers from './Provider';
 import Roles from './Roles';
 import Dashboard from './Dashboard';
+import NotFound from './NotFound';
 
 export {
     Employees,
@@ -41,5 +42,6 @@ export {
     Orders,
     Providers,
     Roles,
-    Dashboard
+    Dashboard,
+    NotFound
 }

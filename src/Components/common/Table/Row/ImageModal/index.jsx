@@ -4,7 +4,7 @@ const ImageModal = () => {
   useEffect(() => {
     document.addEventListener("click", function (event) {
       const modal = document.getElementById("myModal");
-      const outsideClick = !modal.contains(event.target);
+      const outsideClick = modal && !modal.contains(event.target);
       if (modal && !outsideClick) {
         modal.style.display = "none";
       }

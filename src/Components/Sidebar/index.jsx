@@ -5,7 +5,6 @@ import {
   faAngleDown,
   faArrowLeft,
   faArrowRight,
-  faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { saveSidebar } from "../../utils/saveSidebar";
@@ -15,6 +14,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
   const { pathname } = useLocation();
   const [type, setType] = useState("full");
   const scrollPosition = useScrollPosition();
+
   useEffect(() => {
     setType(localStorage.getItem("sidebar") || "full");
   }, []);
@@ -29,6 +29,19 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
       list.classList.remove("hide-modal");
     }
   };
+
+  useEffect(() => {
+    sidebarItems?.forEach((item) => {
+      item.children &&
+        item.children?.forEach((child) => {
+          if (child.path === pathname.substring(1)) {
+            const dropdown = document.getElementById(item.path);
+            dropdown.classList.add("show-modal");
+            dropdown.classList.remove("hide-modal");
+          }
+        });
+    });
+  }, [pathname, sidebarItems]);
 
   return (
     <>
@@ -72,7 +85,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
                         type !== "full" && "justify-center"
                       } items-center p-2 rounded-lg text-[#ADB5BD] hover:text-primary-color hover:bg-hover-bg-color dark:hover:bg-primary-color dark:hover:text-[white]
                     ${
-                      pathname === "/" + path &&
+                      pathname === `/${path}` &&
                       "text-primary-color bg-hover-bg-color dark:bg-primary-color dark:text-white"
                     }`}
                     >
@@ -111,7 +124,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
                   >
                     <FontAwesomeIcon
                       className="dark:group-hover:text-white group-hover:text-primary-color dark:group-hover:text-white"
-                      icon={faGear}
+                      icon={icon}
                     />
                     {type === "full" ? (
                       <>
@@ -135,7 +148,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
                   </button>
                   <ul
                     id={path}
-                    className={` hide-modal rounded-b-lg max-h-[30rem] w-full transition-all ease`}
+                    className={`hide-modal rounded-b-lg max-h-[30rem] w-full transition-all ease`}
                   >
                     {children.map(({ path, label, icon, hidden }) => {
                       return (
@@ -147,7 +160,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
                                   ${type === "full" && "pl-5"}
                                   rounded-lg text-[#ADB5BD] hover:text-primary-color hover:bg-hover-bg-color dark:hover:bg-primary-color dark:hover:text-[white] transition duration-75 hover:bg-hover-bg-color hover:text-primary-color dark:text-white
                           ${
-                            pathname === "/" + path &&
+                            pathname === `/${path}` &&
                             "text-primary-color bg-hover-bg-color dark:bg-primary-color dark:text-white"
                           }`}
                             >

@@ -134,8 +134,6 @@ const SetPermissions = ({
     }
   };
 
-  console.log(isCheck);
-
   const onSubmit = useCallback(
     async (event) => {
       event.preventDefault();

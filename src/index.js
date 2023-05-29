@@ -4,7 +4,7 @@ import App from './App';
 import "./i18n/config";
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Login } from './Pages';
+import { Login, NotFound } from './Pages';
 import './index.css';
 
 
@@ -15,7 +15,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<App />} />
+        <Route path="/*" element={<App />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
+
       </Routes>
     </BrowserRouter>
   </>

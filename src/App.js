@@ -30,6 +30,7 @@ import {
   NotificationsHistory,
   Roles,
   Dashboard,
+  NotFound,
 } from "./Pages";
 import { Loading } from "./Components/common";
 import Profile from "./Pages/Profile";
@@ -137,6 +138,9 @@ function App() {
           </EnumsContext.Provider>
         </UserInfoContext.Provider>
       </LoadingContext.Provider>
+      <Routes>
+        <Route component={<NotFound />} />
+      </Routes>
     </>
   );
 

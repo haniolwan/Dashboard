@@ -60,7 +60,7 @@ const Tools = ({ sideBarWidth }) => {
         className="flex flex-row-reverse w-full justify-between 
             md:justify-end items-center gap-5 sm:flex-row lg:mr-5"
       >
-        <div className="flex flex-wrap gap-6 transition ease-in">
+        <div className="flex flex-wrap transition ease-in">
           <div className="dark:hidden relative items-center group">
             <FontAwesomeIcon
               className="cursor-pointer h-5 text-gray-500 text-primary-color dark:text-gray-400 mr-3 mt-1 rtl:ml-3 rtl:mr-0 transition ease-in"
@@ -105,7 +105,7 @@ const Tools = ({ sideBarWidth }) => {
           {/* <NotificationBell /> */}
 
           <div className="mt-1 relative items-center group">
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               ref={languageIconRef}
               onClick={() => setShowLanguage(!showLanguage)}
               className={`${
@@ -115,7 +115,7 @@ const Tools = ({ sideBarWidth }) => {
               icon={faGlobe}
               data-tooltip-target="tooltip-language"
               data-tooltip-placement="bottom"
-            />
+            /> */}
             <div
               id="tooltip-language"
               role="tooltip"
