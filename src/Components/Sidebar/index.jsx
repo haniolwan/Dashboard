@@ -19,14 +19,14 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
     setType(localStorage.getItem("sidebar") || "full");
   }, []);
 
-  const listClicked = (path) => {
-    const list = document.getElementById(path);
-    if (list.classList.contains("show-modal")) {
-      list.classList.add("hide-modal");
-      list.classList.remove("show-modal");
+  const dropdownClicked = (path) => {
+    const dropdown = document.getElementById(path);
+    if (dropdown.classList.contains("show-modal")) {
+      dropdown.classList.add("hide-modal");
+      dropdown.classList.remove("show-modal");
     } else {
-      list.classList.add("show-modal");
-      list.classList.remove("hide-modal");
+      dropdown.classList.add("show-modal");
+      dropdown.classList.remove("hide-modal");
     }
   };
 
@@ -120,7 +120,7 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
                         group flex items-center hover:text-primary-color w-full p-2 text-base transition duration-75`}
                     aria-controls="dropdown-example"
                     data-collapse-toggle="dropdown-example"
-                    onClick={() => listClicked(path)}
+                    onClick={() => dropdownClicked(path)}
                   >
                     <FontAwesomeIcon
                       className="dark:group-hover:text-white group-hover:text-primary-color dark:group-hover:text-white"
