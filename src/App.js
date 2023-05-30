@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import WebFont from "webfontloader";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 import {
   NightModeContext,

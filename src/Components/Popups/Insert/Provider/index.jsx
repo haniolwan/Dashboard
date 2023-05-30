@@ -33,12 +33,6 @@ const AddProvider = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    if (!show) {
-      setUpdated([]);
-    }
-  }, [setUpdated, show]);
-
   const verifiedRef = useRef();
   const suspendedRef = useRef();
   const banedRef = useRef();
@@ -46,12 +40,19 @@ const AddProvider = ({
 
   useEffect(() => {
     if (!show) {
-      verifiedRef.current.checked = false;
-      suspendedRef.current.checked = false;
-      banedRef.current.checked = false;
-      availableRef.current.checked = false;
+      verifiedRef.current.defaultChecked = false;
+      suspendedRef.current.defaultChecked = false;
+      banedRef.current.defaultChecked = false;
+      availableRef.current.defaultChecked = false;
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setProvider([]);
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

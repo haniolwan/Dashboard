@@ -46,12 +46,6 @@ const AddService = ({
     }
   }, [service.is_active, serviceId, setUpdated, show, updated]);
 
-  useEffect(() => {
-    if (!show) {
-      setUpdated([]);
-    }
-  }, [setUpdated, show]);
-
   const nameRef = useRef();
   const imageRef = useRef();
   const descRef = useRef();
@@ -62,9 +56,16 @@ const AddService = ({
       nameRef.current.value = "";
       descRef.current.value = "";
       imageRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setService([]);
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

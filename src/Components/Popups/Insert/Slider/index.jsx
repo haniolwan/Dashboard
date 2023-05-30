@@ -45,9 +45,16 @@ const AddSlider = ({
       nameRef.current.value = "";
       urlRef.current.value = "";
       imageRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setSlider([]);
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

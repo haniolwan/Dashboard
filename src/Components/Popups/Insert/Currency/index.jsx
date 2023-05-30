@@ -53,7 +53,13 @@ const AddCurrency = ({
       nameRef.current.value = "";
       codeRef.current.value = "";
       symbolRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setCurrency([]);
     }
   }, [show]);
 

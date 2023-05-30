@@ -42,7 +42,13 @@ const AddLocale = ({
     if (!show) {
       nameRef.current.value = "";
       codeRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setLocale([]);
     }
   }, [show]);
 

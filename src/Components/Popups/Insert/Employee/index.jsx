@@ -148,8 +148,14 @@ const AddEmployee = ({
       countryRef.current.select.setValue({});
       cityRef.current.select.setValue({});
       avatarRef.current.value = "";
-      suspendRef.current.checked = false;
-      bannedRef.current.checked = false;
+      suspendRef.current.defaultChecked = false;
+      bannedRef.current.defaultChecked = false;
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setUser([]);
     }
   }, [show]);
 

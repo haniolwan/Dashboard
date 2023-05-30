@@ -72,12 +72,6 @@ const AddCity = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    if (!show) {
-      setUpdated([]);
-    }
-  }, [setUpdated, show]);
-
   const nameRef = useRef();
   const countryRef = useRef();
   const activeRef = useRef();
@@ -86,15 +80,22 @@ const AddCity = ({
     if (!show) {
       nameRef.current.value = "";
       countryRef.current.select.setValue({});
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setUpdated([]);
+      setCity([]);
+    }
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
-          <Form.Row className="grid grid-cols-2 gap-5">
+          <Form.Row className="grid grid-cols-1 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={nameRef}
@@ -127,7 +128,7 @@ const AddCity = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={city.is_active}
+                defaultChecked={city?.is_active}
                 onChange={handleInputChange}
               />
             </div>

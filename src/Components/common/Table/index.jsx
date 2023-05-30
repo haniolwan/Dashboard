@@ -715,12 +715,7 @@ Table.Footer = () => {
   };
 
   useEffect(() => {
-    if (
-      userId &&
-      !showAddModal &&
-      !showTranslateModal &&
-      showPermissionsModal
-    ) {
+    if (!showAddModal) {
       setUserId();
       setSelectedRow();
     }

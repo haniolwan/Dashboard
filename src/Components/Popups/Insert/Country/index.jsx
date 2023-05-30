@@ -116,10 +116,6 @@ const AddCountry = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    setCountry([]);
-  }, [show]);
-
   const nameRef = useRef();
   const codeRef = useRef();
   const flagRef = useRef();
@@ -134,7 +130,13 @@ const AddCountry = ({
       flagRef.current.value = "";
       currenciesRef.current.select.setValue({});
       localeRef.current.select.setValue({});
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setCountry([]);
     }
   }, [show]);
 

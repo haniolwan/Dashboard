@@ -1,6 +1,6 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Form from "../Form";
-import { Checkbox, SelectInput, TextArea, TextInput } from "../../../common";
+import { SelectInput, TextArea, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { EnumsContext } from "../../../../context";
 
@@ -36,18 +36,6 @@ const AddNotificationTemplate = ({
     }
   }, [selectedRow]);
 
-  const typeRef = useRef();
-  const titleRef = useRef();
-  const messageRef = useRef();
-
-  useEffect(() => {
-    if (!show) {
-      titleRef.current.value = "";
-      messageRef.current.value = "";
-      typeRef.current.checked = false;
-    }
-  }, [show]);
-
   const {
     enums: { NotificationType },
   } = useContext(EnumsContext);
@@ -57,24 +45,30 @@ const AddNotificationTemplate = ({
 
   useEffect(() => {
     if (show) {
-      const options = Object.keys(NotificationType).map((type) => {
-        if (NotificationType.type === NotificationType[type])
-          setDefaultTypeOption({ label: type, value: NotificationType[type] });
-        return { label: type, value: NotificationType[type] };
+      const options = Object.keys(NotificationType).map((item) => {
+        if (NotificationType[item] === row.type) {
+          setDefaultTypeOption({ label: item, value: NotificationType[item] });
+        }
+        return { label: item, value: NotificationType[item] };
       });
       setTypeOptions(options);
       setLoadingType(false);
     }
-  }, [show, NotificationType]);
+  }, [NotificationType, row, show]);
+
+  useEffect(() => {
+    if (!show) {
+      setRow([]);
+    }
+  }, [show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
-        <Form.Content title={"Add New Notification Template"}>
+        <Form.Content title={"Add Notification Template"}>
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
-                ref={titleRef}
                 key={row.title}
                 name={"title"}
                 label={"Title"}
@@ -86,7 +80,6 @@ const AddNotificationTemplate = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextArea
-                ref={messageRef}
                 key={row.message}
                 name={"message"}
                 label={"Message"}
@@ -98,7 +91,6 @@ const AddNotificationTemplate = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <SelectInput
-                ref={typeRef}
                 key={row?.type}
                 name={"type"}
                 label={"Type"}

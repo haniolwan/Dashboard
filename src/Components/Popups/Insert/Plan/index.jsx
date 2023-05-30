@@ -26,8 +26,9 @@ const AddPlan = ({
   useEffect(() => {
     if (show) {
       const options = Object.keys(PlanType).map((type) => {
-        if (plan.type === PlanType[type])
+        if (plan.type === PlanType[type]) {
           setDefaultTypeOption({ label: type, value: PlanType[type] });
+        }
         return { label: type, value: PlanType[type] };
       });
       setTypeOptions(options);
@@ -72,10 +73,17 @@ const AddPlan = ({
       priceRef.current.value = "";
       orderRef.current.value = "";
       countRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
       typeRef.current.select.setValue({});
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setPlan([]);
+    }
+  }, [show]);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>

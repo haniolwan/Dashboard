@@ -44,10 +44,17 @@ const AddUser = ({
 
   useEffect(() => {
     if (!show) {
-      suspendedRef.current.checked = false;
-      banedRef.current.checked = false;
+      suspendedRef.current.defaultChecked = false;
+      banedRef.current.defaultChecked = false;
     }
   }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setUser([]);
+      setUpdated([]);
+    }
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

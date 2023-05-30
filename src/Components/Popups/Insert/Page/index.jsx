@@ -35,10 +35,6 @@ const AddPage = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    setPage([]);
-  }, [show]);
-
   const nameRef = useRef();
   const keyRef = useRef();
   const descriptionRef = useRef();
@@ -53,7 +49,13 @@ const AddPage = ({
       descriptionRef.current.value = "";
       contentRef.current.value = "";
       imageRef.current.value = "";
-      activeRef.current.checked = false;
+      activeRef.current.defaultChecked = false;
+    }
+  }, [show]);
+
+  useEffect(() => {
+    if (!show) {
+      setPage([]);
     }
   }, [show]);
 
