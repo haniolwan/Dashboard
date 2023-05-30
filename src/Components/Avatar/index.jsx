@@ -70,7 +70,7 @@ const Avatar = () => {
               </span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to={"/settings"}
               className="grid grid-cols-5 gap-5 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-placeholder-color rounded-lg"
@@ -80,7 +80,7 @@ const Avatar = () => {
                 {t("avatar.tab2")}
               </span>
             </Link>
-          </li>
+          </li> */}
           <li
             onClick={logout}
             className="cursor-pointer grid grid-cols-5 gap-5 px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-placeholder-color rounded-lg"

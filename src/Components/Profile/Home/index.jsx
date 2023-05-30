@@ -1,101 +1,278 @@
-import { useContext, useState } from "react";
-import { TextInput, TextArea, Checkbox, Button } from "./../../common";
+import { useContext, useEffect, useState } from "react";
+import {
+  TextInput,
+  TextArea,
+  Checkbox,
+  Button,
+  UploadImage,
+  SelectInput,
+} from "./../../common";
 import { query } from "./../../../utils/query";
 import { toast } from "react-toastify";
 import { UserInfoContext } from "../../../context";
+import { SelectCity, SelectCountry, SelectLocale } from "../../../classes";
+import Swal from "sweetalert2";
 const Home = () => {
-  const [data, setData] = useState();
+  const [user, setUser] = useState([]);
+  const [updated, setUpdated] = useState([]);
+  const [countryOptions, setCountryOptions] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
+  const [localeOptions, setLocaleOptions] = useState([]);
 
-  const { setUserInfo } = useContext(UserInfoContext);
+  const [countrySearch, setCountrySearch] = useState("");
+  const [citySearch, setCitySearch] = useState("");
+  const [localeSearch, setLocaleSearch] = useState("");
 
-  const onChange = ({ target: { name, value } }) => {
-    setData({ ...data, [name]: value });
-  };
-  const updateUser = () => {
-    const {
-      data: {
-        success,
-        message,
-        data: {
-          Employee: { name, email: empEmail, avatar },
-          Login: { access_token },
-        },
+  const { userInfo, setUserInfo } = useContext(UserInfoContext);
+
+  const onSubmit = async () => {
+    try {
+      const form = new FormData();
+      form.append("_method", "put");
+      for (const name in updated) {
+        form.append(name, updated[name]);
+      }
+      await query(
+        `/api/dashboard/employees/${userInfo.id}`,
+        "post",
+        form,
+        "multipart/form-data"
+      );
+      Swal.fire("Row updated successfully!", "", "success");
+    } catch ({
+      response: {
+        data: { message },
       },
-    } = query("/dashboard/auth/update", "put", data);
-    setUserInfo({
-      user: {
-        name,
-        empEmail,
-        avatar,
-      },
-      token: access_token,
-    });
-    if (success) {
-      toast.success(<span className="capitalize">{message.join("\r\n")}</span>);
+    }) {
+      toast.error(<span>{message.join("\r\n")}</span>);
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: { data },
+        } = await query(`/api/dashboard/employees/${userInfo.id}`);
+        setUser(data.Employee);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
+      }
+    };
+
+    fetchData();
+  }, [userInfo.id]);
+
+  const handleInputChange = ({
+    target: { type, name, value, checked, files },
+  }) => {
+    if (type === "file") {
+      setUpdated({ ...updated, [name]: files[0] });
+    } else if (type === "checkbox") {
+      setUpdated({ ...updated, [name]: checked ? 1 : 0 });
+    } else {
+      if (name === "country_id") {
+        delete updated["city_id"];
+      }
+      setUpdated({ ...updated, [name]: value });
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: {
+            data: { Countries },
+          },
+        } = await query(
+          `/api/dashboard/lists/countries?q=${countrySearch}&is_active=1`
+        );
+        const countriesArr = Countries.map((country) => {
+          return new SelectCountry(country);
+        });
+        setCountryOptions(countriesArr);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
+      }
+    };
+    let timer = setTimeout(() => {
+      fetchData();
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [countrySearch]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: {
+            data: { Cities },
+          },
+        } = await query(
+          `/api/dashboard/lists/cities?q=${citySearch}&country_id=${user.country_id}&is_active=1`
+        );
+        const cityArr = Cities.map((city) => {
+          return new SelectCity(city);
+        });
+        setCityOptions(cityArr);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
+      }
+    };
+    let timer = setTimeout(() => {
+      fetchData();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [countrySearch, citySearch, user.country_id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {
+          data: {
+            data: { Locales },
+          },
+        } = await query(
+          `/api/dashboard/lists/locales?q=${localeSearch}&is_active=1`
+        );
+        const localesArr = Locales.map((locale) => {
+          return new SelectLocale(locale);
+        });
+        setLocaleOptions(localesArr);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
+      }
+    };
+    let timer = setTimeout(() => {
+      fetchData();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [localeSearch]);
+
   return (
-    <div className="flex gap-5 flex-col mt-2 w-full">
-      <TextInput
-        id={"name"}
-        name={"name"}
-        label={"Name"}
-        type={"text"}
-        placeholder={"Enter name"}
-        error={false}
-        errorMsg={"Invalid name"}
-        disabled={false}
-        onChange={onChange}
+    <div className="grid grid-cols-1">
+      <div className="grid grid-cols-2 gap-5">
+        <div className="col-span-1 ">
+          <TextInput
+            key={user.name}
+            name={"name"}
+            label={"Name"}
+            placeholder={"Enter name"}
+            defaultValue={user.name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="col-span-1 ">
+          <TextInput
+            key={user.email}
+            name={"email"}
+            label={"Email"}
+            placeholder={"Enter email"}
+            defaultValue={user.email}
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-5">
+        <div className="col-span-2 gap-5">
+          <TextInput
+            key={user.mobile}
+            name={"mobile"}
+            label={"Mobile"}
+            placeholder={"Enter mobile"}
+            defaultValue={user.mobile}
+            onChange={handleInputChange}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-5">
+        <SelectInput
+          name={"Country"}
+          label={"Country"}
+          options={countryOptions}
+          onChange={(country) => {
+            setUpdated({
+              ...updated,
+              country_id: country.id,
+            });
+          }}
+          defaultValue={user?.Country && new SelectCountry(user?.Country)}
+        />
+        <SelectInput
+          name={"City"}
+          label={"City"}
+          options={cityOptions}
+          onChange={(city) => {
+            setUpdated({
+              ...updated,
+              city_id: city.id,
+            });
+          }}
+          defaultValue={user?.City && new SelectCity(user?.City)}
+        />
+      </div>
+      <SelectInput
+        name={"Locale"}
+        label={"Locale"}
+        options={localeOptions}
+        onChange={(locale) => {
+          setUpdated({
+            ...updated,
+            locale_id: locale.id,
+          });
+        }}
+        defaultValue={user?.Locale && new SelectLocale(user?.Locale)}
       />
-      <TextInput
-        id={"mobile"}
-        name={"mobile"}
-        label={"Mobile"}
-        type={"text"}
-        placeholder={"Enter mobile"}
-        error={false}
-        errorMsg={"Invalid mobile"}
-        disabled={false}
-        onChange={onChange}
-      />
-      <TextInput
-        id={"email"}
-        name={"email"}
-        label={"Email"}
-        type={"text"}
-        placeholder={"Enter email"}
-        error={false}
-        errorMsg={"Invalid email"}
-        disabled={false}
-        onChange={onChange}
-      />
-      <TextArea
-        name={"description"}
-        label={"Description"}
-        placeholder={"Enter description"}
-        rows={"5"}
-        cols={"40"}
-        error={false}
-        errorMsg={"Please fill input"}
-        disabled={false}
-        onChange={onChange}
-      />
-      <Checkbox
-        id={"agree"}
-        afterLabel={"I agree to the terms and conditions"}
-        disabled={false}
-        onChange={onChange}
-      />
+      <div className="grid grid-cols-2 mt-5">
+        <div className="col-span-1 gap-5">
+          <Checkbox
+            name={"is_suspended"}
+            beforeLabel={"Is Suspended"}
+            defaultChecked={user?.is_suspended}
+            onChange={handleInputChange}
+          />
+          <Checkbox
+            name={"is_baned"}
+            beforeLabel={"Is Baned"}
+            defaultChecked={user?.is_baned}
+            onChange={handleInputChange}
+          />
+        </div>
+        <UploadImage
+          id={"avatar"}
+          label={"Avatar"}
+          name={"avatar"}
+          onChange={handleInputChange}
+        />
+      </div>
       <div className="flex justify-end">
         <Button
+          type={"submit"}
           label={"Apply"}
-          padding={"px-6 py-3"}
-          bgColor={"bg-primary-color"}
-          textColor={"text-placeholder-color"}
-          hoverBgColor={"hover:bg-white"}
-          hoverTextColor={"hover:text-primary-color"}
-          onClick={updateUser}
+          padding={"px-5 py-3"}
+          bgColor={"bg-[#DF8D6233]"}
+          textColor={"text-primary-color"}
+          hoverBgColor={"hover:bg-primary-color hover:border-primary-color"}
+          hoverTextColor={"hover:text-white"}
+          onClick={onSubmit}
         />
       </div>
     </div>

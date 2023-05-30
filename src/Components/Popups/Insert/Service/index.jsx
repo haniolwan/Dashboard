@@ -33,8 +33,6 @@ const AddService = ({
   useEffect(() => {
     if (selectedRow && show) {
       setService(selectedRow);
-    } else {
-      setService([]);
     }
   }, [selectedRow, setSelectedRow, show]);
 
@@ -72,7 +70,7 @@ const AddService = ({
       <Form.Container>
         <Form.Content>
           <Form.Row className="grid grid-cols-2 gap-5">
-            <div className="col-span-3 sm:col-span-1">
+            <div className="col-span-3 sm:col-span-2">
               <TextInput
                 ref={nameRef}
                 key={service.name}
@@ -83,6 +81,20 @@ const AddService = ({
                 onChange={handleInputChange}
               />
             </div>
+            <div className="col-span-3 sm:col-span-2">
+              <TextArea
+                ref={descRef}
+                key={service.description}
+                id={"description"}
+                label={"Description"}
+                placeholder={"Description"}
+                name={"description"}
+                defaultValue={service.description}
+                onChange={handleInputChange}
+              />
+            </div>
+          </Form.Row>
+          <Form.Row className="grid gap-5">
             <UploadImage
               ref={imageRef}
               key={service.image}
@@ -90,18 +102,6 @@ const AddService = ({
               label={"Photo"}
               name={"image"}
               src={service.image}
-              onChange={handleInputChange}
-            />
-          </Form.Row>
-          <Form.Row className="grid gap-5">
-            <TextArea
-              ref={descRef}
-              key={service.description}
-              id={"description"}
-              label={"Description"}
-              placeholder={"Description"}
-              name={"description"}
-              defaultValue={service.description}
               onChange={handleInputChange}
             />
           </Form.Row>

@@ -45,6 +45,8 @@ import {
   ShowProvider,
   AddLocale,
   AddProvider,
+  ShowNotificationsTemplate,
+  Showlocale,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -596,6 +598,7 @@ Table.Body = () => {
               longitude,
               title,
               message,
+              locale_code,
             }) => {
               return (
                 <Row
@@ -655,6 +658,7 @@ Table.Body = () => {
                   longitude={longitude}
                   title={title}
                   message={message}
+                  locale_code={locale_code}
                   setUpdateRow={setUpdateRow}
                   removeRow={removeRow}
                   translateRow={translateRow}
@@ -1117,6 +1121,11 @@ Table.Footer = () => {
                 locale={locale}
                 changeLocale={changeLocale}
               />
+              <ShowNotificationsTemplate
+                show={showModal}
+                setShow={setShowModal}
+                selectedRow={selectedRow}
+              />
             </>
           ),
           "notifications/history": (
@@ -1139,6 +1148,11 @@ Table.Footer = () => {
                 setUpdated={setUpdated}
                 handleInputChange={handleInputChange}
                 setRefreshRows={setRefreshRows}
+              />
+              <Showlocale
+                show={showModal}
+                setShow={setShowModal}
+                selectedRow={selectedRow}
               />
             </>
           ),

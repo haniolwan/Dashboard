@@ -87,15 +87,6 @@ const AddProvider = ({
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex justify-between text-placeholder-color">
-                <span>Available</span>
-                <Checkbox
-                  ref={availableRef}
-                  name={"is_available"}
-                  defaultChecked={provider?.is_available}
-                  onChange={handleInputChange}
-                />
-              </div>
             </div>
           </Form.Row>
         </Form.Content>

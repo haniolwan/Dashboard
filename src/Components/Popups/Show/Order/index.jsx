@@ -11,21 +11,32 @@ import {
   faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { EnumsContext } from "../../../../context";
 
 const ShowOrder = ({ show, setShow, selectedRow }) => {
+  const [order, setOrder] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setOrder(selectedRow);
+    }
+  }, [selectedRow]);
+  const {
+    enums: { OrderStatusEnum },
+  } = useContext(EnumsContext);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Show Plans"}>
+        <Form.Content title={"Show Order"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-4 gap-5">
               <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {selectedRow["order"]?.name}
+                {order["order"]?.name}
               </div>
               <div className="pt-5 space-y-2">
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faUser} />
-                  {selectedRow["order"]?.User?.name}
+                  {order["order"]?.User?.name}
                 </div>
 
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
@@ -33,19 +44,19 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                     className="pr-2"
                     icon={faMobileScreenButton}
                   />
-                  {selectedRow["order"]?.mobile}
+                  {order["order"]?.mobile}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faIndustry} />
-                  {selectedRow["order"]?.Provider?.name}
+                  {order["order"]?.Provider?.name}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faWrench} />
-                  {selectedRow["order"]?.Service?.name}
+                  {order["order"]?.Service?.name}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faLocationDot} />
-                  {selectedRow["order"]?.address}
+                  {order["order"]?.address}
                 </div>
               </div>
               <Form.Row className="cols-span-6">
@@ -53,25 +64,27 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                   <div className="flex justify-between text-placeholder-color">
                     <span>Latitude</span>
                     <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                      {selectedRow["order"]?.latitude}
+                      {order["order"]?.latitude}
                     </div>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Status</span>
                     <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                      {selectedRow["order"]?.status}
+                      {Object.keys(OrderStatusEnum).find(
+                        (key) => OrderStatusEnum[key] === order["order"]?.status
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Rate</span>
                     <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                      {selectedRow["order"]?.rate}
+                      {order["order"]?.rate}
                     </div>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Review</span>
                     <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                      {selectedRow["order"]?.review}
+                      {order["order"]?.review}
                     </div>
                   </div>
                 </div>
@@ -96,12 +109,12 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.complete}
+                        {order.complete}
                       </p>
                     </Link>
                     <Link
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      state={{ userId: order["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold  rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -114,12 +127,12 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.current}
+                        {order.current}
                       </p>
                     </Link>
                     <Link
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      state={{ userId: order["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -132,7 +145,7 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.failed}
+                        {order.failed}
                       </p>
                     </Link>
                   </div>
@@ -146,15 +159,15 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                     </h3>
                   </div>
                   <div className="grid grid-cols-3 text-placeholder-color rounded gap-5">
-                    {selectedRow["orderStatus"] &&
-                      selectedRow["orderStatus"].map((order) => {
+                    {order["orderStatus"] &&
+                      order["orderStatus"].map((ord) => {
                         return (
                           <button
                             disabled
                             className="border bg-transparent text-sm
                   font-semibold p-1 border-placeholder-color rounded"
                           >
-                            {order.description}
+                            {ord.description}
                           </button>
                         );
                       })}

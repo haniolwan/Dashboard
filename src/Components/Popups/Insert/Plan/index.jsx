@@ -58,7 +58,6 @@ const AddPlan = ({
 
   const nameRef = useRef();
   const billingRef = useRef();
-  const featuresRef = useRef();
   const priceRef = useRef();
   const orderRef = useRef();
   const countRef = useRef();
@@ -69,7 +68,6 @@ const AddPlan = ({
     if (!show) {
       nameRef.current.value = "";
       billingRef.current.value = "";
-      featuresRef.current.value = "";
       priceRef.current.value = "";
       orderRef.current.value = "";
       countRef.current.value = "";
@@ -100,6 +98,25 @@ const AddPlan = ({
                 onChange={handleInputChange}
               />
             </div>
+            <div className="grid grid-cols-1">
+              <SelectInput
+                ref={typeRef}
+                key={plan?.type}
+                name={"type"}
+                label={"Type"}
+                options={typeOptions}
+                onChange={(type) => {
+                  setUpdated({
+                    ...updated,
+                    type: type.value,
+                  });
+                }}
+                defaultValue={defaultTypeOption}
+                isLoading={loadingType}
+              />
+            </div>
+          </Form.Row>
+          <Form.Row className="grid grid-cols-4 content-center gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={billingRef}
@@ -111,19 +128,6 @@ const AddPlan = ({
                 onChange={handleInputChange}
               />
             </div>
-            <div className="col-span-3 sm:col-span-4">
-              <TextInput
-                ref={featuresRef}
-                key={plan.features}
-                name={"features"}
-                label={"Features"}
-                placeholder="Features"
-                defaultValue={plan.features}
-                onChange={handleInputChange}
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-3 content-center gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={priceRef}
@@ -157,25 +161,7 @@ const AddPlan = ({
                 onChange={handleInputChange}
               />
             </div>
-            <div className="grid grid-cols-2">
-              <SelectInput
-                ref={typeRef}
-                key={plan?.type}
-                name={"type"}
-                label={"Type"}
-                options={typeOptions}
-                onChange={(type) => {
-                  setUpdated({
-                    ...updated,
-                    type: type.value,
-                  });
-                }}
-                defaultValue={defaultTypeOption}
-                isLoading={loadingType}
-              />
-            </div>
           </Form.Row>
-          <Form.Row className="grid grid-cols-2 gap-5" />
           <Form.Row className="grid grid-cols-4 gap-5">
             <div className="grid grid-cols-2">
               <Checkbox

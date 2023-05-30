@@ -10,7 +10,7 @@ const Orders = () => {
     provider: { label: "Provider", value: "provider", hidden: false },
     service: { label: "Service", value: "service", hidden: false },
     date: { label: "Date", value: "date", hidden: false },
-    order_type: { label: "Type", value: "order_type", hidden: false },
+    // order_type: { label: "Type", value: "order_type", hidden: false },
     order_status: { label: "Status", value: "order_status", hidden: false },
 
     actions: {

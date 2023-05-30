@@ -66,6 +66,7 @@ const Row = ({
   longitude,
   title,
   message,
+  locale_code,
   removeRow,
   translateRow,
   showRow,
@@ -315,11 +316,12 @@ const Row = ({
             <span>{Currency?.name}</span>
           </td>
         );
+      case "locale_code":
       case "locale":
       case "Locale":
         return (
           <td className="px-6">
-            <span>{locale || Locale?.name}</span>
+            <span>{locale_code || Locale?.name || locale}</span>
           </td>
         );
       case "hourly_rate":
@@ -367,6 +369,24 @@ const Row = ({
           </td>
         );
       case "status":
+        console.log(status);
+        return (
+          <td className="px-6">
+            <div className="flex items-center justify-start gap-2 h-[3rem]">
+              <FontAwesomeIcon
+                className={`${
+                  status === 1
+                    ? "text-[#14FF00]"
+                    : "text-[#CCC] dark:text-[white]"
+                }  w-[10px] h-[10px]`}
+                icon={faCircle}
+              />
+              <span className="text-[14px] leading-[21px] font-[500]">
+                {status === 1 ? "Online" : "Offline"}
+              </span>
+            </div>
+          </td>
+        );
       case "online":
         return (
           <td className="px-6">
@@ -434,7 +454,7 @@ const Row = ({
           <td className="px-6">
             <span>
               {Object.keys(OrderStatusEnum).find(
-                (key) => OrderStatusEnum[key] === type
+                (key) => OrderStatusEnum[key] === status
               )}
             </span>
           </td>

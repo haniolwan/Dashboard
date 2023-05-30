@@ -255,7 +255,7 @@ const AddEmployee = ({
               />
               <Checkbox
                 ref={bannedRef}
-                name={"is_banned"}
+                name={"is_baned"}
                 beforeLabel={"Is Banned"}
                 defaultChecked={user.is_banned}
                 onChange={handleInputChange}

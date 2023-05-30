@@ -56,7 +56,7 @@ const AddLocale = ({
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
-          <Form.Row className="grid grid-cols-3 gap-5">
+          <Form.Row className="grid grid-cols-1 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={nameRef}
@@ -70,10 +70,10 @@ const AddLocale = ({
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={codeRef}
-                key={locale?.locale}
+                key={locale?.locale_code}
                 name={"locale_code"}
                 label={"Code"}
-                defaultValue={locale?.locale}
+                defaultValue={locale?.locale_code}
                 onChange={handleInputChange}
               />
             </div>
@@ -84,7 +84,7 @@ const AddLocale = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={selectedRow?.is_active}
+                defaultChecked={locale?.is_active}
                 onChange={handleInputChange}
               />
             </div>

@@ -1,7 +1,16 @@
 import Form from "../../Insert/Form";
 import { TextArea, TextInput } from "../../../common";
+import { useEffect, useState } from "react";
 
 const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
+  const [row, setRow] = useState([]);
+
+  useEffect(() => {
+    if (selectedRow) {
+      setRow(selectedRow);
+    }
+  }, [selectedRow]);
+
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
@@ -9,19 +18,19 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={selectedRow.title}
+                key={row.title}
                 name={"title"}
                 label={"Title"}
-                defaultValue={selectedRow.title}
+                defaultValue={row.title}
                 disabled
               />
             </div>
             <div className="col-span-3 sm:col-span-6">
               <TextArea
-                key={selectedRow.message}
+                key={row.message}
                 name={"message"}
                 label={"Message"}
-                defaultValue={selectedRow.message}
+                defaultValue={row.message}
                 disabled
               />
             </div>
@@ -29,19 +38,19 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={selectedRow.filter}
+                key={row.filter}
                 name={"filter"}
                 label={"Filter"}
-                defaultValue={selectedRow.filter}
+                defaultValue={row.filter}
                 disabled
               />
             </div>
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={selectedRow.target_count}
+                key={row.target_count}
                 name={"target_count"}
                 label={"Target Count"}
-                defaultValue={selectedRow.target_count}
+                defaultValue={row.target_count}
                 disabled
               />
             </div>

@@ -7,7 +7,7 @@ const Locales = () => {
 
   const cols = {
     name: { label: "Name", value: "name", hidden: false },
-    locale: { label: "Code", value: "locale", hidden: false },
+    locale_code: { label: "Code", value: "locale_code", hidden: false },
     is_active: { label: "Active", value: "is_active", hidden: false },
 
     actions: {

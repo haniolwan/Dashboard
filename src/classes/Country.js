@@ -1,6 +1,6 @@
 
 class Country {
-    constructor({id, name, code, flag, currency_id, locale_id, Currency, Locale, is_active}) {
+    constructor({ id, name, code, flag, currency_id, locale_id, Currency, Locale, is_active }) {
         this.id = id;
         this.name = name;
         this.value = code;
@@ -15,7 +15,7 @@ class Country {
 }
 
 class SelectCountry {
-    constructor({id, name}) {
+    constructor({ id, name }) {
         this.id = id;
         this.label = name;
         this.value = id;

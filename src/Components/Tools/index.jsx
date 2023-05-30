@@ -115,7 +115,7 @@ const Tools = ({ sideBarWidth }) => {
               icon={faGlobe}
               data-tooltip-target="tooltip-language"
               data-tooltip-placement="bottom"
-            /> */}
+            /> 
             <div
               id="tooltip-language"
               role="tooltip"
@@ -124,6 +124,7 @@ const Tools = ({ sideBarWidth }) => {
             >
               Language
             </div>
+            */}
           </div>
         </div>
         <Avatar />

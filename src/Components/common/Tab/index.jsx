@@ -56,7 +56,7 @@ Tab.NavItem = ({ index, label }) => {
       className={`${
         currentTab !== index && "text-[black] text-placeholder-color"
       }
-      hover:text-primary-color text-primary-color
+      text-white hover:text-primary-color
      cursor-pointer py-2 pl-3 pr-4 
          md:p-0`}
       aria-current="page"
