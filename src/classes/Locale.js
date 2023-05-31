@@ -7,10 +7,9 @@ class Locale {
     }
 }
 class SelectLocale {
-    constructor({ id, name, locale }) {
-        this.id = id;
+    constructor({ id, name }) {
         this.label = name;
-        this.value = locale;
+        this.value = id;
     }
 }
 

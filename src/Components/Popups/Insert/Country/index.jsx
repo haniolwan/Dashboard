@@ -125,20 +125,10 @@ const AddCountry = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      codeRef.current.value = "";
-      flagRef.current.value = "";
-      currenciesRef.current.select.setValue({});
-      localeRef.current.select.setValue({});
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
       setCountry([]);
+      setUpdated([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -193,7 +183,7 @@ const AddCountry = ({
               onChange={(locale) => {
                 setUpdated({
                   ...updated,
-                  locale_id: locale.id,
+                  locale_id: locale.value,
                 });
               }}
               defaultValue={

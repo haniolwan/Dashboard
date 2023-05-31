@@ -18,7 +18,7 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={row.title}
+                key={row?.title}
                 name={"title"}
                 label={"Title"}
                 defaultValue={row.title}
@@ -27,10 +27,10 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
             </div>
             <div className="col-span-3 sm:col-span-6">
               <TextArea
-                key={row.message}
+                key={row?.message}
                 name={"message"}
                 label={"Message"}
-                defaultValue={row.message}
+                defaultValue={row?.message}
                 disabled
               />
             </div>
@@ -38,16 +38,16 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={row.filter}
+                key={row?.filter}
                 name={"filter"}
                 label={"Filter"}
-                defaultValue={row.filter}
+                defaultValue={row?.filter}
                 disabled
               />
             </div>
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={row.target_count}
+                key={row?.target_count}
                 name={"target_count"}
                 label={"Target Count"}
                 defaultValue={row.target_count}
@@ -58,10 +58,10 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-3 sm:col-span-6">
               <TextInput
-                key={selectedRow.target_type}
+                key={row?.target_type}
                 name={"target_type"}
                 label={"Target Type"}
-                defaultValue={selectedRow.target_type}
+                defaultValue={row?.target_type}
                 disabled
               />
             </div>
