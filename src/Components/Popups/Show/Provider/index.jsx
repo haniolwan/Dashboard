@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Form from "../../Insert/Form";
 import { Checkbox, UploadImage } from "../../../common";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const ShowProvider = ({ show, setShow, selectedRow }) => {
+  const [provider, setProvider] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setProvider(selectedRow);
+    }
+  }, [selectedRow]);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
@@ -21,27 +28,27 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                 className="col-span-6 justify-center"
                 disabled
                 avatar
-                src={selectedRow?.provider?.avatar}
+                src={provider?.provider?.avatar}
               />
               <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {selectedRow?.provider?.name}
+                {provider?.provider?.name}
               </div>
               <div className="pt-5 space-y-2">
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faLocationDot} />
-                  {selectedRow?.provider?.Country?.name},{" "}
-                  {selectedRow?.provider?.City?.name}
+                  {provider?.provider?.Country?.name},{" "}
+                  {provider?.provider?.City?.name}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon
                     className="pr-2"
                     icon={faMobileScreenButton}
                   />
-                  {selectedRow?.provider?.mobile}
+                  {provider?.provider?.mobile}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faGlobe} />
-                  {selectedRow?.provider?.Locale?.name}
+                  {provider?.provider?.Locale?.name}
                 </div>
               </div>
               <Form.Row className="cols-span-6">
@@ -50,7 +57,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Available</span>
                     <Checkbox
                       name={"is_available"}
-                      defaultChecked={selectedRow?.provider?.is_available}
+                      defaultChecked={provider?.provider?.is_available}
                       disabled
                     />
                   </div>
@@ -58,7 +65,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Verified</span>
                     <Checkbox
                       name={"is_verified"}
-                      defaultChecked={selectedRow?.provider?.is_verified}
+                      defaultChecked={provider?.provider?.is_verified}
                       disabled
                     />
                   </div>
@@ -66,7 +73,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Suspended</span>
                     <Checkbox
                       name={"is_suspended"}
-                      defaultChecked={selectedRow?.provider?.is_suspended}
+                      defaultChecked={provider?.provider?.is_suspended}
                       disabled
                     />
                   </div>
@@ -74,7 +81,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <span>Baned</span>
                     <Checkbox
                       name={"is_baned"}
-                      defaultChecked={selectedRow?.provider?.is_baned}
+                      defaultChecked={provider?.provider?.is_baned}
                       disabled
                     />
                   </div>
@@ -101,7 +108,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow?.provider?.complete}
+                        {provider?.provider?.complete}
                       </p>
                     </div>
                     <div
@@ -119,7 +126,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow?.provider?.current}
+                        {provider?.provider?.current}
                       </p>
                     </div>
                     <div
@@ -137,7 +144,7 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow?.provider?.failed}
+                        {provider?.provider?.failed}
                       </p>
                     </div>
                   </div>
@@ -149,8 +156,8 @@ const ShowProvider = ({ show, setShow, selectedRow }) => {
                     <h3 className="text-lg font-black text-start">Services</h3>
                   </div>
                   <div className="grid grid-cols-3 text-placeholder-color rounded gap-5">
-                    {selectedRow?.services &&
-                      selectedRow?.services?.map((service) => {
+                    {provider?.services &&
+                      provider?.services?.map((service) => {
                         return (
                           <button
                             disabled

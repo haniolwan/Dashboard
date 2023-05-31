@@ -3,6 +3,7 @@ import Form from "../Form";
 import { Checkbox, SelectInput, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { EnumsContext } from "../../../../context";
+import useIsMount from "../../../../hooks/useIsMount";
 
 const AddPlan = ({
   planId,
@@ -66,21 +67,11 @@ const AddPlan = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      billingRef.current.value = "";
-      priceRef.current.value = "";
-      orderRef.current.value = "";
-      countRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-      typeRef.current.select.setValue({});
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
       setPlan([]);
+      setUpdated([]);
+      setDefaultTypeOption([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -101,7 +92,7 @@ const AddPlan = ({
             <div className="grid grid-cols-1">
               <SelectInput
                 ref={typeRef}
-                key={plan?.type}
+                key={defaultTypeOption}
                 name={"type"}
                 label={"Type"}
                 options={typeOptions}

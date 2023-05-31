@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Form from "../../Insert/Form";
-import { Checkbox, UploadImage } from "../../../common";
+import { Checkbox } from "../../../common";
+import { EnumsContext } from "../../../../context";
 
 const ShowPlan = ({ show, setShow, selectedRow }) => {
   const [plan, setPlan] = useState([]);
@@ -9,6 +10,9 @@ const ShowPlan = ({ show, setShow, selectedRow }) => {
       setPlan(selectedRow);
     }
   }, [selectedRow]);
+  const {
+    enums: { PlanType },
+  } = useContext(EnumsContext);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
@@ -38,7 +42,11 @@ const ShowPlan = ({ show, setShow, selectedRow }) => {
                   </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Type</span>
-                    <span>{plan.type}</span>
+                    <span>
+                      {Object.keys(PlanType).find(
+                        (key) => PlanType[key] === plan.type
+                      )}
+                    </span>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Active</span>

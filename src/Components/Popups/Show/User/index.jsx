@@ -19,7 +19,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
     if (selectedRow) {
       setUser(selectedRow);
     }
-  }, []);
+  }, [selectedRow]);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
