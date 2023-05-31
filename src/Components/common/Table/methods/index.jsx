@@ -260,6 +260,8 @@ const getDataClass = (data, path) => {
       return new Locale(data.Locale);
     case "notifications/templates":
       return new NotificationTemplate(data.NotificationTemplate);
+    case "roles":
+      return new Role(data.Role);
     default:
       <></>;
   }

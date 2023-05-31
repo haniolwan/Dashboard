@@ -12,7 +12,6 @@ import Calender from "./Calender";
 import Loading from "./Loading";
 import TextInput from "./TextInput";
 import UploadImage from "./Upload Image";
-
 export {
     Button,
     TextInput,

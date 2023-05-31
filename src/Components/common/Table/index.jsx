@@ -47,6 +47,7 @@ import {
   AddProvider,
   ShowNotificationsTemplate,
   Showlocale,
+  ShowRole,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -1058,6 +1059,12 @@ Table.Footer = () => {
                 setUpdated={setUpdated}
                 handleInputChange={handleInputChange}
                 setRefreshRows={setRefreshRows}
+              />
+              <ShowRole
+                selectedRow={selectedRow}
+                show={showModal}
+                setShow={setShowModal}
+                handleInputChange={handleInputChange}
               />
             </>
           ),

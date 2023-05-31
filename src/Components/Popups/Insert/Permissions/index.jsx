@@ -254,7 +254,9 @@ const SetPermissions = ({
                               <div key={id}>
                                 <Checkbox
                                   key={parseInt(id)}
-                                  checked={isCheck.includes(parseInt(id))}
+                                  defaultChecked={isCheck.includes(
+                                    parseInt(id)
+                                  )}
                                   afterLabel={name}
                                   value={parseInt(id)}
                                   onClick={handleClick}

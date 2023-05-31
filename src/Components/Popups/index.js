@@ -37,6 +37,7 @@ import AddLocale from "./Insert/Locale";
 import AddProvider from "./Insert/Provider";
 import ShowNotificationsTemplate from "./Show/Notifications Template";
 import Showlocale from "./Show/Locale";
+import ShowRole from "./Show/Role";
 
 export {
     Download,
@@ -77,5 +78,6 @@ export {
     AddLocale,
     AddProvider,
     ShowNotificationsTemplate,
-    Showlocale
+    Showlocale,
+    ShowRole
 }

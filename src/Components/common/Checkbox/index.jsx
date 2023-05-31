@@ -13,6 +13,7 @@ const Checkbox = forwardRef(
       checked,
       onChange,
       onClick,
+      readOnly,
     },
     ref
   ) => {
@@ -40,6 +41,7 @@ const Checkbox = forwardRef(
             onChange={onChange}
             value={value}
             onClick={onClick}
+            readOnly={readOnly}
           />
           {afterLabel && (
             <span className="text-[14px] leading-[21px] font-[500] ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">

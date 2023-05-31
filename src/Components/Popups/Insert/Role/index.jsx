@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import useOnClickOutside from "../../../../hooks/useOnClickOutside";
+import { useCallback, useEffect, useState } from "react";
 import { query } from "../../../../utils";
 import { Checkbox, TextInput } from "../../../common";
 import { Permissions } from "../../../../classes";
 import Form from "../Form";
 import Swal from "sweetalert2";
-import { insertNewRow } from "../../../common/Table/methods";
 import { toast } from "react-toastify";
 import useIsMount from "../../../../hooks/useIsMount";
 
@@ -165,8 +163,6 @@ const AddRole = ({
     }
   }, [isMount, show]);
 
-  console.log(isCheck);
-
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
@@ -211,7 +207,9 @@ const AddRole = ({
                               <div key={id}>
                                 <Checkbox
                                   key={parseInt(id)}
-                                  checked={isCheck.includes(parseInt(id))}
+                                  defaultChecked={isCheck.includes(
+                                    parseInt(id)
+                                  )}
                                   afterLabel={name}
                                   value={parseInt(id)}
                                   onClick={handleClick}
@@ -223,7 +221,7 @@ const AddRole = ({
                                         <div key={id}>
                                           <Checkbox
                                             key={parseInt(id)}
-                                            checked={isCheck.includes(
+                                            defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
                                             afterLabel={name}
@@ -241,7 +239,7 @@ const AddRole = ({
                                                 return (
                                                   <Checkbox
                                                     key={parseInt(id)}
-                                                    checked={isCheck.includes(
+                                                    defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}
                                                     afterLabel={name}
