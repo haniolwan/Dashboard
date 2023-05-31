@@ -7,6 +7,7 @@ import Form from "../Form";
 import Swal from "sweetalert2";
 import { insertNewRow } from "../../../common/Table/methods";
 import { toast } from "react-toastify";
+import useIsMount from "../../../../hooks/useIsMount";
 
 const AddRole = ({
   roleId,
@@ -21,7 +22,7 @@ const AddRole = ({
   const [userPermissions, setUserPermissions] = useState();
 
   const [permissions, setPermissions] = useState([]);
-  const [isCheckAll, setIsCheckAll] = useState({});
+  const [isCheckAll, setIsCheckAll] = useState([]);
   const [isCheck, setIsCheck] = useState([]);
 
   useEffect(() => {
@@ -65,49 +66,57 @@ const AddRole = ({
         toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
-    if (roleId && show) {
+    if (show) {
       fetchData();
     }
   }, [roleId, show]);
 
   const handleClick = (e) => {
     const { value, checked } = e.target;
-    setIsCheck([...isCheck, value]);
+    setIsCheck([...new Set([...isCheck, parseInt(value)])]);
     if (!checked) {
-      setIsCheck(isCheck.filter((item) => item !== value));
+      setIsCheck(isCheck.filter((item) => item !== parseInt(value)));
     }
   };
 
   const handleSelectAll = (e) => {
     const { value, checked } = e.target;
-    setIsCheckAll({ ...isCheckAll, [value]: checked });
+    setIsCheckAll([...isCheckAll, parseInt(value)]);
     permissions.forEach((li) => {
-      if (li.code === value && checked) {
+      if (li.id === parseInt(value) && checked) {
         let insideChildren = [];
         if (li.children) {
           li.children.forEach((child) =>
-            child.children.forEach((child) => insideChildren.push(child.code))
+            child.children.forEach((child) => insideChildren.push(child.id))
           );
         }
         setIsCheck((oldCheck) => {
           return [
-            ...oldCheck,
-            ...li.children.map((child) => child.code),
-            ...insideChildren,
+            ...new Set([
+              parseInt(value),
+              ...oldCheck,
+              ...li.children.map((child) => child.id),
+              ...insideChildren,
+            ]),
           ];
         });
       }
     });
+    if (!checked) {
+      setIsCheck(isCheck.filter((item) => item !== parseInt(value)));
+    }
   };
 
   const onSubmit = useCallback(
     async (event) => {
       event.preventDefault();
-      if (roleId) {
-        try {
+      try {
+        if (roleId) {
           const form = new FormData();
           form.append("_method", "PUT");
-          form.append("permissions", JSON.stringify(isCheck));
+          for (let index = 0; index < isCheck.length; index++) {
+            form.append("permissions[]", isCheck[index]);
+          }
           for (const name in updated) {
             form.append(name, updated[name]);
           }
@@ -118,15 +127,28 @@ const AddRole = ({
             "multipart/form-data"
           );
           Swal.fire("Role updated successfully!", "", "success");
-        } catch ({
-          response: {
-            data: { message },
-          },
-        }) {
-          toast.error(<span>{message.join("\r\n")}</span>);
+        } else {
+          const form = new FormData();
+          for (let index = 0; index < isCheck.length; index++) {
+            form.append("permissions[]", isCheck[index]);
+          }
+          for (const name in updated) {
+            form.append(name, updated[name]);
+          }
+          await query(
+            "/api/dashboard/roles",
+            "post",
+            form,
+            "multipart/form-data"
+          );
+          Swal.fire("Role added successfully!", "", "success");
         }
-      } else {
-        insertNewRow(updated, "roles");
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
       setShow(false);
       setRefreshRows(true);
@@ -134,99 +156,112 @@ const AddRole = ({
     [roleId, setShow, setRefreshRows, isCheck, updated]
   );
 
+  const isMount = useIsMount();
+
+  useEffect(() => {
+    if (!show && !isMount) {
+      setIsCheck([]);
+      setPermissions([]);
+    }
+  }, [isMount, show]);
+
+  console.log(isCheck);
+
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
           <Form.Row>
             <h1 className="text-placeholder-color border-b border-black dark:border-white pb-2">
-              Edit Role
+              Add Role
             </h1>
           </Form.Row>
           <Form.Row className="grid grid-cols-2 gap-5 py-5 pr-5">
             <TextInput
               id={"role"}
               key={role}
-              name={"role"}
+              name={"name"}
               label={"Role"}
               placeholder={"Role"}
               onChange={handleInputChange}
               defaultValue={role}
             />
           </Form.Row>
-          <Form.Row className="flex flex-col justify-between w-full h-96 overflow-scroll sidebar">
+          <Form.Row className="flex flex-col justify-between w-full">
             <div className="grid grid-cols-2 gap-5 pt-5 pr-5">
-              {permissions.map(({ name, code, children }) => {
-                return (
-                  <div
-                    key={code}
-                    className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
-                  >
-                    <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
-                      <Checkbox
-                        onClick={handleSelectAll}
-                        afterLabel={name}
-                        defaultChecked={
-                          isCheck.includes(code) ||
-                          userPermissions?.includes(code)
-                        }
-                        value={code}
-                      />
+              {permissions &&
+                permissions?.map(({ id, name, code, children }) => {
+                  return (
+                    <div
+                      key={id}
+                      className="max-h-100 max-w-100 bg-white dark:bg-gray-800 p-3 rounded-primary"
+                    >
+                      <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
+                        <Checkbox
+                          onClick={handleSelectAll}
+                          afterLabel={name}
+                          defaultChecked={isCheck.includes(parseInt(id))}
+                          value={parseInt(id)}
+                        />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 pt-2">
+                        {children &&
+                          children?.map(({ id, name, code, children }) => {
+                            return (
+                              <div key={id}>
+                                <Checkbox
+                                  key={parseInt(id)}
+                                  checked={isCheck.includes(parseInt(id))}
+                                  afterLabel={name}
+                                  value={parseInt(id)}
+                                  onClick={handleClick}
+                                />
+                                {children &&
+                                  children.map(
+                                    ({ id, name, code, children }) => {
+                                      return (
+                                        <div key={id}>
+                                          <Checkbox
+                                            key={parseInt(id)}
+                                            checked={isCheck.includes(
+                                              parseInt(id)
+                                            )}
+                                            afterLabel={name}
+                                            value={parseInt(id)}
+                                            onClick={handleClick}
+                                          />
+                                          {children &&
+                                            children.map(
+                                              ({
+                                                id,
+                                                name,
+                                                code,
+                                                children,
+                                              }) => {
+                                                return (
+                                                  <Checkbox
+                                                    key={parseInt(id)}
+                                                    checked={isCheck.includes(
+                                                      parseInt(id)
+                                                    )}
+                                                    afterLabel={name}
+                                                    value={parseInt(id)}
+                                                    onClick={handleClick}
+                                                  />
+                                                );
+                                              }
+                                            )}
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                              </div>
+                            );
+                          })}
+                      </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {children.map(({ name, code, children }) => {
-                        return (
-                          <>
-                            <Checkbox
-                              key={code}
-                              defaultChecked={
-                                isCheck.includes(code) ||
-                                userPermissions?.includes(code)
-                              }
-                              afterLabel={name}
-                              value={code}
-                              onClick={handleClick}
-                            />
-                            {children &&
-                              children.map(({ name, code, children }) => {
-                                return (
-                                  <>
-                                    <Checkbox
-                                      key={code}
-                                      defaultChecked={
-                                        isCheck.includes(code) ||
-                                        userPermissions?.includes(code)
-                                      }
-                                      afterLabel={name}
-                                      value={code}
-                                      onClick={handleClick}
-                                    />
-                                    {children &&
-                                      children.map(
-                                        ({ name, code, children }) => {
-                                          return (
-                                            <Checkbox
-                                              key={code}
-                                              defaultChecked={isCheck.includes(
-                                                code
-                                              )}
-                                              afterLabel={name}
-                                              value={code}
-                                              onClick={handleClick}
-                                            />
-                                          );
-                                        }
-                                      )}
-                                  </>
-                                );
-                              })}
-                          </>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </Form.Row>
         </Form.Content>

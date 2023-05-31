@@ -5,7 +5,7 @@ import { Checkbox } from "../../../common";
 import { Employee, Permissions, Role } from "../../../../classes";
 import { query } from "../../../../utils";
 import { toast } from "react-toastify";
-import useIsMount from "../../../../hooks/isMounted";
+import useIsMount from "../../../../hooks/useIsMount";
 
 const SetPermissions = ({
   userId,
@@ -108,7 +108,6 @@ const SetPermissions = ({
   }, [roles, userPermissions, userRoles]);
 
   const handleClick = (e) => {
-    // Done
     const { value, checked } = e.target;
     setIsCheck([...new Set([...isCheck, parseInt(value)])]);
     if (!checked) {
@@ -117,7 +116,6 @@ const SetPermissions = ({
   };
 
   const handleSelectAll = (e) => {
-    // Done
     const { value, checked } = e.target;
     setIsCheckAll([...isCheckAll, parseInt(value)]);
     permissions.forEach((li) => {
@@ -146,7 +144,6 @@ const SetPermissions = ({
   };
 
   const handleRoleChange = ({ target: { value, checked } }) => {
-    // Done
     if (checked) {
       setUpdatedRoles([...new Set([...updatedRoles, parseInt(value)])]);
       roles.forEach((element) => {
@@ -160,7 +157,6 @@ const SetPermissions = ({
   };
 
   const onSubmit = useCallback(
-    // Done
     async (event) => {
       event.preventDefault();
       try {
@@ -198,6 +194,7 @@ const SetPermissions = ({
     if (!show && !isMount) {
       setIsCheck([]);
       setPermissions([]);
+      setRoles([]);
     }
   }, [isMount, show]);
 
@@ -218,8 +215,8 @@ const SetPermissions = ({
                   roles?.map(({ id, name }) => {
                     return (
                       <Checkbox
-                        key={id}
-                        checked={
+                        key={parseInt(id)}
+                        defaultChecked={
                           updatedRoles.includes(parseInt(id)) ||
                           userRoles.includes(parseInt(id))
                         }
@@ -243,9 +240,10 @@ const SetPermissions = ({
                     >
                       <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
                         <Checkbox
+                          key={parseInt(id)}
                           onClick={handleSelectAll}
                           afterLabel={name}
-                          checked={isCheck.includes(parseInt(id))}
+                          defaultChecked={isCheck.includes(parseInt(id))}
                           value={parseInt(id)}
                         />
                       </div>
@@ -255,10 +253,10 @@ const SetPermissions = ({
                             return (
                               <div key={id}>
                                 <Checkbox
-                                  key={id}
+                                  key={parseInt(id)}
                                   checked={isCheck.includes(parseInt(id))}
                                   afterLabel={name}
-                                  value={id}
+                                  value={parseInt(id)}
                                   onClick={handleClick}
                                 />
                                 {children &&
@@ -267,7 +265,8 @@ const SetPermissions = ({
                                       return (
                                         <div key={id}>
                                           <Checkbox
-                                            checked={isCheck.includes(
+                                            key={parseInt(id)}
+                                            defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
                                             afterLabel={name}
@@ -284,8 +283,8 @@ const SetPermissions = ({
                                               }) => {
                                                 return (
                                                   <Checkbox
-                                                    key={id}
-                                                    checked={isCheck.includes(
+                                                    key={parseInt(id)}
+                                                    defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}
                                                     afterLabel={name}
