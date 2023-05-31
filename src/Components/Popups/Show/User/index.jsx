@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Form from "../../Insert/Form";
 import { Checkbox, UploadImage } from "../../../common";
 import { Link } from "react-router-dom";
@@ -13,6 +14,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const ShowUser = ({ show, setShow, selectedRow }) => {
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    if (selectedRow) {
+      setUser(selectedRow);
+    }
+  }, []);
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
@@ -23,31 +30,30 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                 className="col-span-6 justify-center"
                 disabled
                 avatar
-                src={selectedRow["user"]?.avatar}
+                src={user["user"]?.avatar}
               />
               <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {selectedRow["user"]?.name}
+                {user["user"]?.name}
               </div>
               <div className="pt-5 space-y-2">
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faEnvelope} />
-                  {selectedRow["user"]?.email}
+                  {user["user"]?.email}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faLocationDot} />
-                  {selectedRow["user"]?.Country?.name},{" "}
-                  {selectedRow["user"]?.City?.name}
+                  {user["user"]?.Country?.name}, {user["user"]?.City?.name}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon
                     className="pr-2"
                     icon={faMobileScreenButton}
                   />
-                  {selectedRow["user"]?.mobile}
+                  {user["user"]?.mobile}
                 </div>
                 <div className="text-placeholder-color col-span-3 sm:col-span-6">
                   <FontAwesomeIcon className="pr-2" icon={faGlobe} />
-                  {selectedRow["user"]?.Locale?.name}
+                  {user["user"]?.Locale?.name}
                 </div>
               </div>
               <Form.Row className="cols-span-6">
@@ -56,7 +62,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                     <span>Subscription status</span>
                     <Checkbox
                       name={"subscription_status"}
-                      defaultChecked={selectedRow["user"]?.subscription_status}
+                      defaultChecked={user["user"]?.subscription_status}
                       disabled
                     />
                   </div>
@@ -64,7 +70,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                     <span>Verified</span>
                     <Checkbox
                       name={"is_verified"}
-                      defaultChecked={selectedRow["user"]?.is_verified}
+                      defaultChecked={user["user"]?.is_verified}
                       disabled
                     />
                   </div>
@@ -72,7 +78,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                     <span>Suspended</span>
                     <Checkbox
                       name={"is_suspended"}
-                      defaultChecked={selectedRow["user"]?.is_suspended}
+                      defaultChecked={user["user"]?.is_suspended}
                       disabled
                     />
                   </div>
@@ -80,7 +86,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                     <span>Baned</span>
                     <Checkbox
                       name={"is_baned"}
-                      defaultChecked={selectedRow["user"]?.is_baned}
+                      defaultChecked={user["user"]?.is_baned}
                       disabled
                     />
                   </div>
@@ -94,7 +100,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                   <div className="grid grid-cols-3 gap-5 pb-5">
                     <Link
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      state={{ userId: user["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold  rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -107,12 +113,12 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.complete}
+                        {user.complete}
                       </p>
                     </Link>
                     <Link
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      state={{ userId: user["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold  rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -125,12 +131,12 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.current}
+                        {user.current}
                       </p>
                     </Link>
                     <Link
                       to={"/order"}
-                      state={{ userId: selectedRow["user"]?.id }}
+                      state={{ userId: user["user"]?.id }}
                       className="grid grid-cols-3 p-2 w-50 h-20 dark:bg-gray-800 bg-[#f2ebeb] text-placeholder-color text-white font-bold rounded"
                     >
                       <div className="flex col-span-2 space-x-2">
@@ -143,7 +149,7 @@ const ShowUser = ({ show, setShow, selectedRow }) => {
                         </span>
                       </div>
                       <p className="col-span-3 text-lg font-black text-end pr-2 text-placeholder-color">
-                        {selectedRow.cancel}
+                        {user.cancel}
                       </p>
                     </Link>
                   </div>

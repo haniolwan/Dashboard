@@ -8,6 +8,16 @@ class NotificationTemplate {
 }
 
 
+class NotificationTemplateSelect {
+    constructor({
+        id,
+        title,
+    }) {
+        this.label = title;
+        this.value = id;
+    }
+}
+
 class NotificationTemplateTranslation {
     constructor({
         id,
@@ -25,5 +35,6 @@ class NotificationTemplateTranslation {
 
 export {
     NotificationTemplate,
+    NotificationTemplateSelect,
     NotificationTemplateTranslation
 }

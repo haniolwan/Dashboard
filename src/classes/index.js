@@ -12,6 +12,7 @@ import { Order, SelectOrder } from "./Order";
 import { Provider, SelectProvider } from "./Provider";
 import {
     NotificationTemplate,
+    NotificationTemplateSelect,
     NotificationTemplateTranslation
 } from "./Notifications/Template";
 import { NotificationsHistory } from "./Notifications/History";
@@ -48,6 +49,7 @@ export {
     Provider,
     SelectProvider,
     NotificationTemplate,
+    NotificationTemplateSelect,
     NotificationTemplateTranslation,
     NotificationsHistory,
     Role,
