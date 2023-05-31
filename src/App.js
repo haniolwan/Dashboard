@@ -145,9 +145,6 @@ function App() {
           </EnumsContext.Provider>
         </UserInfoContext.Provider>
       </LoadingContext.Provider>
-      <Routes>
-        <Route path={'*'} component={<NotFound />} />
-      </Routes>
     </>
   );
 

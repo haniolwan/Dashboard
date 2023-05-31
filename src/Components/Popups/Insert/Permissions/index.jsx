@@ -1,12 +1,11 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Form from "../Form";
 import { Checkbox } from "../../../common";
-import { Permissions, Role } from "../../../../classes";
+import { Employee, Permissions, Role } from "../../../../classes";
 import { query } from "../../../../utils";
-import { insertNewRow } from "../../../common/Table/methods";
 import { toast } from "react-toastify";
-import { UserInfoContext } from "../../../../context";
+import useIsMount from "../../../../hooks/isMounted";
 
 const SetPermissions = ({
   userId,
@@ -26,11 +25,34 @@ const SetPermissions = ({
   const [isCheckAll, setIsCheckAll] = useState([]);
   const [isCheck, setIsCheck] = useState([]);
 
+  const [userRoles, setUserRoles] = useState([]);
+  const [userPermissions, setUserPermissions] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
-  const {
-    userInfo: { roles: userRoles, permissions: userPermissions },
-  } = useContext(UserInfoContext);
+  useEffect(() => {
+    // Get Roles
+    const fetchData = async () => {
+      try {
+        const {
+          data: { data },
+        } = await query(`/api/dashboard/employees/${userId}`);
+        const employee = new Employee(data.Employee);
+        setUserRoles(employee.roles);
+        setUserPermissions(employee.permissions);
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
+      }
+    };
+    if (userId && show) {
+      fetchData();
+    }
+  }, [userId, show]);
+
   useEffect(() => {
     // Get Roles
     const fetchData = async () => {
@@ -76,7 +98,7 @@ const SetPermissions = ({
   useEffect(() => {
     let perms = [];
     roles.forEach((role) => {
-      if (userRoles.includes(role.id)) {
+      if ((userRoles || updatedRoles).includes(role.id)) {
         perms = [...role.permissions];
       }
     });
@@ -86,6 +108,7 @@ const SetPermissions = ({
   }, [roles, userPermissions, userRoles]);
 
   const handleClick = (e) => {
+    // Done
     const { value, checked } = e.target;
     setIsCheck([...new Set([...isCheck, parseInt(value)])]);
     if (!checked) {
@@ -94,6 +117,7 @@ const SetPermissions = ({
   };
 
   const handleSelectAll = (e) => {
+    // Done
     const { value, checked } = e.target;
     setIsCheckAll([...isCheckAll, parseInt(value)]);
     permissions.forEach((li) => {
@@ -122,11 +146,12 @@ const SetPermissions = ({
   };
 
   const handleRoleChange = ({ target: { value, checked } }) => {
-    if (value && checked) {
-      setUpdatedRoles([...updatedRoles, parseInt(value)]);
+    // Done
+    if (checked) {
+      setUpdatedRoles([...new Set([...updatedRoles, parseInt(value)])]);
       roles.forEach((element) => {
         if (element.id === parseInt(value)) {
-          setIsCheck([...new Set([...element.permissions, ...isCheck])]);
+          setIsCheck([...new Set([...isCheck, ...element.permissions])]);
         }
       });
     } else {
@@ -135,47 +160,46 @@ const SetPermissions = ({
   };
 
   const onSubmit = useCallback(
+    // Done
     async (event) => {
       event.preventDefault();
-      if (userId) {
-        try {
-          const form = new FormData();
-          form.append("_method", "PUT");
-          for (let index = 0; index < isCheck.length; index++) {
-            form.append("permissions[]", isCheck[index]);
-          }
-          for (let index = 0; index < updatedRoles.length; index++) {
-            form.append("roles[]", updatedRoles[index]);
-          }
-          await query(
-            `/api/dashboard/employees/${userId}`,
-            "post",
-            form,
-            "multipart/form-data"
-          );
-          Swal.fire("Role updated successfully!", "", "success");
-        } catch ({
-          response: {
-            data: { message },
-          },
-        }) {
-          toast.error(<span>{message.join("\r\n")}</span>);
+      try {
+        const form = new FormData();
+        form.append("_method", "PUT");
+        for (let index = 0; index < isCheck.length; index++) {
+          form.append("permissions[]", isCheck[index]);
         }
-      } else {
-        insertNewRow(updated, "roles");
+        for (let index = 0; index < updatedRoles.length; index++) {
+          form.append("roles[]", updatedRoles[index]);
+        }
+        await query(
+          `/api/dashboard/employees/${userId}`,
+          "post",
+          form,
+          "multipart/form-data"
+        );
+        Swal.fire("Role updated successfully!", "", "success");
+      } catch ({
+        response: {
+          data: { message },
+        },
+      }) {
+        toast.error(<span>{message.join("\r\n")}</span>);
       }
       setShow(false);
       setRefreshRows(true);
     },
-    [userId, setShow, setRefreshRows, isCheck, updatedRoles, updated]
+    [isCheck, setRefreshRows, setShow, updatedRoles, userId]
   );
 
+  const isMount = useIsMount();
+
   useEffect(() => {
-    if (!show) {
+    if (!show && !isMount) {
       setIsCheck([]);
       setPermissions([]);
     }
-  }, [show]);
+  }, [isMount, show]);
 
   return (
     <Form show={show} setShow={setShow} isLoading={loading} onSubmit={onSubmit}>
@@ -195,12 +219,12 @@ const SetPermissions = ({
                     return (
                       <Checkbox
                         key={id}
-                        defaultChecked={
+                        checked={
                           updatedRoles.includes(parseInt(id)) ||
                           userRoles.includes(parseInt(id))
                         }
                         afterLabel={name}
-                        value={id}
+                        value={parseInt(id)}
                         onChange={handleRoleChange}
                       />
                     );
@@ -221,8 +245,8 @@ const SetPermissions = ({
                         <Checkbox
                           onClick={handleSelectAll}
                           afterLabel={name}
-                          defaultChecked={isCheck.includes(id)}
-                          value={id}
+                          checked={isCheck.includes(parseInt(id))}
+                          value={parseInt(id)}
                         />
                       </div>
                       <div className="grid grid-cols-2 gap-2 pt-2">
@@ -232,9 +256,7 @@ const SetPermissions = ({
                               <div key={id}>
                                 <Checkbox
                                   key={id}
-                                  defaultChecked={isCheck.includes(
-                                    parseInt(id)
-                                  )}
+                                  checked={isCheck.includes(parseInt(id))}
                                   afterLabel={name}
                                   value={id}
                                   onClick={handleClick}
@@ -245,11 +267,11 @@ const SetPermissions = ({
                                       return (
                                         <div key={id}>
                                           <Checkbox
-                                            defaultChecked={isCheck.includes(
+                                            checked={isCheck.includes(
                                               parseInt(id)
                                             )}
                                             afterLabel={name}
-                                            value={id}
+                                            value={parseInt(id)}
                                             onClick={handleClick}
                                           />
                                           {children &&
@@ -263,11 +285,11 @@ const SetPermissions = ({
                                                 return (
                                                   <Checkbox
                                                     key={id}
-                                                    defaultChecked={isCheck.includes(
+                                                    checked={isCheck.includes(
                                                       parseInt(id)
                                                     )}
                                                     afterLabel={name}
-                                                    value={id}
+                                                    value={parseInt(id)}
                                                     onClick={handleClick}
                                                   />
                                                 );

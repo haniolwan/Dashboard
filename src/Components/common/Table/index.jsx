@@ -719,18 +719,11 @@ Table.Footer = () => {
   };
 
   useEffect(() => {
-    if (!showAddModal) {
+    if (!showAddModal || !setShowPermissionsModal) {
       setUserId();
       setSelectedRow();
     }
-  }, [
-    setSelectedRow,
-    setUserId,
-    showAddModal,
-    showPermissionsModal,
-    showTranslateModal,
-    userId,
-  ]);
+  }, [setSelectedRow, setShowPermissionsModal, setUserId, showAddModal]);
 
   const changeLocale = ({
     target: {
