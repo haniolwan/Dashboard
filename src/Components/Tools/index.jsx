@@ -44,13 +44,16 @@ const Tools = ({ sideBarWidth }) => {
             <div key={i}>
               {i !== paths.length - 1 ? (
                 <Link to={`/${link}`} className="capitalize">
-                  {link}
+                  {link}{" "}
                 </Link>
               ) : (
                 <span className="capitalize">{link}</span>
               )}
               {i !== paths.length - 1 && (
-                <FontAwesomeIcon className="h-2" icon={faGreaterThan} />
+                <FontAwesomeIcon
+                  className="h-2 ml-1 mb-1"
+                  icon={faGreaterThan}
+                />
               )}
             </div>
           );

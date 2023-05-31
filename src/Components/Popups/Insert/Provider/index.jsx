@@ -36,14 +36,12 @@ const AddProvider = ({
   const verifiedRef = useRef();
   const suspendedRef = useRef();
   const banedRef = useRef();
-  const availableRef = useRef();
 
   useEffect(() => {
     if (!show) {
       verifiedRef.current.defaultChecked = false;
       suspendedRef.current.defaultChecked = false;
       banedRef.current.defaultChecked = false;
-      availableRef.current.defaultChecked = false;
     }
   }, [show]);
 

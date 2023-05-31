@@ -13,6 +13,7 @@ import Services from './Services';
 import Plans from './Plans';
 import NotificationsTemplates from './Notifications/Templates';
 import NotificationsHistory from './Notifications/History';
+import NotificationsActions from './Notifications/Actions';
 import Subscriptions from './Subscriptions';
 import Users from './Users';
 import Orders from './Order';
@@ -37,6 +38,7 @@ export {
     Plans,
     NotificationsTemplates,
     NotificationsHistory,
+    NotificationsActions,
     Subscriptions,
     Users,
     Orders,

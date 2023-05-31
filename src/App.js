@@ -30,6 +30,7 @@ import {
   Roles,
   Dashboard,
   NotFound,
+  NotificationsActions,
 } from "./Pages";
 import { Loading } from "./Components/common";
 import Profile from "./Pages/Profile";
@@ -82,6 +83,9 @@ function App() {
     if (pathname === "/") {
       navigate("/dashboard");
     }
+    if (pathname === "/notification") {
+      navigate("/notification/actions");
+    }
   }, [pathname, navigate]);
 
   const [nightMode, setNightMode] = useState(false);
@@ -127,6 +131,10 @@ function App() {
                           path="/notification/history"
                           element={<NotificationsHistory />}
                         />
+                        <Route
+                          path="/notification/actions"
+                          element={<NotificationsActions />}
+                        />
                         <Route path="/profile" element={<Profile />} />
                       </Route>
                     </Route>
@@ -138,7 +146,7 @@ function App() {
         </UserInfoContext.Provider>
       </LoadingContext.Provider>
       <Routes>
-        <Route component={<NotFound />} />
+        <Route path={'*'} component={<NotFound />} />
       </Routes>
     </>
   );
