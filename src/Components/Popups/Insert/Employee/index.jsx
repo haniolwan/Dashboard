@@ -142,22 +142,10 @@ const AddEmployee = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      mobileRef.current.value = "";
-      emailRef.current.value = "";
-      countryRef.current.select.setValue({});
-      cityRef.current.select.setValue({});
-      avatarRef.current.value = "";
-      suspendRef.current.defaultChecked = false;
-      bannedRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
       setUser([]);
+      setUpdated([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

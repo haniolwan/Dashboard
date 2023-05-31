@@ -34,10 +34,6 @@ const ShowCountry = ({ show, setShow, selectedRow }) => {
                     <span>{country.code}</span>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
-                    <span>Value</span>
-                    <span className="text-end">{country.value}</span>
-                  </div>
-                  <div className="flex justify-between text-placeholder-color">
                     <span>Currency</span>
                     <span className="text-end">{country?.Currency?.name}</span>
                   </div>

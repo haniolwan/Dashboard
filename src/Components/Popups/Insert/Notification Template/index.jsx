@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Form from "../Form";
 import { SelectInput, TextArea, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
@@ -56,11 +56,16 @@ const AddNotificationTemplate = ({
     }
   }, [NotificationType, row, show]);
 
+  const titleRef = useRef();
+  const messageRef = useRef();
+  const typeRef = useRef();
+
   useEffect(() => {
     if (!show) {
       setRow([]);
+      setUpdated([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -69,6 +74,7 @@ const AddNotificationTemplate = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextInput
+                ref={titleRef}
                 key={row.title}
                 name={"title"}
                 label={"Title"}
@@ -80,6 +86,7 @@ const AddNotificationTemplate = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <TextArea
+                ref={messageRef}
                 key={row.message}
                 name={"message"}
                 label={"Message"}
@@ -91,7 +98,8 @@ const AddNotificationTemplate = ({
           <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <SelectInput
-                key={row?.type}
+                ref={typeRef}
+                key={defaultTypeOption}
                 name={"type"}
                 label={"Type"}
                 options={typeOptions}

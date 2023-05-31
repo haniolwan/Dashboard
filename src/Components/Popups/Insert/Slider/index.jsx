@@ -42,15 +42,6 @@ const AddSlider = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      urlRef.current.value = "";
-      imageRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
       setSlider([]);
       setUpdated([]);
     }
