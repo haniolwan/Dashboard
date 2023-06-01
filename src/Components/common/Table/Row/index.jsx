@@ -108,7 +108,6 @@ const Row = ({
       NotificationTargetType,
     },
   } = useContext(EnumsContext);
-
   function SwitchComponent({ option }) {
     switch (option) {
       case "title":

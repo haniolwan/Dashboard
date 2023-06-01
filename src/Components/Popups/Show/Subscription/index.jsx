@@ -12,7 +12,7 @@ const ShowSubscription = ({ show, setShow, selectedRow }) => {
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Page Info"}>
+        <Form.Content title={"Subscription Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-12 gap-5 w-[20rem]">
               <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">

@@ -1,6 +1,8 @@
+import { useContext, useEffect, useState } from "react";
 import Form from "../../Insert/Form";
-import { TextArea, TextInput } from "../../../common";
-import { useEffect, useState } from "react";
+import { query } from "../../../../utils";
+import { toast } from "react-toastify";
+import { EnumsContext } from "../../../../context";
 
 const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
   const [row, setRow] = useState([]);
@@ -11,59 +13,59 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
     }
   }, [selectedRow]);
 
+  const {
+    enums: { NotificationFilter, NotificationTargetType, NotificationType },
+  } = useContext(EnumsContext);
+
+  console.log(selectedRow);
+
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Add New Notifications History"}>
+        <Form.Content title={"Notifications History Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                key={row?.title}
-                name={"title"}
-                label={"Title"}
-                defaultValue={row.title}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-6">
-              <TextArea
-                key={row?.message}
-                name={"message"}
-                label={"Message"}
-                defaultValue={row?.message}
-                disabled
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                key={row?.filter}
-                name={"filter"}
-                label={"Filter"}
-                defaultValue={row?.filter}
-                disabled
-              />
-            </div>
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                key={row?.target_count}
-                name={"target_count"}
-                label={"Target Count"}
-                defaultValue={row.target_count}
-                disabled
-              />
-            </div>
-          </Form.Row>
-          <Form.Row className="grid grid-cols-12 gap-5">
-            <div className="col-span-3 sm:col-span-6">
-              <TextInput
-                key={row?.target_type}
-                name={"target_type"}
-                label={"Target Type"}
-                defaultValue={row?.target_type}
-                disabled
-              />
+            <div className="col-span-12 gap-5 w-[20rem]">
+              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
+                {row?.title}
+              </div>
+              <Form.Row className="cols-span-6">
+                <div className="col-span-1 sm:col-span-6 space-y-2 pt-5">
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Filter</span>
+                    <span>
+                      {Object.keys(NotificationFilter).find(
+                        (key) => NotificationFilter[key] === row?.filter
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Target type</span>
+                    <span className="text-end">
+                      {Object.keys(NotificationTargetType).find(
+                        (key) => NotificationTargetType[key] === row.target_type
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Target count</span>
+                    <span className="text-end">{row.target_count}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Notification template</span>
+                    <span className="text-end">
+                      {row?.NotificationTemplate?.name}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Type</span>
+                    <span className="text-end">
+                      {Object.keys(NotificationType).find(
+                        (key) => NotificationType[key] === row.type
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </Form.Row>
             </div>
           </Form.Row>
         </Form.Content>
