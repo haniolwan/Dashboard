@@ -731,8 +731,15 @@ Table.Footer = () => {
     if (!showAddModal || !setShowPermissionsModal) {
       setUserId();
       setSelectedRow();
+      setUpdated([]);
     }
-  }, [setSelectedRow, setShowPermissionsModal, setUserId, showAddModal]);
+  }, [
+    setSelectedRow,
+    setShowPermissionsModal,
+    setUpdated,
+    setUserId,
+    showAddModal,
+  ]);
 
   const changeLocale = ({
     target: {

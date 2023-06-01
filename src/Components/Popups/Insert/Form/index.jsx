@@ -57,6 +57,12 @@ Form.Container = ({ children }) => {
 
   useOnClickOutside(ref, "", () => setShow(false));
 
+  useEffect(() => {
+    if (!show) {
+      ref.current.reset();
+    }
+  }, [ref, show]);
+
   return (
     <>
       <div
