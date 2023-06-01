@@ -600,6 +600,10 @@ Table.Body = () => {
               title,
               message,
               locale_code,
+              filter,
+              target_type,
+              NotificationTemplate,
+              target_count,
             }) => {
               return (
                 <Row
@@ -660,6 +664,10 @@ Table.Body = () => {
                   title={title}
                   message={message}
                   locale_code={locale_code}
+                  filter={filter}
+                  target_type={target_type}
+                  NotificationTemplate={NotificationTemplate}
+                  target_count={target_count}
                   setUpdateRow={setUpdateRow}
                   removeRow={removeRow}
                   translateRow={translateRow}

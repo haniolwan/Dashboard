@@ -67,6 +67,10 @@ const Row = ({
   title,
   message,
   locale_code,
+  filter,
+  target_type,
+  NotificationTemplate,
+  target_count,
   removeRow,
   translateRow,
   showRow,
@@ -95,11 +99,13 @@ const Row = ({
   const {
     enums: {
       PlanType,
-      NotificationType,
       OrderStatusEnum,
       OrderType,
       ProviderType,
       SubscriptionStatus,
+      NotificationFilter,
+      NotificationType,
+      NotificationTargetType,
     },
   } = useContext(EnumsContext);
 
@@ -278,6 +284,12 @@ const Row = ({
             <span>{Country?.name || country?.name}</span>
           </td>
         );
+      case "NotificationTemplate":
+        return (
+          <td className="px-6">
+            <span>{NotificationTemplate?.name}</span>
+          </td>
+        );
       case "City":
       case "city":
         return (
@@ -447,6 +459,32 @@ const Row = ({
             <span>
               {Object.keys(OrderType).find((key) => OrderType[key] === type)}
             </span>
+          </td>
+        );
+      case "filter":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(NotificationFilter).find(
+                (key) => NotificationFilter[key] === filter
+              )}
+            </span>
+          </td>
+        );
+      case "target_type":
+        return (
+          <td className="px-6">
+            <span>
+              {Object.keys(NotificationTargetType).find(
+                (key) => NotificationTargetType[key] === target_type
+              )}
+            </span>
+          </td>
+        );
+      case "target_count":
+        return (
+          <td className="px-6">
+            <span>{target_count}</span>
           </td>
         );
       case "order_status":

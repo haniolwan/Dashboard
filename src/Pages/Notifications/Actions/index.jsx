@@ -1,8 +1,6 @@
 import { toast } from "react-toastify";
-import Form from "../../../Components/Popups/Insert/Form";
 import {
   Button,
-  Checkbox,
   SelectInput,
   TextArea,
   TextInput,

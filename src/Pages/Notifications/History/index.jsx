@@ -6,17 +6,19 @@ const History = () => {
   const { permissions } = useContext(PermissionsContext);
   const cols = {
     title: { label: "Title", value: "title", hidden: false },
-    type: { label: "Type", value: "type", hidden: false },
     message: { label: "Message", value: "message", hidden: false },
-    filter: { label: "Filter", value: "filter", hidden: false },
+    filter: {
+      label: "Filter",
+      value: "filter",
+      hidden: false,
+    },
+    target_type: { label: "Target type", value: "target_type", hidden: false },
     target_count: {
       label: "Target count",
       value: "target_count",
       hidden: false,
     },
-    target_type: { label: "Target type", value: "target_type", hidden: false },
-
-    notifications_templates: {
+    NotificationTemplate: {
       label: "Notification template",
       value: "NotificationTemplate",
       hidden: false,
@@ -26,7 +28,6 @@ const History = () => {
       value: "notification_type",
       hidden: false,
     },
-
     actions: {
       label: "Actions",
       value: "actions",
