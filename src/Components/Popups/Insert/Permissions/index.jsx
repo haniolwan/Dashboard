@@ -216,6 +216,10 @@ const SetPermissions = ({
                     return (
                       <Checkbox
                         key={parseInt(id)}
+                        checked={
+                          updatedRoles.includes(parseInt(id)) ||
+                          userRoles.includes(parseInt(id))
+                        }
                         defaultChecked={
                           updatedRoles.includes(parseInt(id)) ||
                           userRoles.includes(parseInt(id))
@@ -243,6 +247,7 @@ const SetPermissions = ({
                           key={parseInt(id)}
                           onClick={handleSelectAll}
                           afterLabel={name}
+                          checked={isCheck.includes(parseInt(id))}
                           defaultChecked={isCheck.includes(parseInt(id))}
                           value={parseInt(id)}
                         />
@@ -254,6 +259,7 @@ const SetPermissions = ({
                               <div key={id}>
                                 <Checkbox
                                   key={parseInt(id)}
+                                  checked={isCheck.includes(parseInt(id))}
                                   defaultChecked={isCheck.includes(
                                     parseInt(id)
                                   )}
@@ -268,6 +274,9 @@ const SetPermissions = ({
                                         <div key={id}>
                                           <Checkbox
                                             key={parseInt(id)}
+                                            checked={isCheck.includes(
+                                              parseInt(id)
+                                            )}
                                             defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
@@ -286,6 +295,9 @@ const SetPermissions = ({
                                                 return (
                                                   <Checkbox
                                                     key={parseInt(id)}
+                                                    checked={isCheck.includes(
+                                                      parseInt(id)
+                                                    )}
                                                     defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, Router } from "react-router-dom";
 import WebFont from "webfontloader";
 import { useTranslation } from "react-i18next";
 

@@ -196,6 +196,7 @@ const AddRole = ({
                         <Checkbox
                           onClick={handleSelectAll}
                           afterLabel={name}
+                          checked={isCheck.includes(parseInt(id))}
                           defaultChecked={isCheck.includes(parseInt(id))}
                           value={parseInt(id)}
                         />
@@ -207,6 +208,7 @@ const AddRole = ({
                               <div key={id}>
                                 <Checkbox
                                   key={parseInt(id)}
+                                  checked={isCheck.includes(parseInt(id))}
                                   defaultChecked={isCheck.includes(
                                     parseInt(id)
                                   )}
@@ -221,6 +223,9 @@ const AddRole = ({
                                         <div key={id}>
                                           <Checkbox
                                             key={parseInt(id)}
+                                            checked={isCheck.includes(
+                                              parseInt(id)
+                                            )}
                                             defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
@@ -239,6 +244,9 @@ const AddRole = ({
                                                 return (
                                                   <Checkbox
                                                     key={parseInt(id)}
+                                                    checked={isCheck.includes(
+                                                      parseInt(id)
+                                                    )}
                                                     defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}

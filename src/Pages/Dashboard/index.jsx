@@ -106,7 +106,7 @@ const Dashboard = () => {
           </div>
           <div className="w-full px-[30px]">
             <p className=" text-[#000000]  text-[14px] leading-[23px] font-[600] md:text-[18px] md:leading-[27px] font-[600] dark:text-white ">
-              Tolal Income
+              Total Income
             </p>
             <p className="  mb-2 text-[#000000] text-[30px] leading-[45px] font-[700] dark:text-white">
               {data.ProviderCount}
