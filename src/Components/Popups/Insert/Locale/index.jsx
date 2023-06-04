@@ -29,7 +29,7 @@ const AddLocale = ({
     [localeId, setShow, updated, setRefreshRows]
   );
   useEffect(() => {
-    if (selectedRow && show) {
+    if (selectedRow) {
       setLocale(selectedRow);
     }
   }, [selectedRow, show]);
@@ -40,23 +40,16 @@ const AddLocale = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      codeRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
+      setUpdated([]);
       setLocale([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
-          <Form.Row className="grid grid-cols-1 gap-5">
+          <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={nameRef}
@@ -77,14 +70,13 @@ const AddLocale = ({
                 onChange={handleInputChange}
               />
             </div>
-          </Form.Row>
-          <Form.Row>
             <div className="col-span-3 sm:col-span-1">
               <Checkbox
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={locale?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

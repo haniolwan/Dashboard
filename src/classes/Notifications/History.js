@@ -7,8 +7,7 @@ class NotificationsHistory {
         created_by,
         filter,
         target_count,
-        target_type,
-        notification_template_id,
+        notifications_templates_id,
         NotificationTemplate
     }) {
         this.id = id;
@@ -18,8 +17,7 @@ class NotificationsHistory {
         this.created_by = created_by;
         this.filter = filter;
         this.target_count = target_count;
-        this.target_type = target_type;
-        this.notification_template_id = notification_template_id;
+        this.notifications_templates_id = notifications_templates_id;
         this.NotificationTemplate = NotificationTemplate;
     }
 }

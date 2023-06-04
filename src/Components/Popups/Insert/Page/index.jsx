@@ -44,20 +44,10 @@ const AddPage = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      keyRef.current.value = "";
-      descriptionRef.current.value = "";
-      contentRef.current.value = "";
-      imageRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
+      setUpdated([]);
       setPage([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
@@ -99,10 +89,10 @@ const AddPage = ({
             <div className="col-span-3 sm:col-span-1">
               <TextArea
                 ref={contentRef}
-                key={page.content}
-                name={"content"}
-                label={"Content"}
-                defaultValue={page.content}
+                key={page.summary}
+                name={"summary"}
+                label={"Summary"}
+                defaultValue={page.summary}
                 onChange={handleInputChange}
               />
             </div>
@@ -125,7 +115,8 @@ const AddPage = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={page.is_active}
+                defaultChecked={page?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

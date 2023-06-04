@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import Form from "../../Insert/Form";
-import { query } from "../../../../utils";
-import { toast } from "react-toastify";
 import { EnumsContext } from "../../../../context";
 
 const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
@@ -14,10 +12,8 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
   }, [selectedRow]);
 
   const {
-    enums: { NotificationFilter, NotificationTargetType, NotificationType },
+    enums: { NotificationFilter, NotificationType },
   } = useContext(EnumsContext);
-
-  console.log(selectedRow);
 
   return (
     <Form show={show} setShow={setShow}>
@@ -35,14 +31,6 @@ const ShowNotificationsHistory = ({ show, setShow, selectedRow }) => {
                     <span>
                       {Object.keys(NotificationFilter).find(
                         (key) => NotificationFilter[key] === row?.filter
-                      )}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-placeholder-color">
-                    <span>Target type</span>
-                    <span className="text-end">
-                      {Object.keys(NotificationTargetType).find(
-                        (key) => NotificationTargetType[key] === row.target_type
                       )}
                     </span>
                   </div>

@@ -189,18 +189,9 @@ const Container = () => {
     },
   ];
 
-  const location = useLocation();
-
   useEffect(() => {
     setLoading(false);
   }, [setLoading]);
-
-  console.log(
-    permissions.includes(
-      !location.pathname.split("/")[1] ||
-        !location.pathname.split("_").join(".").split("/")[1]
-    )
-  );
 
   return (
     <>

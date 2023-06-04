@@ -35,14 +35,6 @@ const AddCurrency = ({
     }
   }, [selectedRow]);
 
-  useEffect(() => {
-    if (show && currencyId) {
-      if (currency.is_active === updated.is_active) {
-        setUpdated({ ...updated, is_active: currency.is_active ? 1 : 0 });
-      }
-    }
-  }, [currency, currencyId, setUpdated, show, updated]);
-
   const nameRef = useRef();
   const codeRef = useRef();
   const symbolRef = useRef();
@@ -50,18 +42,10 @@ const AddCurrency = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      codeRef.current.value = "";
-      symbolRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
+      setUpdated([]);
       setCurrency([]);
     }
-  }, [show]);
+  }, [setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

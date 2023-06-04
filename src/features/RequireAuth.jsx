@@ -94,7 +94,11 @@ const RequireAuth = () => {
   };
 
   return token ? (
-    !loading && (isPermitted() || location.pathname === "/dashboard") ? (
+    !loading &&
+    (isPermitted() ||
+      location.pathname === "/dashboard" ||
+      location.pathname === "/profile" ||
+      location.pathname === "/notification/actions") ? (
       <Outlet />
     ) : (
       <NoPermission />

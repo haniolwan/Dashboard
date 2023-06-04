@@ -78,14 +78,6 @@ const AddCity = ({
 
   useEffect(() => {
     if (!show) {
-      nameRef.current.value = "";
-      countryRef.current.select.setValue({});
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
-
-  useEffect(() => {
-    if (!show) {
       setUpdated([]);
       setCity([]);
     }
@@ -95,7 +87,7 @@ const AddCity = ({
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
-          <Form.Row className="grid grid-cols-1 gap-5">
+          <Form.Row className="grid grid-cols-2 gap-5">
             <div className="col-span-3 sm:col-span-1">
               <TextInput
                 ref={nameRef}
@@ -107,20 +99,22 @@ const AddCity = ({
                 onChange={handleInputChange}
               />
             </div>
-            <SelectInput
-              key={city?.country_id}
-              ref={countryRef}
-              name={"Country"}
-              label={"Country"}
-              options={countryOptions}
-              onChange={(country) => {
-                setUpdated({
-                  ...updated,
-                  country_id: country.id,
-                });
-              }}
-              defaultValue={city.Country && new SelectCountry(city.Country)}
-            />
+            <div className="col-span-3 sm:col-span-1">
+              <SelectInput
+                key={city?.country_id}
+                ref={countryRef}
+                name={"Country"}
+                label={"Country"}
+                options={countryOptions}
+                onChange={(country) => {
+                  setUpdated({
+                    ...updated,
+                    country_id: country.id,
+                  });
+                }}
+                defaultValue={city.Country && new SelectCountry(city.Country)}
+              />
+            </div>
           </Form.Row>
           <Form.Row>
             <div className="grid grid-cols-2">
@@ -129,6 +123,7 @@ const AddCity = ({
                 name={"is_active"}
                 beforeLabel={"Is Active"}
                 defaultChecked={city?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

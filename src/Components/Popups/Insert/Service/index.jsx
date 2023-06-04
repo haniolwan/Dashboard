@@ -36,27 +36,10 @@ const AddService = ({
     }
   }, [selectedRow, setSelectedRow, show]);
 
-  useEffect(() => {
-    if (show && serviceId) {
-      if (service.is_active === updated.is_active) {
-        setUpdated({ ...updated, is_active: service.is_active ? 1 : 0 });
-      }
-    }
-  }, [service.is_active, serviceId, setUpdated, show, updated]);
-
   const nameRef = useRef();
   const imageRef = useRef();
   const descRef = useRef();
   const activeRef = useRef();
-
-  useEffect(() => {
-    if (!show) {
-      nameRef.current.value = "";
-      descRef.current.value = "";
-      imageRef.current.value = "";
-      activeRef.current.defaultChecked = false;
-    }
-  }, [show]);
 
   useEffect(() => {
     if (!show) {
@@ -69,8 +52,8 @@ const AddService = ({
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content>
-          <Form.Row className="grid grid-cols-2 gap-5">
-            <div className="col-span-3 sm:col-span-2">
+          <Form.Row className="grid grid-cols-5 gap-5">
+            <div className="col-span-3 sm:col-span-5">
               <TextInput
                 ref={nameRef}
                 key={service.name}
@@ -81,7 +64,7 @@ const AddService = ({
                 onChange={handleInputChange}
               />
             </div>
-            <div className="col-span-3 sm:col-span-2">
+            <div className="col-span-3 sm:col-span-5">
               <TextArea
                 ref={descRef}
                 key={service.description}
@@ -109,10 +92,10 @@ const AddService = ({
             <div className="grid grid-cols-2">
               <Checkbox
                 ref={activeRef}
-                key={service.is_active}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={service.is_active}
+                defaultChecked={service?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

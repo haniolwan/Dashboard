@@ -12,8 +12,7 @@ import { toast } from "react-toastify";
 import { UserInfoContext } from "../../../context";
 import { SelectCity, SelectCountry, SelectLocale } from "../../../classes";
 import Swal from "sweetalert2";
-const Home = () => {
-  const [user, setUser] = useState([]);
+const Home = ({ user, setUser }) => {
   const [updated, setUpdated] = useState([]);
   const [countryOptions, setCountryOptions] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
@@ -241,28 +240,7 @@ const Home = () => {
         }}
         defaultValue={user?.Locale && new SelectLocale(user?.Locale)}
       />
-      <div className="grid grid-cols-2 mt-5">
-        <div className="col-span-1 gap-5">
-          <Checkbox
-            name={"is_suspended"}
-            beforeLabel={"Is Suspended"}
-            defaultChecked={user?.is_suspended}
-            onChange={handleInputChange}
-          />
-          <Checkbox
-            name={"is_baned"}
-            beforeLabel={"Is Baned"}
-            defaultChecked={user?.is_baned}
-            onChange={handleInputChange}
-          />
-        </div>
-        <UploadImage
-          id={"avatar"}
-          label={"Avatar"}
-          name={"avatar"}
-          onChange={handleInputChange}
-        />
-      </div>
+      <div className="grid grid-cols-2 mt-5" />
       <div className="flex justify-end">
         <Button
           type={"submit"}

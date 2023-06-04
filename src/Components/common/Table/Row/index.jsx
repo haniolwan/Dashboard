@@ -71,6 +71,7 @@ const Row = ({
   target_type,
   NotificationTemplate,
   target_count,
+  summary,
   removeRow,
   translateRow,
   showRow,
@@ -105,7 +106,6 @@ const Row = ({
       SubscriptionStatus,
       NotificationFilter,
       NotificationType,
-      NotificationTargetType,
     },
   } = useContext(EnumsContext);
   function SwitchComponent({ option }) {
@@ -236,10 +236,10 @@ const Row = ({
             </div>
           </td>
         );
-      case "content":
+      case "summary":
         return (
           <td className="px-6">
-            <span>{content}</span>
+            <span>{summary}</span>
           </td>
         );
       case "url":
@@ -380,7 +380,6 @@ const Row = ({
           </td>
         );
       case "status":
-        console.log(status);
         return (
           <td className="px-6">
             <div className="flex items-center justify-start gap-2 h-[3rem]">
@@ -474,9 +473,9 @@ const Row = ({
         return (
           <td className="px-6">
             <span>
-              {Object.keys(NotificationTargetType).find(
+              {/* {Object.keys(NotificationTargetType).find(
                 (key) => NotificationTargetType[key] === target_type
-              )}
+              )} */}
             </span>
           </td>
         );

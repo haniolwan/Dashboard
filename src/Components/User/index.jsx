@@ -1,17 +1,23 @@
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserInfoContext } from "../../context";
-import { logout } from "../../utils/logout";
 
-const User = () => {
+const User = ({ user, setUser }) => {
   const {
     userInfo: { name, avatar },
   } = useContext(UserInfoContext);
 
+  const [image, setImage] = useState(avatar);
+
+  const handleInputChange = ({ target: { type, name, files, value } }) => {
+    if (type === "file") {
+      setUser({ ...user, [name]: files[0] });
+      setImage(URL.createObjectURL(files[0]));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center py-10 px-5 w-full bg-[#FFF] rounded-[10px] dark:bg-gray-800 text-placeholder-color">
-      <div className="flex flex-col items-center gap-3 border-b-2 w-full">
+      <div className="flex flex-col items-center gap-3 w-full">
         <div>
           <button
             id="dropdownUserAvatarButton"
@@ -19,11 +25,22 @@ const User = () => {
             className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             type="button"
           >
-            <img
-              className="w-14 h-14 rounded-full"
-              src={avatar}
-              alt="user photo"
-            />
+            <div className="w-14 h-14">
+              <label className="rounded-full cursor-pointer" htmlFor="avatar">
+                <img
+                  className="rounded-full h-full"
+                  src={image}
+                  alt="profile"
+                />
+              </label>
+              <input
+                className="rounded-input hidden"
+                id="avatar"
+                type="file"
+                onChange={handleInputChange}
+              />
+              <br />
+            </div>
           </button>
         </div>
         <div className="flex flex-col gap-2 text-center px-4 py-3">
@@ -32,18 +49,6 @@ const User = () => {
             Admin
           </p>
         </div>
-      </div>
-      <div
-        onClick={logout}
-        className="cursor-pointer rounded mt-5 flex items-center gap-2 block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-placeholder-color"
-      >
-        <FontAwesomeIcon
-          className="text-[#ADB5BD] h-5"
-          icon={faRightFromBracket}
-        />
-        <span className="text-[16px] leading-[21px] font-[600] text-placeholder-color">
-          Logout
-        </span>
       </div>
     </div>
   );

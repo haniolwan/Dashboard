@@ -42,12 +42,11 @@ const Actions = () => {
   }, []);
 
   const {
-    enums: { NotificationFilter, NotificationType, NotificationTargetType },
+    enums: { NotificationFilter, NotificationType },
   } = useContext(EnumsContext);
 
   const [filterOptions, setFilterOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
-  const [targetTypeOptions, setTargetTypeOptions] = useState([]);
 
   useEffect(() => {
     setFilterOptions(
@@ -60,12 +59,7 @@ const Actions = () => {
         return { label: item, value: NotificationType[item] };
       })
     );
-    setTargetTypeOptions(
-      Object.keys(NotificationTargetType).map((item) => {
-        return { label: item, value: NotificationTargetType[item] };
-      })
-    );
-  }, [NotificationFilter, NotificationTargetType, NotificationType]);
+  }, [NotificationFilter, NotificationType]);
 
   const handleInputChange = ({ target: { name, value } }) => {
     setUpdated({ ...updated, [name]: value });
@@ -134,19 +128,6 @@ const Actions = () => {
               setUpdated({
                 ...updated,
                 type: type.value,
-              });
-            }}
-          />
-        </div>
-        <div className="col-span-3">
-          <SelectInput
-            name={"target_type"}
-            label={"Target type"}
-            options={targetTypeOptions}
-            onChange={(target_type) => {
-              setUpdated({
-                ...updated,
-                target_type: target_type.value,
               });
             }}
           />

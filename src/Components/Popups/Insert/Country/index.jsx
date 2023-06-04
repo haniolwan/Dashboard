@@ -207,7 +207,8 @@ const AddCountry = ({
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={country.is_active}
+                defaultChecked={country?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

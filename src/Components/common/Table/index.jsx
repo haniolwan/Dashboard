@@ -108,7 +108,7 @@ const Table = ({ children, path, tools, cols }) => {
   const [localeOptions, setLocaleOptions] = useState([]);
   const [locale, setLocale] = useState();
 
-  const [updated, setUpdated] = useState([]);
+  const [updated, setUpdated] = useState({ is_active: true });
 
   const [selectedRow, setSelectedRow] = useState([]);
 
@@ -601,6 +601,7 @@ Table.Body = () => {
               message,
               locale_code,
               filter,
+              summary,
               target_type,
               NotificationTemplate,
               target_count,
@@ -668,6 +669,7 @@ Table.Body = () => {
                   target_type={target_type}
                   NotificationTemplate={NotificationTemplate}
                   target_count={target_count}
+                  summary={summary}
                   setUpdateRow={setUpdateRow}
                   removeRow={removeRow}
                   translateRow={translateRow}

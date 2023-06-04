@@ -12,7 +12,6 @@ const History = () => {
       value: "filter",
       hidden: false,
     },
-    target_type: { label: "Target type", value: "target_type", hidden: false },
     target_count: {
       label: "Target count",
       value: "target_count",

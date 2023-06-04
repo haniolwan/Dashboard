@@ -2,7 +2,7 @@ import { useState } from "react";
 import Tab from "../common/Tab";
 import Home from "../Profile/Home";
 
-const Settings = () => {
+const Settings = ({ user, setUser }) => {
   const [nav, setNav] = useState(false);
   const [currentIndex, setIndex] = useState(0);
 
@@ -21,7 +21,7 @@ const Settings = () => {
           </Tab.Navigation>
           <Tab.ContentContainer>
             <Tab.ContentItem index={0}>
-              <Home />
+              <Home user={user} setUser={setUser} />
             </Tab.ContentItem>
             <Tab.ContentItem index={1}>
               <div>Hello From About</div>

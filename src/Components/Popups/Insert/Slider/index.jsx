@@ -92,7 +92,8 @@ const AddSlider = ({
                   ref={activeRef}
                   name={"is_active"}
                   beforeLabel={"Is Active"}
-                  defaultChecked={slider.is_active}
+                  defaultChecked={slider?.is_active}
+                  checked={updated.is_active}
                   onChange={handleInputChange}
                 />
               </div>

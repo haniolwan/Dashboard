@@ -3,7 +3,6 @@ import Form from "../Form";
 import { Checkbox, SelectInput, TextInput } from "../../../common";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
 import { EnumsContext } from "../../../../context";
-import useIsMount from "../../../../hooks/useIsMount";
 
 const AddPlan = ({
   planId,
@@ -154,12 +153,13 @@ const AddPlan = ({
             </div>
           </Form.Row>
           <Form.Row className="grid grid-cols-4 gap-5">
-            <div className="grid grid-cols-2">
+            <div className="col-span-3 sm:col-span-1">
               <Checkbox
                 ref={activeRef}
                 name={"is_active"}
                 beforeLabel={"Is Active"}
-                defaultChecked={plan.is_active}
+                defaultChecked={plan?.is_active}
+                checked={updated.is_active}
                 onChange={handleInputChange}
               />
             </div>

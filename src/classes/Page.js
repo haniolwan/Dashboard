@@ -1,10 +1,10 @@
 class Page {
-    constructor({ id, key, name, description, content, image, is_active }) {
+    constructor({ id, key, name, description, summary, image, is_active }) {
         this.id = id;
         this.key = key;
         this.name = name;
         this.description = description;
-        this.content = content;
+        this.summary = summary;
         this.image = image;
         this.is_active = is_active;
     }
@@ -28,14 +28,14 @@ class PageTranslation {
         id,
         name,
         description,
-        content,
+        summary,
         page_id,
         locale_id
     }) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.content = content;
+        this.summary = summary;
         this.page_id = page_id;
         this.locale_id = locale_id;
     }

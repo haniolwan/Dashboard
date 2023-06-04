@@ -71,8 +71,8 @@ const AddNotificationTemplate = ({
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>
       <Form.Container>
         <Form.Content title={"Add Notification Template"}>
-          <Form.Row>
-            <div className="col-span-3 sm:col-span-1">
+          <Form.Row className="grid grid-cols-5 gap-5">
+            <div className="col-span-3 sm:col-span-3">
               <TextInput
                 ref={titleRef}
                 key={row.title}
@@ -82,21 +82,7 @@ const AddNotificationTemplate = ({
                 onChange={handleInputChange}
               />
             </div>
-          </Form.Row>
-          <Form.Row>
-            <div className="col-span-3 sm:col-span-1">
-              <TextArea
-                ref={messageRef}
-                key={row.message}
-                name={"message"}
-                label={"Message"}
-                defaultValue={row.message}
-                onChange={handleInputChange}
-              />
-            </div>
-          </Form.Row>
-          <Form.Row>
-            <div className="col-span-3 sm:col-span-1">
+            <div className="col-span-3 sm:col-span-2">
               <SelectInput
                 ref={typeRef}
                 key={defaultTypeOption}
@@ -111,6 +97,18 @@ const AddNotificationTemplate = ({
                 }}
                 defaultValue={defaultTypeOption}
                 isLoading={loadingType}
+              />
+            </div>
+          </Form.Row>
+          <Form.Row>
+            <div className="col-span-3 sm:col-span-3">
+              <TextArea
+                ref={messageRef}
+                key={row.message}
+                name={"message"}
+                label={"Message"}
+                defaultValue={row.message}
+                onChange={handleInputChange}
               />
             </div>
           </Form.Row>
