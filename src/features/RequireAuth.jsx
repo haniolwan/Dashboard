@@ -98,7 +98,8 @@ const RequireAuth = () => {
     (isPermitted() ||
       location.pathname === "/dashboard" ||
       location.pathname === "/profile" ||
-      location.pathname === "/notification/actions") ? (
+      location.pathname === "/notification/actions" ||
+      location.pathname === "/settings") ? (
       <Outlet />
     ) : (
       <NoPermission />

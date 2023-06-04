@@ -31,6 +31,8 @@ import {
   Dashboard,
   NotFound,
   NotificationsActions,
+  Settings,
+  Setting,
 } from "./Pages";
 import { Loading } from "./Components/common";
 import Profile from "./Pages/Profile";
@@ -137,7 +139,7 @@ function App() {
                           element={<NotificationsActions />}
                         />
                         <Route path="/profile" element={<Profile />} />
-
+                        <Route path="/settings" element={<Settings />} />
                       </Route>
                     </Route>
                   </Routes>

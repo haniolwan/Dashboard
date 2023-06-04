@@ -38,6 +38,7 @@ import AddProvider from "./Insert/Provider";
 import ShowNotificationsTemplate from "./Show/Notifications Template";
 import Showlocale from "./Show/Locale";
 import ShowRole from "./Show/Role";
+import AddSettings from "./Insert/Setting";
 
 export {
     Download,
@@ -79,5 +80,6 @@ export {
     AddProvider,
     ShowNotificationsTemplate,
     Showlocale,
-    ShowRole
+    ShowRole,
+    AddSettings
 }

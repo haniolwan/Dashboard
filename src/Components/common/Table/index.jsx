@@ -48,6 +48,7 @@ import {
   ShowNotificationsTemplate,
   Showlocale,
   ShowRole,
+  AddSettings,
 } from "../../Popups";
 import FilterCountries from "../../Popups/Filter/FilterCountries";
 import AddPage from "../../Popups/Insert/Page";
@@ -1170,6 +1171,20 @@ Table.Footer = () => {
                 show={showModal}
                 setShow={setShowModal}
                 selectedRow={selectedRow}
+              />
+            </>
+          ),
+          settings: (
+            <>
+              <AddSettings
+                localeId={userId}
+                selectedRow={selectedRow}
+                show={showAddModal}
+                setShow={setShowAddModal}
+                updated={updated}
+                setUpdated={setUpdated}
+                handleInputChange={handleInputChange}
+                setRefreshRows={setRefreshRows}
               />
             </>
           ),

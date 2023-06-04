@@ -19,6 +19,7 @@ import {
   Provider,
   Role,
   Service,
+  Settings,
   Slider,
   SliderTranslation,
   Subscription,
@@ -201,6 +202,12 @@ const getDataCollection = (data, path) => {
         return new Role(ele);
       });
       pagination = data.RoleCollection.pagination;
+      break;
+    case "settings":
+      collection = data.SettingCollection.Settings.map((setting) => {
+        return new Settings(setting);
+      });
+      pagination = data.SettingCollection.pagination;
       break;
     default:
       <></>;

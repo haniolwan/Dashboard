@@ -18,6 +18,8 @@ import {
 import { NotificationsHistory } from "./Notifications/History";
 import { Role } from "./Role";
 import { Permissions } from "./Permissions";
+import { Settings } from "./Settings";
+
 
 export {
     LoginEmployee,
@@ -53,5 +55,6 @@ export {
     NotificationTemplateTranslation,
     NotificationsHistory,
     Role,
-    Permissions
+    Permissions,
+    Settings
 }

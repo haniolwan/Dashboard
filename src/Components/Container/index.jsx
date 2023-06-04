@@ -137,6 +137,13 @@ const Container = () => {
       icon: faChartSimple,
       children: [
         {
+          path: "settings",
+          label: "Settings",
+          tooltip: "Settings",
+          icon: faGlobe,
+          hidden: false,
+        },
+        {
           path: "country",
           label: t("sidebar.tab5"),
           tooltip: t("sidebar.tab5"),

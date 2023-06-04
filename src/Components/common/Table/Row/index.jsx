@@ -72,6 +72,7 @@ const Row = ({
   NotificationTemplate,
   target_count,
   summary,
+  value,
   removeRow,
   translateRow,
   showRow,
@@ -106,6 +107,7 @@ const Row = ({
       SubscriptionStatus,
       NotificationFilter,
       NotificationType,
+      InputType,
     },
   } = useContext(EnumsContext);
   function SwitchComponent({ option }) {
@@ -469,13 +471,11 @@ const Row = ({
             </span>
           </td>
         );
-      case "target_type":
+      case "input_type":
         return (
           <td className="px-6">
             <span>
-              {/* {Object.keys(NotificationTargetType).find(
-                (key) => NotificationTargetType[key] === target_type
-              )} */}
+              {Object.keys(InputType).find((key) => InputType[key] === value)}
             </span>
           </td>
         );

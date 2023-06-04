@@ -22,6 +22,7 @@ import Roles from './Roles';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 import NoPermission from './NoPermission';
+import Settings from './Settings';
 
 export {
     Employees,
@@ -47,5 +48,6 @@ export {
     Roles,
     Dashboard,
     NotFound,
-    NoPermission
+    NoPermission,
+    Settings
 }
