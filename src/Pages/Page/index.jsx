@@ -20,14 +20,14 @@ const Page = () => {
         show: permissions.includes("page.show"),
         edit: permissions.includes("page.update"),
         translate: permissions.includes("page.translate.show"),
-        delete: permissions.includes("page.destroy"),
+        delete: !permissions.includes("page.destroy"),
       },
       hidden: false,
     },
   };
 
   const tools = {
-    add: permissions.includes("page.create"),
+    add: !permissions.includes("page.create"),
     search: true,
     // download: true,
     // filter: true,

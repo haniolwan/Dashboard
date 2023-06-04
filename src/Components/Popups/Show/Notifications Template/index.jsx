@@ -29,17 +29,19 @@ const ShowNotificationsTemplate = ({ show, setShow, selectedRow }) => {
   return (
     <Form show={show} setShow={setShow}>
       <Form.Container>
-        <Form.Content title={"Service Notifications Templates"}>
+        <Form.Content title={"Notifications Templates Info"}>
           <Form.Row className="grid grid-cols-12 gap-5">
             <div className="col-span-12 gap-5 w-[20rem]">
-              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {row?.title}
-              </div>
-              <div className="text-placeholder-color text-center col-span-1 sm:col-span-6 pt-2">
-                {row?.message}
-              </div>
               <Form.Row className="cols-span-6">
                 <div className="col-span-1 sm:col-span-6 space-y-2 pt-5">
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Title</span>
+                    <span>{row?.title}</span>
+                  </div>
+                  <div className="flex justify-between text-placeholder-color">
+                    <span>Message</span>
+                    <span> {row?.message}</span>
+                  </div>
                   <div className="flex justify-between text-placeholder-color">
                     <span>Type</span>
                     <span>{defaultTypeOption}</span>

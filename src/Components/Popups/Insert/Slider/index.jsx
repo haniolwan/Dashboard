@@ -33,7 +33,7 @@ const AddSlider = ({
     if (selectedRow) {
       setSlider(selectedRow);
     }
-  }, [selectedRow]);
+  }, [selectedRow, setUpdated]);
 
   const nameRef = useRef();
   const imageRef = useRef();
@@ -45,7 +45,7 @@ const AddSlider = ({
       setSlider([]);
       setUpdated([]);
     }
-  }, [setUpdated, show]);
+  }, [selectedRow, setUpdated, show]);
 
   return (
     <Form show={show} setShow={setShow} onSubmit={onSubmit}>

@@ -91,7 +91,7 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
               </Form.Row>
             </div>
             <div className="col-span-8 gap-5 border-l-2 border-[#2f3440] pl-2">
-              <div className="border-b-2 border-[#2f3440] mb-5">
+              {/* <div className="border-b-2 border-[#2f3440] mb-5">
                 <div>
                   <h3 className="text-placeholder-color pb-2">Orders</h3>
                   <div className="grid grid-cols-3 gap-5 pb-5">
@@ -150,7 +150,7 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div>
                 <div className="grid grid-cols-1 gap-5">
                   <div className="grid grid-cols-2 content-center justify-items-between text-placeholder-color">
@@ -158,20 +158,43 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                       Order Status
                     </h3>
                   </div>
-                  <div className="grid grid-cols-3 text-placeholder-color rounded gap-5">
-                    {order["orderStatus"] &&
-                      order["orderStatus"].map((ord) => {
-                        return (
-                          <button
-                            disabled
-                            className="border bg-transparent text-sm
-                  font-semibold p-1 border-placeholder-color rounded"
-                          >
-                            {ord.description}
-                          </button>
-                        );
-                      })}
-                  </div>
+                  <Form.Row className="cols-span-6">
+                    <div className="col-span-1 sm:col-span-6 space-y-2">
+                      <div className="flex justify-between text-placeholder-color">
+                        <span>Order id</span>
+                        <div className="text-placeholder-color col-span-3 sm:col-span-6">
+                          {order["OrderStatus"]?.order_id}
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-placeholder-color">
+                        <span>Status</span>
+                        <div className="text-placeholder-color col-span-3 sm:col-span-6">
+                          {Object.keys(OrderStatusEnum).find(
+                            (key) =>
+                              OrderStatusEnum[key] === order["order"]?.status
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-placeholder-color">
+                        <span>Description</span>
+                        <div className="text-placeholder-color col-span-3 sm:col-span-6">
+                          {order["OrderStatus"]?.description}
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-placeholder-color">
+                        <span>Created at</span>
+                        <div className="text-placeholder-color col-span-3 sm:col-span-6">
+                          {order["OrderStatus"]?.created_at}
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-placeholder-color">
+                        <span>Updated at</span>
+                        <div className="text-placeholder-color col-span-3 sm:col-span-6">
+                          {order["OrderStatus"]?.updated_at}
+                        </div>
+                      </div>
+                    </div>
+                  </Form.Row>
                 </div>
               </div>
             </div>
