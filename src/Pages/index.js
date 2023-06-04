@@ -21,6 +21,7 @@ import Providers from './Provider';
 import Roles from './Roles';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
+import NoPermission from './NoPermission';
 
 export {
     Employees,
@@ -45,5 +46,6 @@ export {
     Providers,
     Roles,
     Dashboard,
-    NotFound
+    NotFound,
+    NoPermission
 }

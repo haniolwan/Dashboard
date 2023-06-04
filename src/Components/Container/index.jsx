@@ -195,12 +195,14 @@ const Container = () => {
     setLoading(false);
   }, [setLoading]);
 
-  return permissions.includes(
-    !location.pathname.split("/")[1] ||
-      !location.pathname.split("_").join(".").split("/")[1]
-  ) ? (
-    <Navigate to="/dashboard" state={{ from: location }} />
-  ) : !permissions.includes("dashboard") ? (
+  console.log(
+    permissions.includes(
+      !location.pathname.split("/")[1] ||
+        !location.pathname.split("_").join(".").split("/")[1]
+    )
+  );
+
+  return (
     <>
       {width <= 768 ? (
         <Navbar navbarItems={sidebarItems} />
@@ -222,8 +224,6 @@ const Container = () => {
         <Outlet />
       </div>
     </>
-  ) : (
-    <Navigate to="/login" state={{ from: location }} />
   );
 };
 

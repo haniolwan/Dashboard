@@ -9,6 +9,7 @@ import {
 } from "../context";
 import { query } from "../utils/query";
 import { toast } from "react-toastify";
+import { NoPermission } from "../Pages";
 const RequireAuth = () => {
   const location = useLocation();
   const token = localStorage.getItem("access_token");
@@ -82,9 +83,22 @@ const RequireAuth = () => {
       toast.error(<span>{message.join("\r\n")}</span>);
     }
   }, [getUserInfo]);
+  const { permissions } = useContext(PermissionsContext);
+
+  const isPermitted = () => {
+    const path = location.pathname.split("/").filter((item) => item);
+    if (path.length >= 2) {
+      return permissions.includes(path.join("."));
+    }
+    return permissions.includes(path[0]);
+  };
 
   return token ? (
-    !loading && <Outlet />
+    !loading && (isPermitted() || location.pathname === "/dashboard") ? (
+      <Outlet />
+    ) : (
+      <NoPermission />
+    )
   ) : (
     <Navigate to="/login" state={{ from: location }} />
   );
