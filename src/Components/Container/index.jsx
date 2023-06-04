@@ -26,12 +26,14 @@ import useWindowSize from "../../hooks/useWindowSize";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Tools from "../Tools";
-import { PermissionsContext } from "../../context";
+import { LoadingContext, PermissionsContext } from "../../context";
 
 const Container = () => {
   const { width } = useWindowSize();
   const [sideBarWidth, setSideBarWidth] = useState(false);
   const { permissions } = useContext(PermissionsContext);
+  const { setLoading } = useContext(LoadingContext);
+
   useEffect(() => {
     if (localStorage.getItem("sidebar") === "collabsed") {
       setSideBarWidth(true);
@@ -188,6 +190,10 @@ const Container = () => {
   ];
 
   const location = useLocation();
+
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
 
   return permissions.includes(
     !location.pathname.split("/")[1] ||

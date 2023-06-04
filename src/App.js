@@ -107,6 +107,7 @@ function App() {
                 <NightModeContext.Provider value={{ nightMode, setNightMode }}>
                   <Routes>
                     <Route element={<RequireAuth />}>
+                      <Route path="*" element={<NotFound />} />
                       <Route element={<Container />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/employee" element={<Employees />} />
@@ -136,6 +137,7 @@ function App() {
                           element={<NotificationsActions />}
                         />
                         <Route path="/profile" element={<Profile />} />
+
                       </Route>
                     </Route>
                   </Routes>
