@@ -1,7 +1,7 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Form from "../Form";
 import { insertNewRow, updateNewRow } from "../../../common/Table/methods";
-import { SelectInput, TextInput } from "../../../common";
+import { SelectInput } from "../../../common";
 import { EnumsContext } from "../../../../context";
 
 const AddSettings = ({
@@ -40,8 +40,6 @@ const AddSettings = ({
       setSetting(selectedRow);
     }
   }, [selectedRow, show]);
-
-  const nameRef = useRef();
 
   useEffect(() => {
     if (show) {
