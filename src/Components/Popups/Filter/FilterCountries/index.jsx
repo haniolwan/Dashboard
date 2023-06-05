@@ -126,7 +126,7 @@ const FilterCountries = ({ show, filter, setFilter }) => {
               onChange={(locale) => {
                 setUpdated({
                   ...updated,
-                  locale_id: locale.id,
+                  locale_id: locale.value,
                 });
               }}
             />

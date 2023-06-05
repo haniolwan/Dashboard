@@ -139,7 +139,16 @@ const SetPermissions = ({
       }
     });
     if (!checked) {
-      setIsCheck(isCheck.filter((item) => item !== parseInt(value)));
+      let perms = [...isCheck];
+      permissions.forEach((item) => {
+        if (item.id === parseInt(value)) {
+          item.children.forEach((child) => {
+            let index = perms.indexOf(child.id);
+            perms.splice(index, 1);
+          });
+        }
+      });
+      setIsCheck(perms.filter((item) => item !== parseInt(value)));
     }
   };
 
@@ -152,7 +161,17 @@ const SetPermissions = ({
         }
       });
     } else {
+      let perms = [...isCheck];
       setUpdatedRoles(updatedRoles.filter((role) => parseInt(value) !== role));
+      roles.forEach((element) => {
+        if (element.id === parseInt(value)) {
+          element.permissions.forEach((item) => {
+            let index = perms.indexOf(item.id);
+            perms.splice(index, 1);
+          });
+        }
+      });
+      setIsCheck([...perms]);
     }
   };
 

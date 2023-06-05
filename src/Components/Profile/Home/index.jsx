@@ -165,6 +165,8 @@ const Home = ({ user, setUser }) => {
     return () => clearTimeout(timer);
   }, [localeSearch]);
 
+  console.log(user.Country);
+
   return (
     <div className="grid grid-cols-1">
       <div className="grid grid-cols-2 gap-5">
@@ -204,6 +206,7 @@ const Home = ({ user, setUser }) => {
 
       <div className="grid grid-cols-2 gap-5">
         <SelectInput
+          key={user?.Country && new SelectCountry(user?.Country)}
           name={"Country"}
           label={"Country"}
           options={countryOptions}
@@ -216,6 +219,7 @@ const Home = ({ user, setUser }) => {
           defaultValue={user?.Country && new SelectCountry(user?.Country)}
         />
         <SelectInput
+          key={user?.City && new SelectCity(user?.City)}
           name={"City"}
           label={"City"}
           options={cityOptions}
@@ -229,13 +233,14 @@ const Home = ({ user, setUser }) => {
         />
       </div>
       <SelectInput
+        key={user?.Locale && new SelectLocale(user?.Locale)}
         name={"Locale"}
         label={"Locale"}
         options={localeOptions}
         onChange={(locale) => {
           setUpdated({
             ...updated,
-            locale_id: locale.id,
+            locale_id: locale.value,
           });
         }}
         defaultValue={user?.Locale && new SelectLocale(user?.Locale)}
