@@ -475,7 +475,9 @@ const Row = ({
         return (
           <td className="px-6">
             <span>
-              {Object.keys(InputType).find((key) => InputType[key] === value)}
+              {Object.keys(InputType).find(
+                (key) => InputType[key] === parseInt(value)
+              )}
             </span>
           </td>
         );
