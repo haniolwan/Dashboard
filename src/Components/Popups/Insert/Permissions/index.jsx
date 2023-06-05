@@ -29,6 +29,7 @@ const SetPermissions = ({
   const [userPermissions, setUserPermissions] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const isMount = useIsMount();
 
   useEffect(() => {
     // Get Roles
@@ -48,10 +49,10 @@ const SetPermissions = ({
         toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
-    if (userId && show) {
+    if (userId && show && !isMount) {
       fetchData();
     }
-  }, [userId, show]);
+  }, [isMount, show, userId]);
 
   useEffect(() => {
     // Get Roles
@@ -96,14 +97,16 @@ const SetPermissions = ({
   }, [userId, show]);
 
   useEffect(() => {
-    let perms = [];
-    roles.forEach((role) => {
-      if ((userRoles || updatedRoles).includes(role.id)) {
-        perms = [...role.permissions];
-      }
-    });
-    setIsCheck([...new Set([...perms, ...userPermissions, ...isCheck])]);
-    setLoading(false);
+    if (!isMount) {
+      let perms = [];
+      roles.forEach((role) => {
+        if ((userRoles || updatedRoles).includes(role.id)) {
+          perms = [...role.permissions];
+        }
+      });
+      setIsCheck([...new Set([...perms, ...userPermissions, ...isCheck])]);
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roles, userPermissions, userRoles]);
 
@@ -162,7 +165,6 @@ const SetPermissions = ({
       });
     } else {
       let perms = [...isCheck];
-      setUpdatedRoles(updatedRoles.filter((role) => parseInt(value) !== role));
       roles.forEach((element) => {
         if (element.id === parseInt(value)) {
           element.permissions.forEach((item) => {
@@ -172,8 +174,11 @@ const SetPermissions = ({
         }
       });
       setIsCheck([...perms]);
+      setUpdatedRoles(updatedRoles.filter((role) => parseInt(value) !== role));
     }
   };
+
+  console.log(isCheck);
 
   const onSubmit = useCallback(
     async (event) => {
@@ -181,6 +186,12 @@ const SetPermissions = ({
       try {
         const form = new FormData();
         form.append("_method", "PUT");
+        if (!permissions) {
+          form.append("permissions[]", []);
+        }
+        if (!roles) {
+          form.append("roles[]", []);
+        }
         for (let index = 0; index < isCheck.length; index++) {
           form.append("permissions[]", isCheck[index]);
         }
@@ -207,13 +218,12 @@ const SetPermissions = ({
     [isCheck, setRefreshRows, setShow, updatedRoles, userId]
   );
 
-  const isMount = useIsMount();
-
   useEffect(() => {
     if (!show && !isMount) {
       setIsCheck([]);
       setPermissions([]);
       setRoles([]);
+      setUserPermissions([]);
     }
   }, [isMount, show]);
 
@@ -234,11 +244,14 @@ const SetPermissions = ({
                   roles?.map(({ id, name }) => {
                     return (
                       <Checkbox
-                        key={parseInt(id)}
-                        checked={
+                        key={
                           updatedRoles.includes(parseInt(id)) ||
                           userRoles.includes(parseInt(id))
                         }
+                        // checked={
+                        //   updatedRoles.includes(parseInt(id)) ||
+                        //   userRoles.includes(parseInt(id))
+                        // }
                         defaultChecked={
                           updatedRoles.includes(parseInt(id)) ||
                           userRoles.includes(parseInt(id))
@@ -263,10 +276,10 @@ const SetPermissions = ({
                     >
                       <div className="flex gap-2 border-b text-placeholder-color w-full pb-2">
                         <Checkbox
-                          key={parseInt(id)}
+                          key={isCheck.includes(parseInt(id))}
                           onClick={handleSelectAll}
                           afterLabel={name}
-                          checked={isCheck.includes(parseInt(id))}
+                          // checked={isCheck.includes(parseInt(id))}
                           defaultChecked={isCheck.includes(parseInt(id))}
                           value={parseInt(id)}
                         />
@@ -277,8 +290,8 @@ const SetPermissions = ({
                             return (
                               <div key={id}>
                                 <Checkbox
-                                  key={parseInt(id)}
-                                  checked={isCheck.includes(parseInt(id))}
+                                  key={isCheck.includes(parseInt(id))}
+                                  // checked={isCheck.includes(parseInt(id))}
                                   defaultChecked={isCheck.includes(
                                     parseInt(id)
                                   )}
@@ -292,10 +305,10 @@ const SetPermissions = ({
                                       return (
                                         <div key={id}>
                                           <Checkbox
-                                            key={parseInt(id)}
-                                            checked={isCheck.includes(
-                                              parseInt(id)
-                                            )}
+                                            key={isCheck.includes(parseInt(id))}
+                                            // checked={isCheck.includes(
+                                            //   parseInt(id)
+                                            // )}
                                             defaultChecked={isCheck.includes(
                                               parseInt(id)
                                             )}
@@ -313,10 +326,12 @@ const SetPermissions = ({
                                               }) => {
                                                 return (
                                                   <Checkbox
-                                                    key={parseInt(id)}
-                                                    checked={isCheck.includes(
+                                                    key={isCheck.includes(
                                                       parseInt(id)
                                                     )}
+                                                    // checked={isCheck.includes(
+                                                    //   parseInt(id)
+                                                    // )}
                                                     defaultChecked={isCheck.includes(
                                                       parseInt(id)
                                                     )}
