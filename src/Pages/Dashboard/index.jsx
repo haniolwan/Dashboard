@@ -132,7 +132,7 @@ const Dashboard = () => {
           {!loading ? (
             <canvas
               data-te-chart="pie"
-              data-te-dataset-label="Traffic"
+              data-te-dataset-label="Providers"
               data-te-labels={JSON.stringify(providerMonths)}
               data-te-dataset-data={JSON.stringify(providerCount)}
               data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']"
@@ -145,7 +145,7 @@ const Dashboard = () => {
           <div className="col-span-2 w-full flex items-center  p-[20px] bg-[#FFFFFF] w-full rounded-[20px] shadow-lg dark:bg-gray-800">
             <canvas
               data-te-chart="line"
-              data-te-dataset-label="Traffic"
+              data-te-dataset-label="Providers"
               data-te-labels={JSON.stringify(providerMonths)}
               data-te-dataset-data={JSON.stringify(providerCount)}
             ></canvas>
@@ -159,7 +159,7 @@ const Dashboard = () => {
           {!loading ? (
             <canvas
               data-te-chart="bar"
-              data-te-dataset-label="Traffic"
+              data-te-dataset-label="Orders"
               data-te-labels={JSON.stringify(orderMonths)}
               data-te-dataset-data={JSON.stringify(orderCount)}
             ></canvas>
@@ -172,7 +172,7 @@ const Dashboard = () => {
             <canvas
               id="charts"
               data-te-chart="bar"
-              data-te-dataset-label="Traffic"
+              data-te-dataset-label="Users"
               data-te-labels={JSON.stringify(userMonths)}
               data-te-dataset-data={JSON.stringify(userCount)}
             ></canvas>
