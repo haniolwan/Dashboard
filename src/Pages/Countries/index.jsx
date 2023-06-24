@@ -4,35 +4,35 @@ import { PermissionsContext } from "../../context";
 
 const Countries = () => {
   const { permissions } = useContext(PermissionsContext);
-  const cols = {
-    flag: { label: "Flag", value: "flag", hidden: false },
-    name: { label: "Country", value: "name", hidden: false },
-    code: { label: "Code", value: "code", hidden: false },
-    currency: { label: "Currency", value: "currency", hidden: false },
-    locale: { label: "Locale", value: "locale", hidden: false },
-    is_active: { label: "Active", value: "is_active", hidden: false },
 
+  const cols = {
+    avatar: { label: "Avatar", value: "avatar", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
+    mobile: { label: "Mobile", value: "mobile", hidden: false },
+    country: { label: "Country", value: "country", hidden: false },
+    city: { label: "City", value: "city", hidden: false },
+    is_baned: { label: "Baned", value: "is_baned", hidden: false },
+    is_suspended: { label: "Suspended", value: "is_suspended", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("country.show"),
-        edit: permissions.includes("country.update"),
-        translate: permissions.includes("country.translate"),
-        delete: permissions.includes("country.destroy"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
 
   const tools = {
-    add: permissions.includes("country.create"),
+    add: true,
     search: true,
-    download: permissions.includes("country.download"),
-    filter: permissions.includes("country.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
-
   return (
     <Table path={"countries"} tools={tools} cols={cols}>
       <Table.OuterContainer>

@@ -52,7 +52,7 @@ const AddCountry = ({
     };
     let timer = setTimeout(() => {
       if (show) {
-        fetchData();
+        // fetchData();
       }
     }, 300);
     return () => clearTimeout(timer);
@@ -83,7 +83,7 @@ const AddCountry = ({
     };
     let timer = setTimeout(() => {
       if (show) {
-        fetchData();
+        // fetchData();
       }
     }, 100);
     return () => clearTimeout(timer);
@@ -131,7 +131,7 @@ const AddCountry = ({
   }, [setUpdated, show]);
 
   return (
-    <Form show={show} setShow={setShow} onSubmit={onSubmit}>
+    <Form show={show} setShow={setShow} onSubmit={() => {}}>
       <Form.Container>
         <Form.Content>
           <Form.Row className="grid grid-cols-2 gap-5">

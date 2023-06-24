@@ -4,33 +4,33 @@ import { PermissionsContext } from "../../context";
 
 const Cities = () => {
   const { permissions } = useContext(PermissionsContext);
-
   const cols = {
-    name: { label: "City", value: "name", hidden: false },
-    country: { label: "Country", value: "name", hidden: false },
-    is_active: { label: "Active", value: "is_active", hidden: false },
-
+    avatar: { label: "Avatar", value: "avatar", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
+    mobile: { label: "Mobile", value: "mobile", hidden: false },
+    country: { label: "Country", value: "country", hidden: false },
+    city: { label: "City", value: "city", hidden: false },
+    is_baned: { label: "Baned", value: "is_baned", hidden: false },
+    is_suspended: { label: "Suspended", value: "is_suspended", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("city.show"),
-        edit: permissions.includes("city.update"),
-        translate: permissions.includes("city.translate.show"),
-        delete: permissions.includes("city.destroy"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
-
   const tools = {
-    add: permissions.includes("city.create"),
+    add: true,
     search: true,
-    download: permissions.includes("city.download"),
-    filter: permissions.includes("city.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
-
   return (
     <Table path={"cities"} tools={tools} cols={cols}>
       <Table.OuterContainer>

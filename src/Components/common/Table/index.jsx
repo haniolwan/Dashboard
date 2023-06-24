@@ -66,11 +66,239 @@ import {
 } from "./methods";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const TableContext = createContext();
 
 const Table = ({ children, path, tools, cols }) => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState([
+    {
+      id: 1,
+      name: "Roseanne",
+      email: "rwillison0@godaddy.com",
+      avatar: "https://robohash.org/eumetvoluptas.png?size=50x50&set=set1",
+      mobile: "141-677-2150",
+      Country: "Portugal",
+      City: "Alto do Estanqueiro",
+      is_baned: true,
+      is_suspended: false,
+    },
+    {
+      id: 2,
+      name: "Pasquale",
+      email: "pdonaher1@pcworld.com",
+      avatar:
+        "https://robohash.org/aliquamvoluptatumconsequuntur.png?size=50x50&set=set1",
+      mobile: "544-512-6893",
+      Country: "Kazakhstan",
+      City: "Lugovoy",
+      is_baned: false,
+      is_suspended: true,
+    },
+    {
+      id: 3,
+      name: "Otto",
+      email: "oleteve2@google.ca",
+      avatar: "https://robohash.org/estnesciuntaperiam.png?size=50x50&set=set1",
+      mobile: "479-291-9359",
+      Country: "Indonesia",
+      City: "Potulando",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 4,
+      name: "Cariotta",
+      email: "cbrightling3@storify.com",
+      avatar:
+        "https://robohash.org/magnidolorumvoluptatibus.png?size=50x50&set=set1",
+      mobile: "227-103-0779",
+      Country: "Nicaragua",
+      City: "San Sebastián de Yalí",
+      is_baned: true,
+      is_suspended: true,
+    },
+    {
+      id: 5,
+      name: "Annmaria",
+      email: "alofty4@webnode.com",
+      avatar:
+        "https://robohash.org/sitvoluptatecupiditate.png?size=50x50&set=set1",
+      mobile: "188-377-1733",
+      Country: "Portugal",
+      City: "Carrasqueira",
+      is_baned: true,
+      is_suspended: true,
+    },
+    {
+      id: 6,
+      name: "Deni",
+      email: "dallflatt5@eepurl.com",
+      avatar:
+        "https://robohash.org/laboruminventoreodio.png?size=50x50&set=set1",
+      mobile: "750-262-4118",
+      Country: "China",
+      City: "Zhouzhuang",
+      is_baned: false,
+      is_suspended: true,
+    },
+    {
+      id: 7,
+      name: "Ab",
+      email: "asetchfield6@icq.com",
+      avatar: "https://robohash.org/iustoistefacere.png?size=50x50&set=set1",
+      mobile: "144-251-9324",
+      Country: "Brazil",
+      City: "Osasco",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 8,
+      name: "Ulrica",
+      email: "uesgate7@drupal.org",
+      avatar: "https://robohash.org/quasiofficianon.png?size=50x50&set=set1",
+      mobile: "720-568-9665",
+      Country: "Indonesia",
+      City: "Rangah",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 9,
+      name: "Angel",
+      email: "ahubble8@digg.com",
+      avatar:
+        "https://robohash.org/aliquidtemporibusvelit.png?size=50x50&set=set1",
+      mobile: "333-765-6488",
+      Country: "Slovenia",
+      City: "Komenda",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 10,
+      name: "Ailee",
+      email: "aroddy9@domainmarket.com",
+      avatar: "https://robohash.org/minimaquodanimi.png?size=50x50&set=set1",
+      mobile: "531-134-7245",
+      Country: "Philippines",
+      City: "Carriedo",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 11,
+      name: "Norby",
+      email: "nhovendena@domainmarket.com",
+      avatar: "https://robohash.org/nemonamlaudantium.png?size=50x50&set=set1",
+      mobile: "667-953-6732",
+      Country: "Yemen",
+      City: "Ad Dīs ash Sharqīyah",
+      is_baned: false,
+      is_suspended: true,
+    },
+    {
+      id: 12,
+      name: "Silvan",
+      email: "ssedgmanb@state.tx.us",
+      avatar: "https://robohash.org/earumeumeaque.png?size=50x50&set=set1",
+      mobile: "962-284-5064",
+      Country: "Portugal",
+      City: "Tojeira",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 13,
+      name: "Adrianna",
+      email: "awhearc@hao123.com",
+      avatar: "https://robohash.org/explicaboinet.png?size=50x50&set=set1",
+      mobile: "260-482-2860",
+      Country: "Morocco",
+      City: "Hassi Berkane",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 14,
+      name: "Archambault",
+      email: "amansond@meetup.com",
+      avatar: "https://robohash.org/utinquaerat.png?size=50x50&set=set1",
+      mobile: "800-219-5689",
+      Country: "China",
+      City: "Hongdu",
+      is_baned: true,
+      is_suspended: false,
+    },
+    {
+      id: 15,
+      name: "Sonja",
+      email: "shennigere@blogs.com",
+      avatar: "https://robohash.org/corporisexpeditaet.png?size=50x50&set=set1",
+      mobile: "147-579-9493",
+      Country: "Colombia",
+      City: "Puente Nacional",
+      is_baned: false,
+      is_suspended: false,
+    },
+    {
+      id: 16,
+      name: "Hobey",
+      email: "hcanaanf@prweb.com",
+      avatar: "https://robohash.org/remidsit.png?size=50x50&set=set1",
+      mobile: "259-699-0463",
+      Country: "France",
+      City: "Poitiers",
+      is_baned: false,
+      is_suspended: true,
+    },
+    {
+      id: 17,
+      name: "Yovonnda",
+      email: "ylammertsg@google.nl",
+      avatar: "https://robohash.org/quicumaliquid.png?size=50x50&set=set1",
+      mobile: "193-169-9556",
+      Country: "Argentina",
+      City: "Fernández",
+      is_baned: true,
+      is_suspended: true,
+    },
+    {
+      id: 18,
+      name: "Katharine",
+      email: "kbiagionih@fc2.com",
+      avatar: "https://robohash.org/mollitiaremullam.png?size=50x50&set=set1",
+      mobile: "301-975-1657",
+      Country: "Sweden",
+      City: "Täby",
+      is_baned: false,
+      is_suspended: true,
+    },
+    {
+      id: 19,
+      name: "Jacky",
+      email: "jastlei@xing.com",
+      avatar: "https://robohash.org/autfugiatmollitia.png?size=50x50&set=set1",
+      mobile: "778-905-8277",
+      Country: "Canada",
+      City: "Thetford-Mines",
+      is_baned: true,
+      is_suspended: true,
+    },
+    {
+      id: 20,
+      name: "Orly",
+      email: "ogodehardsfj@theguardian.com",
+      avatar:
+        "https://robohash.org/eligendialiquamsimilique.png?size=50x50&set=set1",
+      mobile: "791-492-5666",
+      Country: "China",
+      City: "Shouzhan",
+      is_baned: false,
+      is_suspended: false,
+    },
+  ]);
   const [currentPage, setCurrentPage] = useState({ selected: 1 });
   const [total, setTotal] = useState();
   const [lastPage, setLastPage] = useState(1);
@@ -80,7 +308,7 @@ const Table = ({ children, path, tools, cols }) => {
 
   const [orderBy, setOrderBy] = useState("");
   const [orderType, setOrderType] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [showFilter, setShowFilter] = useState(false);
 
@@ -171,29 +399,31 @@ const Table = ({ children, path, tools, cols }) => {
 
   const isFetched = useRef(false);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const api = apiPath();
-        const {
-          data: { data },
-        } = await query(api);
-        const { collection, pagination } = getDataCollection(data, path);
-        setRows(collection);
-        setCurrentPage({ selected: pagination.current_page });
-        setLastPage(pagination.last_page);
-        setTotal(pagination.total);
-        setLoading(false);
-        setRefreshRows(false);
-      } catch ({
-        response: {
-          data: { message },
-        },
-      }) {
-        toast.error(<span>{message.join("\r\n")}</span>);
-      }
-    };
+    // const fetchData = async () => {
+    //   try {
+    //     // const api = apiPath();
+    //     const {
+    //       data: { data },
+    //     } = await query(api);
+    //     const { collection, pagination } = getDataCollection(data, path);
+    //     setRows(collection);
+    //     setCurrentPage({ selected: pagination.current_page });
+    //     setLastPage(pagination.last_page);
+    //     setTotal(pagination.total);
+    //     setLoading(false);
+    //     setRefreshRows(false);
+    //   } catch ({
+    //     response: {
+    //       data: { message },
+    //     },
+    //   }) {
+    //     toast.error(<span>{message.join("\r\n")}</span>);
+    //   }
+    // };
+
     let timer = setTimeout(() => {
-      fetchData();
+      // fetchData();
+      // fetchFakeData();
       isFetched.current = true;
     }, 500);
     return () => {
@@ -227,13 +457,6 @@ const Table = ({ children, path, tools, cols }) => {
         toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
-    if (
-      (userId && showAddModal) ||
-      (userId && showModal) ||
-      (userId && showPermissionsModal)
-    ) {
-      fetchData();
-    }
   }, [userId, showModal, path, showPermissionsModal, showAddModal]);
 
   useEffect(() => {
@@ -267,7 +490,7 @@ const Table = ({ children, path, tools, cols }) => {
     };
     let timer = setTimeout(() => {
       if (showTranslateModal) {
-        fetchData();
+        // fetchData();
       }
     }, 100);
     return () => clearTimeout(timer);
@@ -292,7 +515,7 @@ const Table = ({ children, path, tools, cols }) => {
       }
     };
     if (userId && showTranslateModal) {
-      fetchData();
+      // fetchData();
     }
   }, [locale, path, showTranslateModal, userId]);
 
@@ -425,7 +648,7 @@ Table.Tools = () => {
         setModalType={setModalType}
         isFetched={isFetched}
       />
-      {FilterComponent()}
+      <Filter show={showFilter} filter={filter} setFilter={setFilter} />
     </>
   );
 };

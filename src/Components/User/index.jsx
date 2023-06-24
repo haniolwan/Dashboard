@@ -29,7 +29,7 @@ const User = ({ user, setUser }) => {
               <label className="rounded-full cursor-pointer" htmlFor="avatar">
                 <img
                   className="rounded-full h-full"
-                  src={image}
+                  src={'https://media.licdn.com/dms/image/D4D03AQF3hGqw-Tqsng/profile-displayphoto-shrink_800_800/0/1671572480810?e=1692835200&v=beta&t=gDlFtql2FAJ7nXXxEzmlaFjjDlfSK4CV0a9xjiM8Y48'}
                   alt="profile"
                 />
               </label>

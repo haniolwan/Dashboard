@@ -70,9 +70,9 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                   <div className="flex justify-between text-placeholder-color">
                     <span>Status</span>
                     <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                      {Object.keys(OrderStatusEnum).find(
+                      {/* {Object.keys(OrderStatusEnum).find(
                         (key) => OrderStatusEnum[key] === order["order"]?.status
-                      )}
+                      )} */}
                     </div>
                   </div>
                   <div className="flex justify-between text-placeholder-color">
@@ -169,10 +169,7 @@ const ShowOrder = ({ show, setShow, selectedRow }) => {
                       <div className="flex justify-between text-placeholder-color">
                         <span>Status</span>
                         <div className="text-placeholder-color col-span-3 sm:col-span-6">
-                          {Object.keys(OrderStatusEnum).find(
-                            (key) =>
-                              OrderStatusEnum[key] === order["order"]?.status
-                          )}
+                        Delivered
                         </div>
                       </div>
                       <div className="flex justify-between text-placeholder-color">

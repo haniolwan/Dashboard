@@ -7,37 +7,31 @@ const Providers = () => {
 
   const cols = {
     avatar: { label: "Avatar", value: "avatar", hidden: false },
-    name: { label: "Provider", value: "name", hidden: false },
-    locale: { label: "Locale", value: "locale", hidden: false },
-    hourly_rate: { label: "Hourly rate", value: "hourly_rate", hidden: false },
-    latitude: { label: "Latitude", value: "latitude", hidden: false },
-    longitude: { label: "longitude", value: "longitude", hidden: false },
-    provider_type: {
-      label: "Type",
-      value: "provider_type",
-      hidden: false,
-    },
-
+    name: { label: "Name", value: "name", hidden: false },
+    mobile: { label: "Mobile", value: "mobile", hidden: false },
+    country: { label: "Country", value: "country", hidden: false },
+    city: { label: "City", value: "city", hidden: false },
+    is_baned: { label: "Baned", value: "is_baned", hidden: false },
+    is_suspended: { label: "Suspended", value: "is_suspended", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("provider.show"),
-        edit: permissions.includes("provider.update"),
-        translate: permissions.includes("provider.translate"),
-        delete: permissions.includes("provider.destroy"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
   const tools = {
-    add: permissions.includes("provider.create"),
+    add: true,
     search: true,
-    download: permissions.includes("provider.download"),
-    filter: permissions.includes("provider.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
-
   return (
     <Table path={"providers"} tools={tools} cols={cols}>
       <Table.OuterContainer>

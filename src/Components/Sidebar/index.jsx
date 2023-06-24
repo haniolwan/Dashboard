@@ -59,17 +59,13 @@ const Sidebar = ({ sidebarItems, setSideBarWidth }) => {
             className="flex items-center mb-5 overflow-hidden"
           >
             {type === "full" ? (
-              <img
-                src={IMAGES.aside_full.src}
-                className="delay-50 w-[9rem] max-w-none"
-                alt={IMAGES.aside_full.alt}
-              />
+              <span className="delay-50 w-[9rem] max-w-none dark:text-white leading-[50px] font-[700] text-center">
+                Logo Here
+              </span>
             ) : (
-              <img
-                src={IMAGES.aside_collabse.src}
-                className="w-[2rem] max-w-none"
-                alt={IMAGES.aside_collabse.alt}
-              />
+              <span className="w-[2rem] max-w-none dark:text-white leading-[50px] font-[700] text-center">
+                Log
+              </span>
             )}
           </Link>
           <ul className="space-y-2">

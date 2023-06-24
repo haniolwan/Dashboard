@@ -1,20 +1,17 @@
-import asideFull from './aside-full-logo.svg';
-import asideCollabse from './aside-collabse-logo.svg';
 import excel from './excel.svg';
 import loginCol2 from './login-col-2.svg';
 import loginLogo from './login-logo.svg';
 import pdf from './pdf.svg';
 import react from './react.svg';
-import tableImg from './table-img.webp';
 
 
 const IMAGES = {
     aside_full: {
-        src: asideFull,
+        src: '',
         alt: 'Aside Logo'
     },
     aside_collabse: {
-        src: asideCollabse,
+        src: '',
         alt: 'Aside Logo'
     },
     excel: {
@@ -38,7 +35,7 @@ const IMAGES = {
         alt: ""
     },
     table_img: {
-        src: tableImg,
+        src: '',
         alt: ""
     }
 }

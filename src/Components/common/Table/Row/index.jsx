@@ -490,11 +490,7 @@ const Row = ({
       case "order_status":
         return (
           <td className="px-6">
-            <span>
-              {Object.keys(OrderStatusEnum).find(
-                (key) => OrderStatusEnum[key] === status
-              )}
-            </span>
+            <span>Delivered</span>
           </td>
         );
       case "notification_type":

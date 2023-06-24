@@ -4,36 +4,35 @@ import { PermissionsContext } from "../../context";
 
 const Orders = () => {
   const { permissions } = useContext(PermissionsContext);
-  const cols = {
-    name: { label: "Name", value: "name", hidden: false },
-    user: { label: "User", value: "user", hidden: false },
-    provider: { label: "Provider", value: "provider", hidden: false },
-    service: { label: "Service", value: "service", hidden: false },
-    date: { label: "Date", value: "date", hidden: false },
-    // order_type: { label: "Type", value: "order_type", hidden: false },
-    order_status: { label: "Status", value: "order_status", hidden: false },
 
+  const cols = {
+    avatar: { label: "Avatar", value: "avatar", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
+    mobile: { label: "Mobile", value: "mobile", hidden: false },
+    country: { label: "Country", value: "country", hidden: false },
+    city: { label: "City", value: "city", hidden: false },
+    is_baned: { label: "Baned", value: "is_baned", hidden: false },
+    is_suspended: { label: "Suspended", value: "is_suspended", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("order.show"),
-        delete: permissions.includes("order.destroy"),
-        edit: permissions.includes("order.update"),
-        translate: permissions.includes("order.translate"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
 
   const tools = {
-    add: permissions.includes("order.create"),
+    add: true,
     search: true,
-    download: permissions.includes("order.download"),
-    filter: permissions.includes("order.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
-
   return (
     <Table path={"orders"} tools={tools} cols={cols}>
       <Table.OuterContainer>

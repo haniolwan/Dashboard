@@ -38,7 +38,7 @@ const Actions = () => {
         toast.error(<span>{message.join("\r\n")}</span>);
       }
     };
-    fetchData();
+    // fetchData();
   }, []);
 
   const {
@@ -48,18 +48,18 @@ const Actions = () => {
   const [filterOptions, setFilterOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  useEffect(() => {
-    setFilterOptions(
-      Object.keys(NotificationFilter).map((item) => {
-        return { label: item, value: NotificationFilter[item] };
-      })
-    );
-    setTypeOptions(
-      Object.keys(NotificationType).map((item) => {
-        return { label: item, value: NotificationType[item] };
-      })
-    );
-  }, [NotificationFilter, NotificationType]);
+  // useEffect(() => {
+  //   setFilterOptions(
+  //     Object.keys(NotificationFilter).map((item) => {
+  //       return { label: item, value: NotificationFilter[item] };
+  //     })
+  //   );
+  //   setTypeOptions(
+  //     Object.keys(NotificationType).map((item) => {
+  //       return { label: item, value: NotificationType[item] };
+  //     })
+  //   );
+  // }, [NotificationFilter, NotificationType]);
 
   const handleInputChange = ({ target: { name, value } }) => {
     setUpdated({ ...updated, [name]: value });
@@ -90,7 +90,7 @@ const Actions = () => {
   };
 
   return (
-    <form onSubmit={onClick}>
+    <form onSubmit={() => {}}>
       <div className="grid grid-cols-9 gap-5">
         <h1 className="col-span-2 text-placeholder-color">Send Notification</h1>
         <div className="col-start-1 col-span-3">

@@ -17,20 +17,20 @@ const Users = () => {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("user.show"),
-        edit: permissions.includes("user.update"),
-        translate: permissions.includes("user.translate"),
-        delete: permissions.includes("user.destroy"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
 
   const tools = {
-    add: permissions.includes("user.create"),
+    add: true,
     search: true,
-    download: permissions.includes("user.download"),
-    filter: permissions.includes("user.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
 

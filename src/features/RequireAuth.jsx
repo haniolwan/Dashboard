@@ -22,7 +22,6 @@ const RequireAuth = () => {
 
   const getUserInfo = useCallback(async () => {
     try {
-      setLoading(true);
       const {
         data: {
           success,
@@ -30,13 +29,13 @@ const RequireAuth = () => {
             Employee: { id, name, email, avatar, permissions, roles },
           },
         },
-      } = await query("/api/dashboard/auth/info");
+      } = await query("");
 
       const {
         data: {
           data: { Enums },
         },
-      } = await query("/api/dashboard/lists/enums/?is_active=1");
+      } = await query("");
 
       const employeeLogin = new LoginEmployee({
         id,
@@ -50,7 +49,7 @@ const RequireAuth = () => {
 
       const {
         data: { data },
-      } = await query("/api/dashboard/auth/permissions");
+      } = await query("");
       if (success && data.PermissionCodeList.length) {
         setUserInfo({ ...employeeLogin });
         setPermissions(data.PermissionCodeList);
@@ -60,7 +59,8 @@ const RequireAuth = () => {
     } catch ({ response: { data, status } }) {
       if (status === 401) {
         localStorage.clear();
-        navigate("/login");
+        // navigate("/login");
+        setLoading(false);
       }
     }
   }, [setLoading, setEnums, token, setUserInfo, setPermissions, navigate]);
@@ -70,7 +70,7 @@ const RequireAuth = () => {
   useEffect(() => {
     try {
       if (effectRan.current === false) {
-        getUserInfo();
+        // getUserInfo();
       }
       return () => {
         effectRan.current = true;
@@ -92,21 +92,14 @@ const RequireAuth = () => {
     }
     return permissions.includes(path[0]);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
-  return token ? (
-    !loading &&
-    (isPermitted() ||
-      location.pathname === "/dashboard" ||
-      location.pathname === "/profile" ||
-      location.pathname === "/notification/actions" ||
-      location.pathname === "/settings") ? (
-      <Outlet />
-    ) : (
-      <NoPermission />
-    )
-  ) : (
-    <Navigate to="/login" state={{ from: location }} />
-  );
+  return !loading && <Outlet />;
 };
 
 export default RequireAuth;

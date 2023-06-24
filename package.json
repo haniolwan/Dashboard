@@ -37,11 +37,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build ENV=production",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.eulink.app",
   "eslintConfig": {
     "extends": [
       "react-app",

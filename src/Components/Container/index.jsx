@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   faBell,
   faBellConcierge,
+  faBox,
   faChartSimple,
   faCity,
   faClockRotateLeft,
@@ -56,7 +57,7 @@ const Container = () => {
       label: t("sidebar.tab4"),
       tooltip: t("sidebar.tab4"),
       icon: faUsers,
-      hidden: !permissions.includes("employee"),
+      hidden: true,
     },
     {
       path: "role",
@@ -77,21 +78,21 @@ const Container = () => {
       label: "Users",
       tooltip: "Users",
       icon: faUsers,
-      hidden: !permissions.includes("user"),
+      hidden: false,
     },
     {
       path: "order",
       label: "Order",
       tooltip: "Order",
-      icon: faRodAsclepius,
-      hidden: !permissions.includes("order"),
+      icon: faBox,
+      hidden: false,
     },
     {
       path: "provider",
       label: "Provider",
       tooltip: "Provider",
       icon: faSquarePollVertical,
-      hidden: !permissions.includes("provider"),
+      hidden: false,
     },
     {
       path: "plan",
@@ -99,6 +100,13 @@ const Container = () => {
       tooltip: t("sidebar.tab9"),
       icon: faLeaf,
       hidden: !permissions.includes("plan"),
+    },
+    {
+      path: "service",
+      label: "Services",
+      tooltip: "services",
+      icon: faBellConcierge,
+      hidden: false,
     },
     {
       path: "notification",
@@ -141,21 +149,21 @@ const Container = () => {
           label: "Settings",
           tooltip: "Settings",
           icon: faGlobe,
-          hidden: false,
+          hidden: true,
         },
         {
           path: "country",
           label: t("sidebar.tab5"),
           tooltip: t("sidebar.tab5"),
           icon: faGlobe,
-          hidden: !permissions.includes("country"),
+          hidden: false,
         },
         {
           path: "city",
           label: t("sidebar.tab6"),
           tooltip: t("sidebar.tab6"),
           icon: faCity,
-          hidden: !permissions.includes("city"),
+          hidden: false,
         },
         {
           path: "slider",
@@ -212,12 +220,12 @@ const Container = () => {
       )}
       <Tools sideBarWidth={sideBarWidth} />
       <div
-        className={`dark:bg-gray-900 flex md:pt-[6rem] transition-all ease-in-out
+        className={`bg-white dark:bg-gray-900 flex md:pt-[6rem] transition-all ease-in-out
              ${
                !sideBarWidth
                  ? "md:ml-[12rem] md:rtl:mr-[12rem] md:rtl:ml-0"
                  : "md:ml-[4rem] md:rtl:mr-[4rem] rtl:ml-0"
-             } px-8`}
+             } px-8 `}
       >
         <Outlet />
       </div>

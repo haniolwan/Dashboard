@@ -6,29 +6,30 @@ const Services = () => {
   const { permissions } = useContext(PermissionsContext);
 
   const cols = {
-    image: { label: "Image", value: "image", hidden: false },
-    name: { label: "Service", value: "name", hidden: false },
-    description: { label: "Description", value: "description", hidden: false },
-    is_active: { label: "Active", value: "is_active", hidden: false },
-
+    avatar: { label: "Avatar", value: "avatar", hidden: false },
+    name: { label: "Name", value: "name", hidden: false },
+    mobile: { label: "Mobile", value: "mobile", hidden: false },
+    country: { label: "Country", value: "country", hidden: false },
+    city: { label: "City", value: "city", hidden: false },
+    is_baned: { label: "Baned", value: "is_baned", hidden: false },
+    is_suspended: { label: "Suspended", value: "is_suspended", hidden: false },
     actions: {
       label: "Actions",
       value: "actions",
       actions: {
-        show: permissions.includes("service.show"),
-        edit: permissions.includes("service.update"),
-        translate: permissions.includes("service.translate"),
-        delete: permissions.includes("service.destroy"),
+        show: true,
+        edit: true,
+        translate: true,
+        delete: true,
       },
       hidden: false,
     },
   };
-
   const tools = {
-    add: permissions.includes("service.create"),
+    add: true,
     search: true,
-    download: permissions.includes("service.download"),
-    filter: permissions.includes("service.filter"),
+    download: true,
+    filter: true,
     filter_cols: true,
   };
   return (

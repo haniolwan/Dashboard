@@ -19,11 +19,12 @@ const Navbar = ({ navbarItems }) => {
     >
       <div className="lg:max-w-7xl lg:items-center lg:flex lg:max-h-[5rem]">
         <div className="flex items-center justify-between py-3 lg:py-5 lg:block">
-          <img
-            className="nav-logo w-[2rem]"
+          {/* <img
+            
             src={IMAGES.aside_collabse.src}
             alt={IMAGES.aside_collabse.alt}
-          />
+          /> */}
+          <span className="nav-logo w-[2rem]">L</span>
           <div className="lg:hidden">
             <button
               className="p-2 text-gray-700 rounded-md

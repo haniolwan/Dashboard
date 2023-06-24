@@ -25,56 +25,61 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { setUserInfo } = useContext(UserInfoContext);
-  const loginUser = async (e) => {
-    try {
-      e.preventDefault();
-      const { email, password } = user;
-      let validEmail = validateInput("email", email);
-      if (!validEmail) {
-        setError((error) => {
-          return { ...error, email: true };
-        });
-      }
-      let validPassword = validateInput("password", password);
-      if (!validPassword) {
-        setError((error) => {
-          return { ...error, password: true };
-        });
-      }
-      if (validEmail && validPassword) {
-        const {
-          data: {
-            success,
-            message,
-            data: {
-              Employee: { id, name, email, avatar },
-              Login: { access_token },
-            },
-          },
-        } = await query("/api/dashboard/auth/login", "post", user);
-        if (success) {
-          const employeelogin = new LoginEmployee({
-            id,
-            name,
-            email,
-            avatar,
-            access_token,
-          });
-          setUserInfo({ ...employeelogin });
-          localStorage.setItem("access_token", access_token);
-          navigate("/dashboard");
-          return;
-        }
-        toast.error(<span className="capitalize">{message.join("\r\n")}</span>);
-      }
-      return;
-    } catch ({
-      response: {
-        data: { message },
-      },
-    }) {
-      toast.error(<span className="capitalize">{message.join("\r\n")}</span>);
-    }
+  // const loginUser = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     const { email, password } = user;
+  //     let validEmail = validateInput("email", email);
+  //     if (!validEmail) {
+  //       setError((error) => {
+  //         return { ...error, email: true };
+  //       });
+  //     }
+  //     let validPassword = validateInput("password", password);
+  //     if (!validPassword) {
+  //       setError((error) => {
+  //         return { ...error, password: true };
+  //       });
+  //     }
+  //     if (validEmail && validPassword) {
+  //       const {
+  //         data: {
+  //           success,
+  //           message,
+  //           data: {
+  //             Employee: { id, name, email, avatar },
+  //             Login: { access_token },
+  //           },
+  //         },
+  //       } = await query("", "post", user);
+  //       if (success) {
+  //         const employeelogin = new LoginEmployee({
+  //           id,
+  //           name,
+  //           email,
+  //           avatar,
+  //           access_token,
+  //         });
+  //         setUserInfo({ ...employeelogin });
+  //         localStorage.setItem("access_token", access_token);
+  //         navigate("/dashboard");
+  //         return;
+  //       }
+  //       toast.error(<span className="capitalize">{message.join("\r\n")}</span>);
+  //     }
+  //     return;
+  //   } catch ({
+  //     response: {
+  //       data: { message },
+  //     },
+  //   }) {
+  //     toast.success("Welcome user!");
+  //     navigate("/");
+  //   }
+  // };
+
+  const loginUser = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -97,14 +102,9 @@ const Login = () => {
       id="login-layout"
       className="dark:bg-gray-900 text-[blue] flex justify-center md:block bg-[#F5F5F5]"
     >
-      <img
-        className="absolute md:left-[9%]"
-        src={IMAGES.login_logo.src}
-        alt={IMAGES.login_logo.alt}
-      />
       <div
         className="pt-[8rem] sm:pt-[4rem] flex justify-center flex-col-reverse items-center md:grid 
-                md:grid-cols-2 justify-center justify-items-center"
+                md:grid-cols-2 justify-center justify-items-center h-[100vh]"
       >
         <div className="flex flex-col justify-center items-center md:items-start w-[60%] gap-5">
           <form onSubmit={loginUser}>

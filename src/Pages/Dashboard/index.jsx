@@ -20,12 +20,12 @@ const Dashboard = () => {
   const [orderMonths, setOrderMonths] = useState([]);
   const [orderCount, setOrderCount] = useState([]);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const getData = useCallback(async () => {
     const {
       data: { message },
-    } = await query("/api/dashboard/statistics");
+    } = await query("");
     setData(message);
     message.UserChart.forEach((chart) => {
       Object.keys(chart).forEach((item) => {
@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     try {
-      getData();
+      // getData();
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +81,7 @@ const Dashboard = () => {
               Total Orders
             </p>
             <p className="  mb-2 text-[#000000] text-[30px] leading-[45px] font-[700] dark:text-white">
-              {data.OrderCount}
+              {5}
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
               Total Users
             </p>
             <p className="  mb-2 text-[#000000] text-[30px] leading-[45px] font-[700] dark:text-white">
-              {data.UserCount}
+              {1000}
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@ const Dashboard = () => {
               Total Income
             </p>
             <p className="  mb-2 text-[#000000] text-[30px] leading-[45px] font-[700] dark:text-white">
-              {data.ProviderCount}
+              25k
             </p>
           </div>
         </div>
@@ -122,7 +122,7 @@ const Dashboard = () => {
               Subscription
             </p>
             <p className="  mb-2 text-[#000000] text-[30px] leading-[45px] font-[700] dark:text-white">
-              {data.Subscription}
+              1000
             </p>
           </div>
         </div>
@@ -133,8 +133,8 @@ const Dashboard = () => {
             <canvas
               data-te-chart="pie"
               data-te-dataset-label="Providers"
-              data-te-labels={JSON.stringify(providerMonths)}
-              data-te-dataset-data={JSON.stringify(providerCount)}
+              data-te-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+              data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
               data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']"
             ></canvas>
           ) : (
@@ -146,8 +146,8 @@ const Dashboard = () => {
             <canvas
               data-te-chart="line"
               data-te-dataset-label="Providers"
-              data-te-labels={JSON.stringify(providerMonths)}
-              data-te-dataset-data={JSON.stringify(providerCount)}
+              data-te-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+              data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
             ></canvas>
           </div>
         ) : (
@@ -160,8 +160,8 @@ const Dashboard = () => {
             <canvas
               data-te-chart="bar"
               data-te-dataset-label="Orders"
-              data-te-labels={JSON.stringify(orderMonths)}
-              data-te-dataset-data={JSON.stringify(orderCount)}
+              data-te-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+              data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
             ></canvas>
           ) : (
             <div />
@@ -173,8 +173,8 @@ const Dashboard = () => {
               id="charts"
               data-te-chart="bar"
               data-te-dataset-label="Users"
-              data-te-labels={JSON.stringify(userMonths)}
-              data-te-dataset-data={JSON.stringify(userCount)}
+              data-te-labels="['Monday', 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' , 'Sunday ']"
+              data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987]"
             ></canvas>
           ) : (
             <div />

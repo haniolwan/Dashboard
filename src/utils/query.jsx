@@ -8,14 +8,14 @@ export const query = async (
 ) => {
   const token = localStorage.getItem("access_token");
 
-  return axios({
-    method,
-    url: path,
-    data,
-    headers: {
-      accept: "application/json",
-      "Content-Type": contentType,
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  // return axios({
+  //   method,
+  //   url: path,
+  //   data,
+  //   headers: {
+  //     accept: "application/json",
+  //     "Content-Type": contentType,
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
 };

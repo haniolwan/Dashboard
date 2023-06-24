@@ -37,7 +37,7 @@ const Filter = ({ show, filter, setFilter }) => {
     };
     let timer = setTimeout(() => {
       if (show) {
-        fetchData();
+        // fetchData();
       }
     }, 100);
     return () => clearTimeout(timer);
@@ -67,7 +67,7 @@ const Filter = ({ show, filter, setFilter }) => {
     };
     let timer = setTimeout(() => {
       if (show) {
-        fetchData();
+        // fetchData();
       }
     }, 100);
     return () => clearTimeout(timer);

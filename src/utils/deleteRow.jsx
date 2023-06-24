@@ -13,19 +13,19 @@ const deleteRow = async (path, remove, setData) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     });
-    if (result.isConfirmed) {
-      const {
-        data: { success, message },
-      } = await query(`/api/dashboard/${path}/${remove}`, "delete");
-      if (success) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-      }
-      setData(function (oldEmployees) {
-        return oldEmployees.filter(
-          (employee) => employee.id !== parseInt(remove)
-        );
-      });
-    }
+    // if (result.isConfirmed) {
+    //   const {
+    //     data: { success, message },
+    //   } = await query(`/api/dashboard/${path}/${remove}`, "delete");
+    //   if (success) {
+    //     Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    //   }
+    //   setData(function (oldEmployees) {
+    //     return oldEmployees.filter(
+    //       (employee) => employee.id !== parseInt(remove)
+    //     );
+    //   });
+    // }
   } catch ({ response: { statusText } }) {
     toast.error(<span className="capitalize">{statusText}</span>);
   }
